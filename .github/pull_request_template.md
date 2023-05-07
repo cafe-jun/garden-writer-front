@@ -1,10 +1,12 @@
-## 세부 사항
+Closes [issue link]
+
+## Decsription
 
 -
 -
 -
 
-## 기타 질문 및 특이 사항
+## ETC
 
 -
 -
