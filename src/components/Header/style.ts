@@ -1,5 +1,6 @@
-import { Flex } from '@/common/style';
 import { styled } from 'lib/stitches.config';
+
+import { Flex } from '@/common/style';
 
 export const HeaderContainer = styled('div', {
   border: '1px solid #D9D9D9',
