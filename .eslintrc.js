@@ -20,7 +20,15 @@ module.exports = {
     'plugin:import/typescript',
     'next/core-web-vitals',
   ],
-  plugins: ['react', 'jsx-a11y', 'import', 'prettier', '@typescript-eslint', 'simple-import-sort'],
+  plugins: [
+    'react',
+    'jsx-a11y',
+    'import',
+    'prettier',
+    '@typescript-eslint',
+    'simple-import-sort',
+    'unused-imports',
+  ],
   ignorePatterns: ['*rc.js', '**/*.config.js', '**/*.setup.js'],
   globals: {},
   rules: {
@@ -84,6 +92,7 @@ module.exports = {
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['/**/*.ts?(x)'] }],
+    'unused-imports/no-unused-imports-ts': ['warn'],
 
     // simple-import-sort
     'simple-import-sort/imports': 'error',
