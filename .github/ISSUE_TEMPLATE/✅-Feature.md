@@ -6,11 +6,11 @@ labels: ''
 assignees: ''
 ---
 
-# ISSUE
+# FEATURE
 
 ## Summary
 
-> 이슈 요악
+> 이슈 요약
 
 ## To-Do
 
