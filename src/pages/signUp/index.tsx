@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface SignUpFormValues {
   email: string;
@@ -21,69 +21,32 @@ const initFormValues: SignUpFormValues = {
 };
 
 const SignUpPage = () => {
-  const [formValues, setFormValues] = useState<SignUpFormValues>(initFormValues);
+  const { register, handleSubmit } = useForm<SignUpFormValues>({
+    defaultValues: initFormValues,
+  });
 
-  const handleChangeFormValues = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues(prev => ({
-      ...prev,
-      [name]: value,
-    }));
+  const onSubmit: SubmitHandler<SignUpFormValues> = data => {
+    console.log(data);
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <input
-          name="email"
-          value={formValues.email}
-          onChange={handleChangeFormValues}
-          placeholder="이메일"
-        />
-        <input
-          name="password"
-          value={formValues.password}
-          onChange={handleChangeFormValues}
-          placeholder="비밀번호"
-        />
-        <input
-          name="passwordConfirm"
-          value={formValues.passwordConfirm}
-          onChange={handleChangeFormValues}
-          placeholder="비밀번호 확인"
-        />
-        <input
-          name="name"
-          value={formValues.name}
-          onChange={handleChangeFormValues}
-          placeholder="이름"
-        />
+        <input {...register('email')} placeholder="이메일" />
+        <input {...register('password')} placeholder="비밀번호" />
+        <input {...register('passwordConfirm')} placeholder="비밀번호 확인" />
+        <input {...register('name')} placeholder="이름" />
         <div>
-          <input
-            name="phoneNumber"
-            value={formValues.phoneNumber}
-            onChange={handleChangeFormValues}
-            placeholder="'-'없이 번호만"
-          />
+          <input {...register('phoneNumber')} placeholder="'-'없이 번호만" />
           <button type="button">인증번호 받기</button>
         </div>
         <div>
-          <input
-            name="certificationNumber"
-            value={formValues.certificationNumber}
-            onChange={handleChangeFormValues}
-            placeholder="인증번호"
-          />
+          <input {...register('certificationNumber')} placeholder="인증번호" />
           <button type="button">인증번호 받기</button>
         </div>
-        <input
-          name="nickName"
-          value={formValues.nickName}
-          onChange={handleChangeFormValues}
-          placeholder="닉네임"
-        />
+        <input {...register('nickName')} placeholder="닉네임" />
       </div>
-      <button type="button">시작하기</button>
+      <button type="submit">시작하기</button>
     </form>
   );
 };
