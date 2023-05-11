@@ -1,4 +1,13 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { RegisterOptions, SubmitHandler, useForm, UseFormRegister } from 'react-hook-form';
+
+type Name =
+  | 'email'
+  | 'password'
+  | 'passwordConfirm'
+  | 'name'
+  | 'phoneNumber'
+  | 'certificationNumber'
+  | 'nickName';
 
 interface SignUpFormValues {
   email: string;
@@ -20,6 +29,15 @@ const initFormValues: SignUpFormValues = {
   nickName: '',
 };
 
+const InputField: React.FC<{
+  name: Name;
+  placeholder: string;
+  register: UseFormRegister<SignUpFormValues>;
+  rules?: RegisterOptions;
+}> = ({ name, placeholder, register, rules }) => (
+  <input {...register(name, rules)} placeholder={placeholder} />
+);
+
 const SignUpPage = () => {
   const { register, handleSubmit } = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
@@ -32,19 +50,19 @@ const SignUpPage = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <input {...register('email')} placeholder="이메일" />
-        <input {...register('password')} placeholder="비밀번호" />
-        <input {...register('passwordConfirm')} placeholder="비밀번호 확인" />
-        <input {...register('name')} placeholder="이름" />
+        <InputField name="email" placeholder="이메일" register={register} />
+        <InputField name="password" placeholder="비밀번호" register={register} />
+        <InputField name="passwordConfirm" placeholder="비밀번호 확인" register={register} />
+        <InputField name="name" placeholder="이름" register={register} />
         <div>
-          <input {...register('phoneNumber')} placeholder="'-'없이 번호만" />
+          <InputField name="phoneNumber" placeholder="'-'없이 번호만" register={register} />
           <button type="button">인증번호 받기</button>
         </div>
         <div>
-          <input {...register('certificationNumber')} placeholder="인증번호" />
+          <InputField name="certificationNumber" placeholder="인증번호" register={register} />
           <button type="button">인증번호 받기</button>
         </div>
-        <input {...register('nickName')} placeholder="닉네임" />
+        <InputField name="nickName" placeholder="닉네임" register={register} />
       </div>
       <button type="submit">시작하기</button>
     </form>
