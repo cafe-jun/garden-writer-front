@@ -12,6 +12,7 @@ export const { styled, getCssText, keyframes } = createStitches({
     },
 
     fontSizes: {
+      f14: '14px',
       f16: '16px',
       f32: '32px',
       f36: '36px',
