@@ -34,13 +34,19 @@ const InputField: React.FC<{
   name: Name;
   placeholder: string;
   register: UseFormRegister<SignUpFormValues>;
-  rules?: RegisterOptions;
+  rules?: RegisterOptions<SignUpFormValues, Name>;
 }> = ({ name, placeholder, register, rules }) => (
   <Input {...register(name, rules)} placeholder={placeholder} />
 );
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const SignUpPage = () => {
-  const { register, handleSubmit } = useForm<SignUpFormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
   });
 
@@ -51,7 +57,22 @@ const SignUpPage = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <InputsContainer>
-        <InputField name="email" placeholder="이메일" register={register} />
+        <InputField
+          name="email"
+          placeholder="이메일"
+          register={register}
+          rules={{
+            required: '이메일을 입력해주세요.',
+            validate: value => {
+              const isValidEmail = emailRegex.test(value);
+              if (!isValidEmail) {
+                return '이메일 형식을 지켜주세요.';
+              }
+              return true;
+            },
+          }}
+        />
+        {errors.email && errors.email.message}
         <InputField name="password" placeholder="비밀번호" register={register} />
         <InputField name="passwordConfirm" placeholder="비밀번호 확인" register={register} />
         <InputField name="name" placeholder="이름" register={register} />
