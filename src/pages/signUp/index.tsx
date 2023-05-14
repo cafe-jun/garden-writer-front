@@ -46,12 +46,17 @@ const SignUpPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    trigger,
   } = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
   });
 
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
     console.log(data);
+  };
+
+  const handleChangeInputEmail = () => {
+    trigger('email');
   };
 
   return (
@@ -70,6 +75,7 @@ const SignUpPage = () => {
               }
               return true;
             },
+            onChange: handleChangeInputEmail,
           }}
         />
         {errors.email && errors.email.message}
