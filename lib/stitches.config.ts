@@ -21,6 +21,13 @@ export const { styled, getCssText, keyframes } = createStitches({
       MontserratR:
         'Montserrat, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif',
     },
+
+    widths: {
+      1920: '1920px',
+      1440: '1440px',
+      1200: '1200px',
+      786: '768px'
+    }
   },
 
   media: {
@@ -35,14 +42,4 @@ export const globalStyle = globalCss({
     padding: 0,
     boxSizing: 'border-box',
   },
-
-  //   '@font-face': {
-  //     fontFamily: 'Montserrat-Regular',
-  //     fontWeight: '400',
-  //     src: 'url(`/public/font/Montserrat-Regular.ttf`)',
-  //   },
-
-  //   body: {
-  //     fontFamily: '$MontserratR',
-  //   },
 });
