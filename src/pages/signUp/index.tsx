@@ -55,7 +55,7 @@ const SignUpPage = () => {
     console.log(data);
   };
 
-  const handleChangeInputEmail = () => {
+  const handleBlurInputEmail = () => {
     trigger('email');
   };
 
@@ -75,10 +75,10 @@ const SignUpPage = () => {
               }
               return true;
             },
-            onChange: handleChangeInputEmail,
+            onBlur: handleBlurInputEmail,
           }}
         />
-        {errors.email && errors.email.message}
+        {errors.email && <p>errors.email.message</p>}
         <InputField name="password" placeholder="비밀번호" register={register} />
         <InputField name="passwordConfirm" placeholder="비밀번호 확인" register={register} />
         <InputField name="name" placeholder="이름" register={register} />
