@@ -2,13 +2,14 @@ import { useForm } from 'react-hook-form';
 
 import { emailRegex } from '@/constants/regex';
 
-import { handleBlurInputEmail, onSubmit } from './handler';
+import { useHandlers } from './handler';
 import { initFormValues } from './initFormValues';
 import InputField from './InputField';
 import { InputButton, InputsContainer, InputWrap, SubmitButton } from './style';
 import { SignUpFormValues } from './type';
 
 const SignUp = () => {
+  const { onSubmit, handleBlurInputEmail } = useHandlers();
   const {
     register,
     handleSubmit,
