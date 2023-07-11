@@ -2,10 +2,9 @@ import { SignUpFormValues } from './type';
 
 export const initFormValues: SignUpFormValues = {
   email: '',
+  certificationNumber: '',
   password: '',
   passwordConfirm: '',
-  name: '',
-  phoneNumber: '',
-  certificationNumber: '',
   nickName: '',
+  phoneNumber: '',
 };

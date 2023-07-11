@@ -1,17 +1,15 @@
 type Name =
   | 'email'
+  | 'certificationNumber'
   | 'password'
   | 'passwordConfirm'
-  | 'name'
-  | 'phoneNumber'
-  | 'certificationNumber'
-  | 'nickName';
+  | 'nickName'
+  | 'phoneNumber';
 
 interface SignUpFormValues {
   email: string;
   password: string;
   passwordConfirm: string;
-  name: string;
   phoneNumber: string;
   certificationNumber: string;
   nickName: string;
