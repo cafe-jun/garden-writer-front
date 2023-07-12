@@ -59,6 +59,16 @@ export const FormLabel = styled('p', {
   fontSize: '$f12',
 });
 
+export const FormSuccessLabel = styled('p', {
+  fontSize: '$f12',
+  color: '$primary',
+});
+
+export const FormErrorLabel = styled('p', {
+  fontSize: '$f12',
+  color: '$warning',
+});
+
 export const InputWithButtonContainer = styled('div', {
   display: 'flex',
   gap: '16px',
@@ -85,6 +95,10 @@ export const InputButton = styled('button', {
   borderRadius: '10px',
   border: 'unset',
   cursor: 'pointer',
+  '&:disabled': {
+    opacity: '.5',
+    cursor: 'not-allowed',
+  },
 });
 
 export const SubmitButton = styled('button', {

@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { emailRegex } from '@/constants/regex';
@@ -11,8 +12,10 @@ import {
   Form,
   FormContents,
   FormContentsMore,
+  FormErrorLabel,
   FormItem,
   FormLabel,
+  FormSuccessLabel,
   Header,
   InputButton,
   InputWithButtonContainer,
@@ -29,9 +32,22 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
     trigger,
+    getValues,
   } = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
   });
+
+  const emailValidate = useCallback((value: string) => {
+    const isValidEmail = emailRegex.test(value);
+    return isValidEmail;
+  }, []);
+
+  const emailValidateRule = useMemo(
+    () => (value: string) => emailValidate(value) ? true : '이메일 형식을 지켜주세요.',
+    [emailValidate]
+  );
+
+  const emailFieldValue = useMemo(() => getValues('email'), [getValues('email')]);
 
   return (
     <Container>
@@ -51,19 +67,18 @@ const SignUp = () => {
                 register={register}
                 rules={{
                   required: '이메일을 입력해주세요.',
-                  validate: value => {
-                    const isValidEmail = emailRegex.test(value);
-                    if (!isValidEmail) {
-                      return '이메일 형식을 지켜주세요.';
-                    }
-                    return true;
-                  },
+                  validate: emailValidateRule,
                   onBlur: () => handleBlurInputEmail(trigger, 'email'),
                 }}
               />
-              <InputButton type="button">인증 메일 발송</InputButton>
+              <InputButton type="button" disabled={!emailValidate(emailFieldValue)}>
+                인증 메일 발송
+              </InputButton>
             </InputWithButtonContainer>
-            {errors.email && <FormLabel>{errors.email.message}</FormLabel>}
+            {errors.email && <FormErrorLabel>{errors.email.message}</FormErrorLabel>}
+            {emailValidate(emailFieldValue) && (
+              <FormSuccessLabel>사용 가능한 이메일입니다.</FormSuccessLabel>
+            )}
           </FormItem>
           <FormItem>
             <FormLabel>인증번호</FormLabel>
