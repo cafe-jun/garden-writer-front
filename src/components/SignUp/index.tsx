@@ -1,8 +1,6 @@
-import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { emailRegex } from '@/constants/regex';
-
+import FormItemEmail from './FormItemEmail';
 import { useHandlers } from './handler';
 import { initFormValues } from './initFormValues';
 import InputField from './InputField';
@@ -12,10 +10,8 @@ import {
   Form,
   FormContents,
   FormContentsMore,
-  FormErrorLabel,
   FormItem,
   FormLabel,
-  FormSuccessLabel,
   Header,
   InputButton,
   InputWithButtonContainer,
@@ -26,28 +22,10 @@ import {
 import { SignUpFormValues } from './type';
 
 const SignUp = () => {
-  const { onSubmit, handleBlurInputEmail } = useHandlers();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    trigger,
-    getValues,
-  } = useForm<SignUpFormValues>({
+  const { onSubmit } = useHandlers();
+  const { register, handleSubmit } = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
   });
-
-  const emailValidate = useCallback((value: string) => {
-    const isValidEmail = emailRegex.test(value);
-    return isValidEmail;
-  }, []);
-
-  const emailValidateRule = useMemo(
-    () => (value: string) => emailValidate(value) ? true : '이메일 형식을 지켜주세요.',
-    [emailValidate]
-  );
-
-  const emailFieldValue = useMemo(() => getValues('email'), [getValues('email')]);
 
   return (
     <Container>
@@ -58,28 +36,7 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormContents>
           <SubTitle>필수정보</SubTitle>
-          <FormItem>
-            <FormLabel>이메일</FormLabel>
-            <InputWithButtonContainer>
-              <InputField
-                name="email"
-                placeholder="이메일"
-                register={register}
-                rules={{
-                  required: '이메일을 입력해주세요.',
-                  validate: emailValidateRule,
-                  onBlur: () => handleBlurInputEmail(trigger, 'email'),
-                }}
-              />
-              <InputButton type="button" disabled={!emailValidate(emailFieldValue)}>
-                인증 메일 발송
-              </InputButton>
-            </InputWithButtonContainer>
-            {errors.email && <FormErrorLabel>{errors.email.message}</FormErrorLabel>}
-            {emailValidate(emailFieldValue) && (
-              <FormSuccessLabel>사용 가능한 이메일입니다.</FormSuccessLabel>
-            )}
-          </FormItem>
+          <FormItemEmail />
           <FormItem>
             <FormLabel>인증번호</FormLabel>
             <InputWithButtonContainer>
