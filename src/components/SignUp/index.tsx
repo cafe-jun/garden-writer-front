@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import FormItemEmail from './FormItemEmail';
 import FormItemNickname from './FormItemNickname';
@@ -24,51 +24,61 @@ import { SignUpFormValues } from './type';
 
 const SignUp = () => {
   const { onSubmit } = useHandlers();
-  const { register, handleSubmit } = useForm<SignUpFormValues>({
+  const methods = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
   });
 
   return (
-    <Container>
-      <Header>
-        <Title>가입을 환영합니다</Title>
-        <Description>회원가입에 필요한 정보들을 입력해주세요.</Description>
-      </Header>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormContents>
-          <SubTitle>필수정보</SubTitle>
-          <FormItemEmail />
-          <FormItem>
-            <FormLabel>인증번호</FormLabel>
-            <InputWithButtonContainer>
-              <InputField name="certificationNumber" placeholder="인증번호" register={register} />
-              <InputButton type="button">확인하기</InputButton>
-            </InputWithButtonContainer>
-          </FormItem>
-          <FormItem>
-            <FormLabel>비밀번호</FormLabel>
-            <InputField name="password" placeholder="비밀번호" register={register} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>비밀번호 확인</FormLabel>
-            <InputField name="passwordConfirm" placeholder="비밀번호 확인" register={register} />
-          </FormItem>
-          <FormItemNickname />
-        </FormContents>
-        <FormContentsMore>
-          <SubTitle>추가정보(선택)</SubTitle>
-          <FormItem>
-            <FormLabel>휴대번호</FormLabel>
-            <InputField
-              name="phoneNumber"
-              placeholder="- 제외한 숫자만 입력 가능"
-              register={register}
-            />
-          </FormItem>
-        </FormContentsMore>
-        <SubmitButton type="submit">시작하기</SubmitButton>
-      </Form>
-    </Container>
+    <FormProvider {...methods}>
+      <Container>
+        <Header>
+          <Title>가입을 환영합니다</Title>
+          <Description>회원가입에 필요한 정보들을 입력해주세요.</Description>
+        </Header>
+        <Form onSubmit={methods.handleSubmit(onSubmit)}>
+          <FormContents>
+            <SubTitle>필수정보</SubTitle>
+            <FormItemEmail />
+            <FormItem>
+              <FormLabel>인증번호</FormLabel>
+              <InputWithButtonContainer>
+                <InputField
+                  name="certificationNumber"
+                  placeholder="인증번호"
+                  register={methods.register}
+                />
+                <InputButton type="button">확인하기</InputButton>
+              </InputWithButtonContainer>
+            </FormItem>
+            <FormItem>
+              <FormLabel>비밀번호</FormLabel>
+              <InputField name="password" placeholder="비밀번호" register={methods.register} />
+            </FormItem>
+            <FormItem>
+              <FormLabel>비밀번호 확인</FormLabel>
+              <InputField
+                name="passwordConfirm"
+                placeholder="비밀번호 확인"
+                register={methods.register}
+              />
+            </FormItem>
+            <FormItemNickname />
+          </FormContents>
+          <FormContentsMore>
+            <SubTitle>추가정보(선택)</SubTitle>
+            <FormItem>
+              <FormLabel>휴대번호</FormLabel>
+              <InputField
+                name="phoneNumber"
+                placeholder="- 제외한 숫자만 입력 가능"
+                register={methods.register}
+              />
+            </FormItem>
+          </FormContentsMore>
+          <SubmitButton type="submit">시작하기</SubmitButton>
+        </Form>
+      </Container>
+    </FormProvider>
   );
 };
 

@@ -1,10 +1,9 @@
 import { useCallback, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { nicknameRegex } from '@/constants/regex';
 
 import { useHandlers } from './handler';
-import { initFormValues } from './initFormValues';
 import InputField from './InputField';
 import {
   FormErrorLabel,
@@ -22,9 +21,7 @@ const FormItemNickname = () => {
     formState: { errors },
     trigger,
     getValues,
-  } = useForm<SignUpFormValues>({
-    defaultValues: initFormValues,
-  });
+  } = useFormContext<SignUpFormValues>();
 
   const nicknameValidate = useCallback((value: string) => {
     const isValidNickname = nicknameRegex.test(value);
@@ -40,6 +37,10 @@ const FormItemNickname = () => {
 
   const nicknameFieldValue = useMemo(() => getValues('nickname'), [getValues('nickname')]);
 
+  const handleClickDuplicationButton = () => {
+    console.log(nicknameFieldValue);
+  };
+
   return (
     <FormItem>
       <FormLabel>닉네임</FormLabel>
@@ -54,7 +55,11 @@ const FormItemNickname = () => {
             onBlur: () => handleBlurInputField(trigger, 'nickname'),
           }}
         />
-        <InputButton type="button" disabled={!nicknameValidate(nicknameFieldValue)}>
+        <InputButton
+          type="button"
+          disabled={!nicknameValidate(nicknameFieldValue)}
+          onClick={handleClickDuplicationButton}
+        >
           중복확인
         </InputButton>
       </InputWithButtonContainer>

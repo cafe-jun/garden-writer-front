@@ -1,10 +1,9 @@
-import { useCallback, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { memo, useCallback, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { emailRegex } from '@/constants/regex';
 
 import { useHandlers } from './handler';
-import { initFormValues } from './initFormValues';
 import InputField from './InputField';
 import {
   FormErrorLabel,
@@ -23,9 +22,7 @@ const FormItemEmail = () => {
     formState: { errors },
     trigger,
     getValues,
-  } = useForm<SignUpFormValues>({
-    defaultValues: initFormValues,
-  });
+  } = useFormContext<SignUpFormValues>();
 
   const emailValidate = useCallback((value: string) => {
     const isValidEmail = emailRegex.test(value);
@@ -42,7 +39,7 @@ const FormItemEmail = () => {
   const emailFieldValue = useMemo(() => getValues('email'), [getValues('email')]);
 
   const handleClickCertificationButton = () => {
-    // console.log(emailFieldValue);
+    console.log(emailFieldValue);
   };
 
   return (
@@ -75,4 +72,4 @@ const FormItemEmail = () => {
   );
 };
 
-export default FormItemEmail;
+export default memo(FormItemEmail);
