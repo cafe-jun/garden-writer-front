@@ -7,9 +7,9 @@ export const useHandlers = () => {
     console.log(data);
   };
 
-  const handleBlurInputEmail = (trigger: UseFormTrigger<SignUpFormValues>, name: Name) => {
+  const handleBlurInputField = (trigger: UseFormTrigger<SignUpFormValues>, name: Name) => {
     trigger(name);
   };
 
-  return { onSubmit, handleBlurInputEmail };
+  return { onSubmit, handleBlurInputField };
 };

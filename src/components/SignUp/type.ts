@@ -3,7 +3,7 @@ type Name =
   | 'certificationNumber'
   | 'password'
   | 'passwordConfirm'
-  | 'nickName'
+  | 'nickname'
   | 'phoneNumber';
 
 interface SignUpFormValues {
@@ -12,7 +12,7 @@ interface SignUpFormValues {
   passwordConfirm: string;
   phoneNumber: string;
   certificationNumber: string;
-  nickName: string;
+  nickname: string;
 }
 
 export type { Name, SignUpFormValues };

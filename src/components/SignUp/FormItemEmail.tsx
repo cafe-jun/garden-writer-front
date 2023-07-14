@@ -17,7 +17,7 @@ import {
 import { SignUpFormValues } from './type';
 
 const FormItemEmail = () => {
-  const { handleBlurInputEmail } = useHandlers();
+  const { handleBlurInputField } = useHandlers();
   const {
     register,
     formState: { errors },
@@ -56,7 +56,7 @@ const FormItemEmail = () => {
           rules={{
             required: '이메일을 입력해주세요.',
             validate: emailValidateRule,
-            onBlur: () => handleBlurInputEmail(trigger, 'email'),
+            onBlur: () => handleBlurInputField(trigger, 'email'),
           }}
         />
         <InputButton

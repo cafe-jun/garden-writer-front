@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 
 import FormItemEmail from './FormItemEmail';
+import FormItemNickname from './FormItemNickname';
 import { useHandlers } from './handler';
 import { initFormValues } from './initFormValues';
 import InputField from './InputField';
@@ -52,13 +53,7 @@ const SignUp = () => {
             <FormLabel>비밀번호 확인</FormLabel>
             <InputField name="passwordConfirm" placeholder="비밀번호 확인" register={register} />
           </FormItem>
-          <FormItem>
-            <FormLabel>닉네임</FormLabel>
-            <InputWithButtonContainer>
-              <InputField name="nickName" placeholder="닉네임" register={register} />
-              <InputButton type="button">중복확인</InputButton>
-            </InputWithButtonContainer>
-          </FormItem>
+          <FormItemNickname />
         </FormContents>
         <FormContentsMore>
           <SubTitle>추가정보(선택)</SubTitle>

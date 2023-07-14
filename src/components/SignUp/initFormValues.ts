@@ -5,6 +5,6 @@ export const initFormValues: SignUpFormValues = {
   certificationNumber: '',
   password: '',
   passwordConfirm: '',
-  nickName: '',
+  nickname: '',
   phoneNumber: '',
 };
