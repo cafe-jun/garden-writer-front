@@ -1,7 +1,8 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-import FormItemEmail from './FormItemEmail';
-import FormItemNickname from './FormItemNickname';
+import { emailRegex, nicknameRegex } from '@/constants/regex';
+
+import FormItemWithButton from './FormItemWithButton';
 import { useHandlers } from './handler';
 import { initFormValues } from './initFormValues';
 import InputField from './InputField';
@@ -38,7 +39,17 @@ const SignUp = () => {
         <Form onSubmit={methods.handleSubmit(onSubmit)}>
           <FormContents>
             <SubTitle>필수정보</SubTitle>
-            <FormItemEmail />
+            <FormItemWithButton
+              regex={emailRegex}
+              valuePayload="email"
+              requiredMessage="이메일을 입력해주세요."
+              errorMessage="이메일 형식을 지켜주세요."
+              successMessage="사용 가능한 이메일입니다."
+              label="이메일"
+              placeholder="이메일"
+              buttonLabel="인증 메일 발송"
+            />
+            {/* <FormItemEmail /> */}
             <FormItem>
               <FormLabel>인증번호</FormLabel>
               <InputWithButtonContainer>
@@ -62,7 +73,16 @@ const SignUp = () => {
                 register={methods.register}
               />
             </FormItem>
-            <FormItemNickname />
+            <FormItemWithButton
+              regex={nicknameRegex}
+              valuePayload="nickname"
+              requiredMessage="닉네임을 입력해주세요."
+              errorMessage="닉네임 형식을 지켜주세요."
+              label="닉네임"
+              placeholder="닉네임"
+              buttonLabel="중복확인"
+            />
+            {/* <FormItemNickname /> */}
           </FormContents>
           <FormContentsMore>
             <SubTitle>추가정보(선택)</SubTitle>
