@@ -14,16 +14,16 @@ import {
 import { Name, SignUpFormValues } from './type';
 
 interface Props {
-  regex: RegExp;
+  regex?: RegExp;
   valuePayload: Name;
   requiredMessage?: string;
-  errorMessage?: string;
-  successMessage?: string;
-  isSuccess?: boolean;
+  validateErrorMessage?: string;
+  validateSuccessMessage?: string;
+  isCustomSuccess?: boolean;
   label: string;
   placeholder: string;
   buttonLabel: string;
-  inputValidate?: (value: string) => boolean;
+  validate?: (value: string) => boolean;
   handleClickButton?: () => void;
 }
 
@@ -31,15 +31,18 @@ const FormItemWithButton = ({
   regex,
   valuePayload,
   requiredMessage,
-  errorMessage,
-  successMessage,
-  isSuccess = true,
+  validateErrorMessage,
+  validateSuccessMessage,
+  isCustomSuccess = true,
   label,
   placeholder,
   buttonLabel,
-  inputValidate = (value: string) => {
-    const isValid = regex.test(value);
-    return isValid;
+  validate = (value: string) => {
+    if (regex !== undefined) {
+      const isValid = regex.test(value);
+      return isValid;
+    }
+    return false;
   },
   handleClickButton = () => {
     console.log('click button');
@@ -53,19 +56,19 @@ const FormItemWithButton = ({
     getValues,
   } = useFormContext<SignUpFormValues>();
 
-  const validate = useCallback(inputValidate, []);
+  const inputValidate = useCallback(validate, []);
 
   const validateRule = useMemo(
     () => ({
-      validate: (value: string) => validate(value) || errorMessage,
+      validate: (value: string) => inputValidate(value) || validateErrorMessage,
     }),
-    [validate]
+    [inputValidate]
   );
 
   const inputFieldValue = useMemo(() => getValues(valuePayload), [getValues(valuePayload)]);
 
-  const isSuccessMessage = useMemo(
-    () => successMessage !== '' && validate(inputFieldValue) && isSuccess,
+  const isvalidateSuccessMessage = useMemo(
+    () => validateSuccessMessage !== '' && inputValidate(inputFieldValue) && isCustomSuccess,
     [inputFieldValue]
   );
 
@@ -92,7 +95,7 @@ const FormItemWithButton = ({
         </InputButton>
       </InputWithButtonContainer>
       {errors[valuePayload] && <FormErrorLabel>{errors[valuePayload]?.message}</FormErrorLabel>}
-      {isSuccessMessage && <FormSuccessLabel>{successMessage}</FormSuccessLabel>}
+      {isvalidateSuccessMessage && <FormSuccessLabel>{validateSuccessMessage}</FormSuccessLabel>}
     </FormItem>
   );
 };
