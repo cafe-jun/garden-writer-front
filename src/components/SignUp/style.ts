@@ -72,11 +72,12 @@ export const FormErrorLabel = styled('p', {
 export const InputWithButtonContainer = styled('div', {
   display: 'flex',
   gap: '16px',
+  width: '100%',
 });
 
 export const Input = styled('input', {
   padding: '16px',
-  maxwidth: '100%',
+  width: '100%',
   fontSize: '$f14',
   color: '#2D2D2D',
   borderRadius: '10px',
@@ -87,7 +88,7 @@ export const InputButton = styled('button', {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '102px',
+  minWidth: '102px',
   height: '48px',
   fontSize: '$f14',
   color: '$white',

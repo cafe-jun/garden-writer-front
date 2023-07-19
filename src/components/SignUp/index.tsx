@@ -49,7 +49,6 @@ const SignUp = () => {
               placeholder="이메일"
               buttonLabel="인증 메일 발송"
             />
-            {/* <FormItemEmail /> */}
             <FormItem>
               <FormLabel>인증번호</FormLabel>
               <InputWithButtonContainer>
@@ -82,7 +81,6 @@ const SignUp = () => {
               placeholder="닉네임"
               buttonLabel="중복확인"
             />
-            {/* <FormItemNickname /> */}
           </FormContents>
           <FormContentsMore>
             <SubTitle>추가정보(선택)</SubTitle>

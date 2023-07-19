@@ -19,9 +19,12 @@ interface Props {
   requiredMessage?: string;
   errorMessage?: string;
   successMessage?: string;
+  isSuccess?: boolean;
   label: string;
   placeholder: string;
   buttonLabel: string;
+  inputValidate?: (value: string) => boolean;
+  handleClickButton?: () => void;
 }
 
 const FormItemWithButton = ({
@@ -30,9 +33,17 @@ const FormItemWithButton = ({
   requiredMessage,
   errorMessage,
   successMessage,
+  isSuccess = true,
   label,
   placeholder,
   buttonLabel,
+  inputValidate = (value: string) => {
+    const isValid = regex.test(value);
+    return isValid;
+  },
+  handleClickButton = () => {
+    console.log('click button');
+  },
 }: Props) => {
   const { handleBlurInputField } = useHandlers();
   const {
@@ -42,10 +53,7 @@ const FormItemWithButton = ({
     getValues,
   } = useFormContext<SignUpFormValues>();
 
-  const validate = useCallback((value: string) => {
-    const isValid = regex.test(value);
-    return isValid;
-  }, []);
+  const validate = useCallback(inputValidate, []);
 
   const validateRule = useMemo(
     () => ({
@@ -57,13 +65,9 @@ const FormItemWithButton = ({
   const inputFieldValue = useMemo(() => getValues(valuePayload), [getValues(valuePayload)]);
 
   const isSuccessMessage = useMemo(
-    () => successMessage !== '' && validate(inputFieldValue),
+    () => successMessage !== '' && validate(inputFieldValue) && isSuccess,
     [inputFieldValue]
   );
-
-  const handleClickButton = () => {
-    console.log(inputFieldValue);
-  };
 
   return (
     <FormItem>
