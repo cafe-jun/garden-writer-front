@@ -114,4 +114,9 @@ export const SubmitButton = styled('button', {
   backgroundColor: '$primary',
   borderRadius: '62px',
   border: 'unset',
+  cursor: 'pointer',
+  '&:disabled': {
+    opacity: '.5',
+    cursor: 'not-allowed',
+  },
 });

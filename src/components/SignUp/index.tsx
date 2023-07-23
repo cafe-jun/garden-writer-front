@@ -23,6 +23,8 @@ const SignUp = () => {
   const methods = useForm<SignUpFormValues>({
     defaultValues: initFormValues,
   });
+  const { handleSubmit, formState } = methods;
+  const { isDirty, isValid } = formState;
 
   return (
     <FormProvider {...methods}>
@@ -31,7 +33,7 @@ const SignUp = () => {
           <Title>가입을 환영합니다</Title>
           <Description>회원가입에 필요한 정보들을 입력해주세요.</Description>
         </Header>
-        <Form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormContents>
             <SubTitle>필수정보</SubTitle>
             <FormItem
@@ -93,7 +95,9 @@ const SignUp = () => {
               buttonLabel="중복확인"
             />
           </FormContentsMore>
-          <SubmitButton type="submit">시작하기</SubmitButton>
+          <SubmitButton type="submit" disabled={!isDirty || !isValid}>
+            시작하기
+          </SubmitButton>
         </Form>
       </Container>
     </FormProvider>
