@@ -1,14 +1,14 @@
 import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 import { Input } from './style';
-import { Name, SignUpFormValues } from './type';
+import { SignUpFormValueKeys, SignUpFormValues } from './type';
 
 interface Props {
   type: string;
-  name: Name;
+  name: SignUpFormValueKeys;
   placeholder: string;
   register: UseFormRegister<SignUpFormValues>;
-  rules?: RegisterOptions<SignUpFormValues, Name>;
+  rules?: RegisterOptions<SignUpFormValues, SignUpFormValueKeys>;
 }
 
 const InputField: React.FC<Props> = ({ type, name, placeholder, register, rules }) => (

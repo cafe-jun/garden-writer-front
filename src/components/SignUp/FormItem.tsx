@@ -11,12 +11,12 @@ import {
   InputButton,
   InputWithButtonContainer,
 } from './style';
-import { Name, SignUpFormValues } from './type';
+import { SignUpFormValueKeys, SignUpFormValues } from './type';
 
 interface Props {
   type?: string;
   regex?: RegExp;
-  valuePayload: Name;
+  valuePayload: SignUpFormValueKeys;
   requiredMessage?: string;
   validateErrorMessage?: string;
   validateSuccessMessage?: string;

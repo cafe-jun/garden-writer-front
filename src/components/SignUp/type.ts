@@ -1,10 +1,4 @@
-type Name =
-  | 'email'
-  | 'certificationNumber'
-  | 'password'
-  | 'passwordConfirm'
-  | 'nickname'
-  | 'phoneNumber';
+type SignUpFormValueKeys = keyof SignUpFormValues;
 
 interface SignUpFormValues {
   email: string;
@@ -15,4 +9,4 @@ interface SignUpFormValues {
   nickname: string;
 }
 
-export type { Name, SignUpFormValues };
+export type { SignUpFormValueKeys, SignUpFormValues };

@@ -1,13 +1,16 @@
 import { SubmitHandler, UseFormTrigger } from 'react-hook-form';
 
-import { Name, SignUpFormValues } from './type';
+import { SignUpFormValueKeys, SignUpFormValues } from './type';
 
 export const useHandlers = () => {
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
     console.log(data);
   };
 
-  const handleBlurInputField = (trigger: UseFormTrigger<SignUpFormValues>, name: Name) => {
+  const handleBlurInputField = (
+    trigger: UseFormTrigger<SignUpFormValues>,
+    name: SignUpFormValueKeys
+  ) => {
     trigger(name);
   };
 

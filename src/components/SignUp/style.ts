@@ -27,7 +27,7 @@ export const Description = styled('p', {
   color: '#959595',
 });
 
-export const Form = styled('form', {
+export const FormContainer = styled('form', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
