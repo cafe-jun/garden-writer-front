@@ -5,7 +5,7 @@ import { useHandlers } from './handler';
 import InputField from './InputField';
 import {
   FormErrorLabel,
-  FormItem,
+  FormItemContainer,
   FormLabel,
   FormSuccessLabel,
   InputButton,
@@ -28,7 +28,7 @@ interface Props {
   handleClickButton?: () => void;
 }
 
-const FormItemWithButton = ({
+const FormItem = ({
   type = 'text',
   regex,
   valuePayload,
@@ -89,7 +89,7 @@ const FormItemWithButton = ({
   );
 
   return (
-    <FormItem>
+    <FormItemContainer>
       <FormLabel>{label}</FormLabel>
       <InputWithButtonContainer>
         <InputField
@@ -111,8 +111,8 @@ const FormItemWithButton = ({
       </InputWithButtonContainer>
       {errors[valuePayload] && <FormErrorLabel>{errors[valuePayload]?.message}</FormErrorLabel>}
       {isvalidateSuccessMessage && <FormSuccessLabel>{validateSuccessMessage}</FormSuccessLabel>}
-    </FormItem>
+    </FormItemContainer>
   );
 };
 
-export default memo(FormItemWithButton);
+export default memo(FormItem);

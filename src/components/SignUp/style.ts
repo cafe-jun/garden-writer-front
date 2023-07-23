@@ -48,7 +48,7 @@ export const FormContentsMore = styled('article', {
   marginTop: '42px',
 });
 
-export const FormItem = styled('div', {
+export const FormItemContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',

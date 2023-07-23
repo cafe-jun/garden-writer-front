@@ -2,7 +2,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/constants/regex';
 
-import FormItemWithButton from './FormItemWithButton';
+import FormItem from './FormItem';
 import { useHandlers } from './handler';
 import { initFormValues } from './initFormValues';
 import {
@@ -34,7 +34,7 @@ const SignUp = () => {
         <Form onSubmit={methods.handleSubmit(onSubmit)}>
           <FormContents>
             <SubTitle>필수정보</SubTitle>
-            <FormItemWithButton
+            <FormItem
               regex={emailRegex}
               valuePayload="email"
               requiredMessage="이메일을 입력해주세요."
@@ -44,7 +44,7 @@ const SignUp = () => {
               placeholder="이메일"
               buttonLabel="인증 메일 발송"
             />
-            <FormItemWithButton
+            <FormItem
               valuePayload="certificationNumber"
               requiredMessage="인증번호를 입력해주세요."
               validateErrorMessage="인증번호가 일치하지 않습니다."
@@ -53,7 +53,7 @@ const SignUp = () => {
               placeholder="인증번호를 입력해주세요."
               buttonLabel="확인하기"
             />
-            <FormItemWithButton
+            <FormItem
               type="password"
               regex={passwordRegex}
               valuePayload="password"
@@ -63,7 +63,7 @@ const SignUp = () => {
               label="비밀번호"
               placeholder="비밀번호"
             />
-            <FormItemWithButton
+            <FormItem
               type="password"
               valuePayload="passwordConfirm"
               requiredMessage="비밀번호를 확인해주세요."
@@ -72,7 +72,7 @@ const SignUp = () => {
               label="비밀번호 확인"
               placeholder="비밀번호 확인"
             />
-            <FormItemWithButton
+            <FormItem
               regex={nicknameRegex}
               valuePayload="nickname"
               requiredMessage="닉네임을 입력해주세요."
@@ -84,7 +84,7 @@ const SignUp = () => {
           </FormContents>
           <FormContentsMore>
             <SubTitle>추가정보(선택)</SubTitle>
-            <FormItemWithButton
+            <FormItem
               regex={phoneNumberRegex}
               valuePayload="phoneNumber"
               validateErrorMessage="- 제외한 숫자만 입력해주세요."
