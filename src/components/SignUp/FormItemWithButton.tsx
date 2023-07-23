@@ -14,6 +14,7 @@ import {
 import { Name, SignUpFormValues } from './type';
 
 interface Props {
+  type?: string;
   regex?: RegExp;
   valuePayload: Name;
   requiredMessage?: string;
@@ -22,12 +23,13 @@ interface Props {
   isCustomSuccess?: boolean;
   label: string;
   placeholder: string;
-  buttonLabel: string;
+  buttonLabel?: string;
   validate?: (value: string) => boolean;
   handleClickButton?: () => void;
 }
 
 const FormItemWithButton = ({
+  type = 'text',
   regex,
   valuePayload,
   requiredMessage,
@@ -60,7 +62,8 @@ const FormItemWithButton = ({
 
   const validateRule = useMemo(
     () => ({
-      validate: (value: string) => inputValidate(value) || validateErrorMessage,
+      validate: (value: string) =>
+        isRequired(value) || inputValidate(value) || validateErrorMessage,
     }),
     [inputValidate]
   );
@@ -72,27 +75,39 @@ const FormItemWithButton = ({
     [inputFieldValue]
   );
 
+  const rules = useMemo(() => {
+    const rule = {
+      validate: validateRule,
+      onBlur: () => handleBlurInputField(trigger, valuePayload),
+    };
+    return requiredMessage === undefined ? rule : { ...rule, required: requiredMessage };
+  }, []);
+
+  const isRequired = useCallback(
+    (value: string) => value === '' && requiredMessage === undefined,
+    []
+  );
+
   return (
     <FormItem>
       <FormLabel>{label}</FormLabel>
       <InputWithButtonContainer>
         <InputField
+          type={type}
           name={valuePayload}
           placeholder={placeholder}
           register={register}
-          rules={{
-            required: requiredMessage,
-            validate: validateRule,
-            onBlur: () => handleBlurInputField(trigger, valuePayload),
-          }}
+          rules={rules}
         />
-        <InputButton
-          type="button"
-          disabled={!validate(inputFieldValue)}
-          onClick={handleClickButton}
-        >
-          {buttonLabel}
-        </InputButton>
+        {buttonLabel && (
+          <InputButton
+            type="button"
+            disabled={!validate(inputFieldValue)}
+            onClick={handleClickButton}
+          >
+            {buttonLabel}
+          </InputButton>
+        )}
       </InputWithButtonContainer>
       {errors[valuePayload] && <FormErrorLabel>{errors[valuePayload]?.message}</FormErrorLabel>}
       {isvalidateSuccessMessage && <FormSuccessLabel>{validateSuccessMessage}</FormSuccessLabel>}

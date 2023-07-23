@@ -1,19 +1,16 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { emailRegex, nicknameRegex } from '@/constants/regex';
+import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/constants/regex';
 
 import FormItemWithButton from './FormItemWithButton';
 import { useHandlers } from './handler';
 import { initFormValues } from './initFormValues';
-import InputField from './InputField';
 import {
   Container,
   Description,
   Form,
   FormContents,
   FormContentsMore,
-  FormItem,
-  FormLabel,
   Header,
   SubmitButton,
   SubTitle,
@@ -56,18 +53,25 @@ const SignUp = () => {
               placeholder="인증번호를 입력해주세요."
               buttonLabel="확인하기"
             />
-            <FormItem>
-              <FormLabel>비밀번호</FormLabel>
-              <InputField name="password" placeholder="비밀번호" register={methods.register} />
-            </FormItem>
-            <FormItem>
-              <FormLabel>비밀번호 확인</FormLabel>
-              <InputField
-                name="passwordConfirm"
-                placeholder="비밀번호 확인"
-                register={methods.register}
-              />
-            </FormItem>
+            <FormItemWithButton
+              type="password"
+              regex={passwordRegex}
+              valuePayload="password"
+              requiredMessage="비밀번호를 입력해주세요."
+              validateErrorMessage="사용할 수 없는 비밀번호입니다."
+              validateSuccessMessage="사용할 수 있는 비밀번호입니다."
+              label="비밀번호"
+              placeholder="비밀번호"
+            />
+            <FormItemWithButton
+              type="password"
+              valuePayload="passwordConfirm"
+              requiredMessage="비밀번호를 확인해주세요."
+              validateErrorMessage="비밀번호가 일치하지 않습니다."
+              validateSuccessMessage="비밀번호가 일치합니다."
+              label="비밀번호 확인"
+              placeholder="비밀번호 확인"
+            />
             <FormItemWithButton
               regex={nicknameRegex}
               valuePayload="nickname"
@@ -80,14 +84,14 @@ const SignUp = () => {
           </FormContents>
           <FormContentsMore>
             <SubTitle>추가정보(선택)</SubTitle>
-            <FormItem>
-              <FormLabel>휴대번호</FormLabel>
-              <InputField
-                name="phoneNumber"
-                placeholder="- 제외한 숫자만 입력 가능"
-                register={methods.register}
-              />
-            </FormItem>
+            <FormItemWithButton
+              regex={phoneNumberRegex}
+              valuePayload="phoneNumber"
+              validateErrorMessage="- 제외한 숫자만 입력해주세요."
+              label="휴대번호"
+              placeholder="- 제외한 숫자만 입력 가능"
+              buttonLabel="중복확인"
+            />
           </FormContentsMore>
           <SubmitButton type="submit">시작하기</SubmitButton>
         </Form>
