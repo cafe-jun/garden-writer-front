@@ -1,8 +1,10 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FieldError, Path, useFormContext } from 'react-hook-form';
+
+import InputField from '@/common/components/Form/InputField';
+import { SignUpFormValues } from '@/components/SignUp/type';
 
 import { useHandlers } from './handler';
-import InputField from './InputField';
 import {
   FormErrorLabel,
   FormItemContainer,
@@ -11,12 +13,11 @@ import {
   InputButton,
   InputWithButtonContainer,
 } from './style';
-import { SignUpFormValueKeys, SignUpFormValues } from './type';
 
-interface Props {
+interface Props<T extends SignUpFormValues> {
   type?: string;
   regex?: RegExp;
-  valuePayload: SignUpFormValueKeys;
+  valuePayload: Path<T>;
   requiredMessage?: string;
   validateErrorMessage?: string;
   validateSuccessMessage?: string;
@@ -28,7 +29,7 @@ interface Props {
   handleClickButton?: () => void;
 }
 
-const FormItem = ({
+const FormItemInput = <T extends SignUpFormValues>({
   type = 'text',
   regex,
   valuePayload,
@@ -40,47 +41,46 @@ const FormItem = ({
   placeholder,
   buttonLabel,
   validate = (value: string) => {
-    if (regex !== undefined) {
-      const isValid = regex.test(value);
-      return isValid;
-    }
+    if (regex !== undefined) return regex.test(value);
     return false;
   },
   handleClickButton = () => {
     console.log('click button');
   },
-}: Props) => {
-  const { handleBlurInputField } = useHandlers();
+}: Props<T>) => {
+  const { handleBlurInputField } = useHandlers<T>();
   const {
     register,
     formState: { errors },
     trigger,
     getValues,
-  } = useFormContext<SignUpFormValues>();
+  } = useFormContext<T>();
 
   const inputValidate = useCallback(validate, []);
+
+  const inputFieldValue = useMemo(() => getValues(valuePayload), [getValues(valuePayload)]);
 
   const validateRule = useMemo(
     () => ({
       validate: (value: string) =>
         isRequired(value) || inputValidate(value) || validateErrorMessage,
     }),
-    [inputValidate]
+    []
   );
 
-  const inputFieldValue = useMemo(() => getValues(valuePayload), [getValues(valuePayload)]);
-
-  const isvalidateSuccessMessage = useMemo(
+  const isValidSuccess = useMemo(
     () => validateSuccessMessage !== '' && inputValidate(inputFieldValue) && isCustomSuccess,
     [inputFieldValue]
   );
 
   const rules = useMemo(() => {
-    const rule = {
+    const defaultRule = {
       validate: validateRule,
       onBlur: () => handleBlurInputField(trigger, valuePayload),
     };
-    return requiredMessage === undefined ? rule : { ...rule, required: requiredMessage };
+    return requiredMessage === undefined
+      ? defaultRule
+      : { ...defaultRule, required: requiredMessage };
   }, []);
 
   const isRequired = useCallback(
@@ -109,10 +109,12 @@ const FormItem = ({
           </InputButton>
         )}
       </InputWithButtonContainer>
-      {errors[valuePayload] && <FormErrorLabel>{errors[valuePayload]?.message}</FormErrorLabel>}
-      {isvalidateSuccessMessage && <FormSuccessLabel>{validateSuccessMessage}</FormSuccessLabel>}
+      {errors && errors[valuePayload] && (
+        <FormErrorLabel>{(errors[valuePayload] as FieldError).message}</FormErrorLabel>
+      )}
+      {isValidSuccess && <FormSuccessLabel>{validateSuccessMessage}</FormSuccessLabel>}
     </FormItemContainer>
   );
 };
 
-export default memo(FormItem);
+export default memo(FormItemInput);
