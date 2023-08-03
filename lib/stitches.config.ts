@@ -5,15 +5,17 @@ export const { styled, getCssText, keyframes } = createStitches({
     colors: {
       primary: '#059EAF',
       subPrimary: '#BC2FFF',
-      warning: '#EE2323',
+      warning: '#EE3C3C',
       white: '#FFFFFF',
       black: '#000000',
       gray: '#3E3E3E',
     },
 
     fontSizes: {
+      f12: '12px',
       f14: '14px',
       f16: '16px',
+      f24: '24px',
       f32: '32px',
       f36: '36px',
     },
@@ -27,8 +29,8 @@ export const { styled, getCssText, keyframes } = createStitches({
       1920: '1920px',
       1440: '1440px',
       1200: '1200px',
-      786: '768px'
-    }
+      786: '768px',
+    },
   },
 
   media: {
