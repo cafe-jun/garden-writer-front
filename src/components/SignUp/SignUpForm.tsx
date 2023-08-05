@@ -4,17 +4,7 @@ import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/co
 
 import FormItemInput from '../../common/components/Form/FormItemInput';
 import { useHandlers } from '../../common/components/Form/handler';
-import {
-  Container,
-  Description,
-  FormContainer,
-  FormContents,
-  FormContentsMore,
-  Header,
-  SubmitButton,
-  SubTitle,
-  Title,
-} from './style';
+import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
@@ -23,14 +13,14 @@ const SignUpForm = () => {
   const { isDirty, isValid } = formState;
 
   return (
-    <Container>
-      <Header>
-        <Title>가입을 환영합니다</Title>
-        <Description>회원가입에 필요한 정보들을 입력해주세요.</Description>
-      </Header>
-      <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <FormContents>
-          <SubTitle>필수정보</SubTitle>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h2 className={styles.title}>가입을 환영합니다</h2>
+        <span className={styles.description}>회원가입에 필요한 정보들을 입력해주세요.</span>
+      </header>
+      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.formContents}>
+          <h3 className={styles.subTitle}>필수정보</h3>
           <FormItemInput
             regex={emailRegex}
             valuePayload="email"
@@ -79,9 +69,9 @@ const SignUpForm = () => {
             placeholder="닉네임"
             buttonLabel="중복확인"
           />
-        </FormContents>
-        <FormContentsMore>
-          <SubTitle>추가정보(선택)</SubTitle>
+        </div>
+        <article className={styles.formContentsMore}>
+          <h3 className={styles.subTitle}>추가정보(선택)</h3>
           <FormItemInput
             regex={phoneNumberRegex}
             valuePayload="phoneNumber"
@@ -90,12 +80,12 @@ const SignUpForm = () => {
             placeholder="- 제외한 숫자만 입력 가능"
             buttonLabel="중복확인"
           />
-        </FormContentsMore>
-        <SubmitButton type="submit" disabled={!isDirty || !isValid}>
+        </article>
+        <button className={styles.submitButton} type="submit" disabled={!isDirty || !isValid}>
           시작하기
-        </SubmitButton>
-      </FormContainer>
-    </Container>
+        </button>
+      </form>
+    </div>
   );
 };
 

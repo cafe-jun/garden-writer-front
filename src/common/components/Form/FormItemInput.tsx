@@ -4,15 +4,8 @@ import { FieldError, Path, useFormContext } from 'react-hook-form';
 import InputField from '@/common/components/Form/InputField';
 import { SignUpFormValues } from '@/components/SignUp/type';
 
+import styles from './Form.module.scss';
 import { useHandlers } from './handler';
-import {
-  FormErrorLabel,
-  FormItemContainer,
-  FormLabel,
-  FormSuccessLabel,
-  InputButton,
-  InputWithButtonContainer,
-} from './style';
 
 interface Props<T extends SignUpFormValues> {
   type?: string;
@@ -89,9 +82,9 @@ const FormItemInput = <T extends SignUpFormValues>({
   );
 
   return (
-    <FormItemContainer>
-      <FormLabel>{label}</FormLabel>
-      <InputWithButtonContainer>
+    <div className={styles.formItemContainer}>
+      <p className={styles.formLabel}>{label}</p>
+      <div className={styles.inputWithButtonContainer}>
         <InputField
           type={type}
           name={valuePayload}
@@ -100,20 +93,21 @@ const FormItemInput = <T extends SignUpFormValues>({
           rules={rules}
         />
         {buttonLabel && (
-          <InputButton
+          <button
+            className={styles.inputButton}
             type="button"
             disabled={!validate(inputFieldValue)}
             onClick={handleClickButton}
           >
             {buttonLabel}
-          </InputButton>
+          </button>
         )}
-      </InputWithButtonContainer>
+      </div>
       {errors && errors[valuePayload] && (
-        <FormErrorLabel>{(errors[valuePayload] as FieldError).message}</FormErrorLabel>
+        <p className={styles.formErrorLabel}>{(errors[valuePayload] as FieldError).message}</p>
       )}
-      {isValidSuccess && <FormSuccessLabel>{validateSuccessMessage}</FormSuccessLabel>}
-    </FormItemContainer>
+      {isValidSuccess && <p className={styles.formSuccessLabel}>{validateSuccessMessage}</p>}
+    </div>
   );
 };
 
