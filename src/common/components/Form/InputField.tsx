@@ -1,6 +1,6 @@
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-import { Input } from './style';
+import styles from './Form.module.scss';
 
 interface Props<T extends FieldValues> {
   type: string;
@@ -16,6 +16,13 @@ const InputField = <T extends FieldValues>({
   placeholder,
   register,
   rules,
-}: Props<T>) => <Input type={type} {...register(name, rules)} placeholder={placeholder} />;
+}: Props<T>) => (
+  <input
+    className={styles.input}
+    type={type}
+    {...register(name, rules)}
+    placeholder={placeholder}
+  />
+);
 
 export default InputField;
