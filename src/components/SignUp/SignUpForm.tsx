@@ -1,16 +1,17 @@
-import { useFormContext } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/constants/regex';
 
-import { useHandlers } from '../Form/handler';
 import FormItemInput from '../FormItemInput/FormItemInput';
 import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
-  const { onSubmit } = useHandlers();
   const { formState, handleSubmit } = useFormContext<SignUpFormValues>();
   const { isDirty, isValid } = formState;
+  const onSubmit: SubmitHandler<SignUpFormValues> = data => {
+    console.log(data);
+  };
 
   return (
     <div className={styles.container}>

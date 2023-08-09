@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
-import { FieldError, Path, useFormContext } from 'react-hook-form';
+import { FieldError, Path, useFormContext, UseFormTrigger } from 'react-hook-form';
 
-import { useHandlers } from '../Form/handler';
 import InputField from '../InputField/InputField';
 import { SignUpFormValues } from '../SignUp/type';
 import styles from './FormItemInput.module.scss';
@@ -40,7 +39,6 @@ const FormItemInput = <T extends SignUpFormValues>({
     console.log('click button');
   },
 }: Props<T>) => {
-  const { handleBlurInputField } = useHandlers<T>();
   const {
     register,
     formState: { errors },
@@ -79,6 +77,10 @@ const FormItemInput = <T extends SignUpFormValues>({
     (value: string) => value === '' && requiredMessage === undefined,
     []
   );
+
+  const handleBlurInputField = useCallback((triggerMethod: UseFormTrigger<T>, name: Path<T>) => {
+    triggerMethod(name);
+  }, []);
 
   return (
     <div className={styles.formItemContainer}>
