@@ -22,7 +22,7 @@ const SignUpForm = () => {
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formContents}>
           <h3 className={styles.subTitle}>필수정보</h3>
-          <FormItemInput
+          <FormItemInput<SignUpFormValues>
             regex={emailRegex}
             valuePayload="email"
             requiredMessage="이메일을 입력해주세요."
@@ -32,7 +32,7 @@ const SignUpForm = () => {
             placeholder="이메일"
             buttonLabel="인증 메일 발송"
           />
-          {/* <FormItemInput
+          {/* <FormItemInput<SignUpFormValues>
               valuePayload="certificationNumber"
               requiredMessage="인증번호를 입력해주세요."
               validateErrorMessage="인증번호가 일치하지 않습니다."
@@ -41,7 +41,7 @@ const SignUpForm = () => {
               placeholder="인증번호를 입력해주세요."
               buttonLabel="확인하기"
             /> */}
-          <FormItemInput
+          <FormItemInput<SignUpFormValues>
             type="password"
             regex={passwordRegex}
             valuePayload="password"
@@ -51,7 +51,7 @@ const SignUpForm = () => {
             label="비밀번호"
             placeholder="비밀번호"
           />
-          {/* <FormItemInput
+          {/* <FormItemInput<SignUpFormValues>
               type="password"
               valuePayload="passwordConfirm"
               requiredMessage="비밀번호를 확인해주세요."
@@ -60,7 +60,7 @@ const SignUpForm = () => {
               label="비밀번호 확인"
               placeholder="비밀번호 확인"
             /> */}
-          <FormItemInput
+          <FormItemInput<SignUpFormValues>
             regex={nicknameRegex}
             valuePayload="nickname"
             requiredMessage="닉네임을 입력해주세요."
@@ -73,7 +73,7 @@ const SignUpForm = () => {
         </div>
         <article className={styles.formContentsMore}>
           <h3 className={styles.subTitle}>추가정보(선택)</h3>
-          <FormItemInput
+          <FormItemInput<SignUpFormValues>
             regex={phoneNumberRegex}
             valuePayload="phoneNumber"
             validateErrorMessage="- 제외한 숫자만 입력해주세요."

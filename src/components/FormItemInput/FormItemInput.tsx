@@ -1,11 +1,10 @@
 import { useCallback, useMemo } from 'react';
-import { FieldError, Path, useFormContext, UseFormTrigger } from 'react-hook-form';
+import { FieldError, FieldValues, Path, useFormContext, UseFormTrigger } from 'react-hook-form';
 
 import InputField from '../InputField/InputField';
-import { SignUpFormValues } from '../SignUp/type';
 import styles from './FormItemInput.module.scss';
 
-interface Props<T extends SignUpFormValues> {
+interface Props<T extends FieldValues> {
   type?: string;
   regex?: RegExp;
   valuePayload: Path<T>;
@@ -20,7 +19,7 @@ interface Props<T extends SignUpFormValues> {
   handleClickButton?: () => void;
 }
 
-const FormItemInput = <T extends SignUpFormValues>({
+const FormItemInput = <T extends FieldValues>({
   type = 'text',
   regex,
   valuePayload,
