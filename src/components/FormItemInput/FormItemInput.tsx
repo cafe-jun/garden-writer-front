@@ -1,11 +1,10 @@
-import { memo, useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FieldError, Path, useFormContext } from 'react-hook-form';
 
-import InputField from '@/common/components/Form/InputField';
-import { SignUpFormValues } from '@/components/SignUp/type';
-
-import styles from './Form.module.scss';
-import { useHandlers } from './handler';
+import { useHandlers } from '../Form/handler';
+import InputField from '../InputField/InputField';
+import { SignUpFormValues } from '../SignUp/type';
+import styles from './FormItemInput.module.scss';
 
 interface Props<T extends SignUpFormValues> {
   type?: string;
@@ -111,4 +110,4 @@ const FormItemInput = <T extends SignUpFormValues>({
   );
 };
 
-export default memo(FormItemInput);
+export default FormItemInput;

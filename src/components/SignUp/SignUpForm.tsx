@@ -2,8 +2,8 @@ import { useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/constants/regex';
 
-import FormItemInput from '../../common/components/Form/FormItemInput';
-import { useHandlers } from '../../common/components/Form/handler';
+import { useHandlers } from '../Form/handler';
+import FormItemInput from '../FormItemInput/FormItemInput';
 import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
