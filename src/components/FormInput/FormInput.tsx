@@ -2,42 +2,23 @@ import { useCallback, useMemo } from 'react';
 import { FieldError, FieldValues, Path, useFormContext, UseFormTrigger } from 'react-hook-form';
 
 import InputField from '../InputField/InputField';
-import styles from './FormItemInput.module.scss';
+import styles from './FormInput.module.scss';
+import { FormInputProps } from './type';
 
-interface Props<T extends FieldValues> {
-  type?: string;
-  regex?: RegExp;
-  valuePayload: Path<T>;
-  requiredMessage?: string;
-  validateErrorMessage?: string;
-  validateSuccessMessage?: string;
-  isCustomSuccess?: boolean;
-  label: string;
-  placeholder: string;
-  buttonLabel?: string;
-  validate?: (value: string) => boolean;
-  handleClickButton?: () => void;
-}
-
-const FormItemInput = <T extends FieldValues>({
+const FormInput = <T extends FieldValues>({
   type = 'text',
   regex,
   valuePayload,
   requiredMessage,
   validateErrorMessage,
   validateSuccessMessage,
-  isCustomSuccess = true,
   label,
   placeholder,
-  buttonLabel,
   validate = (value: string) => {
     if (regex !== undefined) return regex.test(value);
     return false;
   },
-  handleClickButton = () => {
-    console.log('click button');
-  },
-}: Props<T>) => {
+}: FormInputProps<T>) => {
   const {
     register,
     formState: { errors },
@@ -51,15 +32,21 @@ const FormItemInput = <T extends FieldValues>({
 
   const validateRule = useMemo(
     () => ({
-      validate: (value: string) =>
-        isRequired(value) || inputValidate(value) || validateErrorMessage,
+      validate: (value: string) => {
+        if (isRequired(value)) return true;
+        if (inputValidate(value)) return true;
+        return validateErrorMessage;
+      },
     }),
     []
   );
 
   const isValidSuccess = useMemo(
-    () => validateSuccessMessage !== '' && inputValidate(inputFieldValue) && isCustomSuccess,
-    [inputFieldValue]
+    () =>
+      errors[valuePayload] === undefined &&
+      validateSuccessMessage !== '' &&
+      inputValidate(inputFieldValue),
+    [errors[valuePayload]]
   );
 
   const rules = useMemo(() => {
@@ -92,16 +79,6 @@ const FormItemInput = <T extends FieldValues>({
           register={register}
           rules={rules}
         />
-        {buttonLabel && (
-          <button
-            className={styles.inputButton}
-            type="button"
-            disabled={!validate(inputFieldValue)}
-            onClick={handleClickButton}
-          >
-            {buttonLabel}
-          </button>
-        )}
       </div>
       {errors && errors[valuePayload] && (
         <p className={styles.formErrorLabel}>{(errors[valuePayload] as FieldError).message}</p>
@@ -111,4 +88,4 @@ const FormItemInput = <T extends FieldValues>({
   );
 };
 
-export default FormItemInput;
+export default FormInput;

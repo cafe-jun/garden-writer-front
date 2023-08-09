@@ -1,0 +1,51 @@
+$colorPrimary: #059EAF;
+$colorRed: #EE3C3C;
+$colorWhite: #ffffff;
+$f12: 12px;
+$f14: 14px;
+
+.formItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.formLabel {
+  font-size: $f12;
+  margin: 12px 0 4px 0;
+}
+
+.formSuccessLabel {
+  font-size: $f12;
+  color: $colorPrimary;
+}
+
+.formErrorLabel {
+  font-size: $f12;
+  color: $colorRed;
+}
+
+.inputWithButtonContainer {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.inputButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 110px;
+  height: 48px;
+  font-size: $f14;
+  color: $colorWhite;
+  background-color: $colorPrimary;
+  border-radius: 10px;
+  border: unset;
+  cursor: pointer;
+  &.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+}
