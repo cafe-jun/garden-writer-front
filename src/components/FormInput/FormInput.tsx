@@ -18,6 +18,7 @@ const FormInput = <T extends FieldValues>({
     if (regex !== undefined) return regex.test(value);
     return false;
   },
+  children,
 }: FormInputProps<T>) => {
   const {
     register,
@@ -79,6 +80,7 @@ const FormInput = <T extends FieldValues>({
           register={register}
           rules={rules}
         />
+        {children}
       </div>
       {errors && errors[valuePayload] && (
         <p className={styles.formErrorLabel}>{(errors[valuePayload] as FieldError).message}</p>

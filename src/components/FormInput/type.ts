@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 
 export interface FormInputProps<T extends FieldValues> {
@@ -10,4 +11,5 @@ export interface FormInputProps<T extends FieldValues> {
   label: string;
   placeholder: string;
   validate?: (value: string) => boolean;
+  children?: ReactNode;
 }

@@ -33,15 +33,15 @@ const SignUpForm = () => {
             placeholder="이메일"
             buttonLabel="인증 메일 발송"
           />
-          {/* <FormInput<SignUpFormValues>
-              valuePayload="certificationNumber"
-              requiredMessage="인증번호를 입력해주세요."
-              validateErrorMessage="인증번호가 일치하지 않습니다."
-              validateSuccessMessage="인증번호가 일치합니다."
-              label="인증번호"
-              placeholder="인증번호를 입력해주세요."
-              buttonLabel="확인하기"
-            /> */}
+          <FormInputWithButton<SignUpFormValues>
+            valuePayload="certificationNumber"
+            requiredMessage="인증번호를 입력해주세요."
+            validateErrorMessage="인증번호가 일치하지 않습니다."
+            validateSuccessMessage="인증번호가 일치합니다."
+            label="인증번호"
+            placeholder="인증번호를 입력해주세요."
+            buttonLabel="확인하기"
+          />
           <FormInput<SignUpFormValues>
             type="password"
             regex={passwordRegex}
@@ -52,15 +52,15 @@ const SignUpForm = () => {
             label="비밀번호"
             placeholder="비밀번호"
           />
-          {/* <FormInput<SignUpFormValues>
-              type="password"
-              valuePayload="passwordConfirm"
-              requiredMessage="비밀번호를 확인해주세요."
-              validateErrorMessage="비밀번호가 일치하지 않습니다."
-              validateSuccessMessage="비밀번호가 일치합니다."
-              label="비밀번호 확인"
-              placeholder="비밀번호 확인"
-            /> */}
+          <FormInput<SignUpFormValues>
+            type="password"
+            valuePayload="passwordConfirm"
+            requiredMessage="비밀번호를 확인해주세요."
+            validateErrorMessage="비밀번호가 일치하지 않습니다."
+            validateSuccessMessage="비밀번호가 일치합니다."
+            label="비밀번호 확인"
+            placeholder="비밀번호 확인"
+          />
           <FormInputWithButton<SignUpFormValues>
             regex={nicknameRegex}
             valuePayload="nickname"
