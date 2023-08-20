@@ -15,23 +15,24 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb/hooks',
-    'prettier',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     'next/core-web-vitals',
+    'prettier'
   ],
   plugins: [
     'react',
     'jsx-a11y',
     'import',
-    'prettier',
     '@typescript-eslint',
     'simple-import-sort',
     'unused-imports',
+    'prettier'
   ],
   ignorePatterns: ['*rc.js', '**/*.config.js', '**/*.setup.js'],
   globals: {},
   rules: {
+    'linebreak-style': 0,
     // prettier
     'prettier/prettier': [
       'warn',
@@ -49,6 +50,7 @@ module.exports = {
     '@typescript-eslint/ban-types': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-shadow': 'warn',
+    '@typescript-eslint/no-unused-vars' : 'off',
     /* 명시적인 return type 작성*/
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
@@ -64,8 +66,15 @@ module.exports = {
     // jsx-a11y
     'jsx-a11y/click-events-have-key-events': 'warn',
     'jsx-a11y/no-noninteractive-element-interactions': 'warn',
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelAttributes": ["htmlFor"]
+      }
+    ],
 
     // React
+    "react/destructuring-assignment": "off",
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'react/prop-types': 'off',
     'react-hooks/exhaustive-deps': 'off',
