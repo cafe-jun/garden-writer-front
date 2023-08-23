@@ -18,7 +18,7 @@ export default function OneLineInput(props: OneLineInputProps): ReactElement {
     >
       <div className={st.container}>
         <input placeholder={props.placeholder} className={st.inputBox} />
-        {props.isError ? <p className={st.text1}>{props.errorText}</p> : null}
+        {props.isError ? <p>{props.errorText}</p> : null}
       </div>
     </WriteRoomCategory>
   );

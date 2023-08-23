@@ -19,7 +19,7 @@ export default function MultipleLineInput(props: MultipleLineInputProps): ReactE
     >
       <div className={st.container}>
         <textarea placeholder={props.placeholder} className={st.inputBox} />
-        {props.isError ? <p className={st.text1}>{props.errorText}</p> : null}
+        {props.isError ? <p>{props.errorText}</p> : null}
       </div>
     </WriteRoomCategory>
   );

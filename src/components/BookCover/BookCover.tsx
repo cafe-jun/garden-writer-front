@@ -7,7 +7,7 @@ import { BoockCoverProps } from './type';
 
 /**
  * 공방개설 시 사용되며 props로 받은 book cover의 이미지를 크게 보여주는 component.
- * props로 scr를 받아와야함
+ * props로 src를 받아와야함
  * @param props BoockCoverProps
  * @returns component
  */
