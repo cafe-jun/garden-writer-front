@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/constants/regex';
@@ -8,10 +9,23 @@ import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
+  const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
   const { formState, handleSubmit } = useFormContext<SignUpFormValues>();
   const { isDirty, isValid } = formState;
+
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
     console.log(data);
+  };
+
+  const emailButtonLabel = isDuplicated ? '중복 확인' : '인증 메일 발송';
+  const emailValidateSuccessMessage = isDuplicated ? '' : '사용 가능한 이메일입니다.';
+
+  const handleEmailButton = () => {
+    if (isDuplicated) {
+      setIsDuplicated(false);
+    } else {
+      setIsDuplicated(true);
+    }
   };
 
   return (
@@ -28,10 +42,11 @@ const SignUpForm = () => {
             valuePayload="email"
             requiredMessage="이메일을 입력해주세요."
             validateErrorMessage="이메일 형식을 지켜주세요."
-            validateSuccessMessage="사용 가능한 이메일입니다."
+            validateSuccessMessage={emailValidateSuccessMessage}
             label="이메일"
             placeholder="이메일"
-            buttonLabel="인증 메일 발송"
+            buttonLabel={emailButtonLabel}
+            handleClickButton={handleEmailButton}
           />
           <FormInputWithButton<SignUpFormValues>
             valuePayload="certificationNumber"

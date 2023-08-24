@@ -47,7 +47,7 @@ const FormInput = <T extends FieldValues>({
       errors[valuePayload] === undefined &&
       validateSuccessMessage !== '' &&
       inputValidate(inputFieldValue),
-    [errors[valuePayload]]
+    [errors[valuePayload], validateSuccessMessage]
   );
 
   const rules = useMemo(() => {
