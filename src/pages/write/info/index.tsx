@@ -103,7 +103,9 @@ export default function WriteInfo(): ReactElement {
         {/* 기본 북커버 이미지 리스트 */}
         <BookCoverList style={{ marginTop: '16px' }} selectImage={setBookScr} />
 
-        <button className={`${st.nextBtn} ${st.mt32}`}>다음</button>
+        <button type="button" className={`${st.nextBtn} ${st.mt32}`}>
+          다음
+        </button>
       </div>
       {/* 중앙 content box end */}
     </div>

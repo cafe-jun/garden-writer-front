@@ -14,7 +14,7 @@
         position: relative;
         padding: $s8px;
 
-        >p {
+        &>p {
             text-align: center;
             font-size: $s16px;
             font-style: normal;
@@ -44,7 +44,7 @@
             bottom: 90%;
             right: 10%;
 
-        }   
+        }
     }
 
     .childComponent {
@@ -53,12 +53,14 @@
     }
 }
 
-.redColor{
+.redColor {
     color: $red-1;
 }
+
 .grayColor {
     color: $gray-3;
 }
-.ml4{
+
+.ml4 {
     margin-left: $s4px;
 }

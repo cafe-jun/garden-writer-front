@@ -7,7 +7,7 @@
     height: 100vh;
     align-items: center;
 
-    >p {
+    &>p {
         text-align: center;
         font-style: normal;
         line-height: normal;
@@ -32,7 +32,7 @@
         overflow: visible;
         align-items: flex-end;
 
-        >p {
+        &>p {
             align-self: center;
         }
 

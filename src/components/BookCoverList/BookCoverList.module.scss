@@ -1,12 +1,12 @@
 @import '../../styles/value.scss';
 
-.container{
+.container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: $s384px;
 
-    >img{
+    &>img {
         width: $s73px;
         height: $s73px;
     }

@@ -21,7 +21,9 @@ export default function Login(): ReactElement {
         <LoginDataInput placeholder="이메일을 입력해주세요" isError={false} disabled={false} />
         <LoginDataInput placeholder="비밀번호를 입력해주세요" isError={false} disabled={false} />
 
-        <button className={`${st.loginBtn} ${st.mt21}`}>로그인</button>
+        <button type="button" className={`${st.loginBtn} ${st.mt21}`}>
+          로그인
+        </button>
 
         <p className={`${st.text2} ${st.mt32}`}>
           아직 계정이 없으신가요? <Link href="/">회원가입</Link>
