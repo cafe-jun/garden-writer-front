@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { InformationText } from '@/components/InformationText/InformationText';
+import { InformationTextType } from '@/components/InformationText/type';
+
 import styles from './novel.module.scss';
 
 const NovelPage = () => {
@@ -20,6 +23,13 @@ const NovelPage = () => {
           소설공방 개설
         </button>
       </header>
+
+      <div>
+        <InformationText
+          text="대표작가 또는 참여작가로 참여중이면서 현재 연재중 또는 완결된 소설공방이 조회됩니다."
+          type={InformationTextType.primary}
+        />
+      </div>
     </div>
   );
 };
