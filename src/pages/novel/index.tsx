@@ -1,43 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { InformationText } from '@/components/InformationText/InformationText';
 import { InformationTextType } from '@/components/InformationText/type';
-import { NovelTable as Table } from '@/components/Table/Table';
-import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/Table/type';
+import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
+import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/NovelTable/type';
+import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 
 import styles from './novel.module.scss';
 
+export const novelTableData: NovelTable[] = [
+  {
+    id: 'haefasdfdf',
+    category: '일반소설',
+    title: '재벌집 막내아들',
+    created: '2023-05-02',
+    completed: '',
+    user_type: NovelTableUserType.main,
+    user_limit: 5,
+    attend_users_number: 3,
+    current_writer: '아얀',
+    status: NovelTableStatus.completed,
+  },
+  {
+    id: 'haedfsdffasdfdf',
+    category: '퓨전',
+    title: '배고파',
+    created: '2023-05-14',
+    completed: '',
+    user_type: NovelTableUserType.sub,
+    user_limit: 5,
+    attend_users_number: 1,
+    current_writer: '진식',
+    status: NovelTableStatus.active,
+  },
+];
+
+export const novelTabs = ['참여중', '미참여'];
+
 const NovelPage = () => {
+  const [currentTab, setCurrentTab] = useState<string>(novelTabs[0]);
+  const [currentNovelTableData, setCurrentNovelTableData] = useState<NovelTable[]>(novelTableData);
+
+  const handleCurrentTab = (tab: string) => {
+    if (currentTab === tab) return;
+
+    setCurrentTab(tab);
+    if (tab === '참여중') {
+      return setCurrentNovelTableData(novelTableData);
+    }
+    return setCurrentNovelTableData(novelTableData);
+  };
+
   const handleCreateNovelButton = () => {
     console.log('create novel');
   };
-
-  const tableData: NovelTable[] = [
-    {
-      id: 'haefasdfdf',
-      category: '일반소설',
-      title: '재벌집 막내아들',
-      created: '2023-05-02',
-      completed: '',
-      user_type: NovelTableUserType.main,
-      user_limit: 5,
-      attend_users_number: 3,
-      current_writer: '아얀',
-      status: NovelTableStatus.completed,
-    },
-    {
-      id: 'haedfsdffasdfdf',
-      category: '퓨전',
-      title: '배고파',
-      created: '2023-05-14',
-      completed: '',
-      user_type: NovelTableUserType.sub,
-      user_limit: 5,
-      attend_users_number: 1,
-      current_writer: '진식',
-      status: NovelTableStatus.active,
-    },
-  ];
 
   return (
     <div>
@@ -60,7 +76,12 @@ const NovelPage = () => {
             type={InformationTextType.primary}
           />
           <div className={`${styles.novelContainer}`}>
-            <Table tableData={tableData} />
+            <NovelTabs
+              tabs={novelTabs}
+              currentTab={currentTab}
+              handleCurrentTab={handleCurrentTab}
+            />
+            <Table tableData={currentNovelTableData} />
           </div>
         </div>
       </main>

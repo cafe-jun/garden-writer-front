@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Table.module.scss';
+import styles from './NovelTable.module.scss';
 import { NovelTableProps } from './type';
 
 export const NovelTable = ({ tableData }: NovelTableProps) => (
