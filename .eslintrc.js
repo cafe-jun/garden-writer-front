@@ -15,23 +15,24 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb/hooks',
-    'prettier',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     'next/core-web-vitals',
+    'prettier'
   ],
   plugins: [
     'react',
     'jsx-a11y',
     'import',
-    'prettier',
     '@typescript-eslint',
     'simple-import-sort',
     'unused-imports',
+    'prettier'
   ],
   ignorePatterns: ['*rc.js', '**/*.config.js', '**/*.setup.js'],
   globals: {},
   rules: {
+    'linebreak-style': 0,
     // prettier
     'prettier/prettier': [
       'warn',
@@ -43,7 +44,7 @@ module.exports = {
     // TypeScript
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
     '@typescript-eslint/ban-types': 'warn',
@@ -64,8 +65,15 @@ module.exports = {
     // jsx-a11y
     'jsx-a11y/click-events-have-key-events': 'warn',
     'jsx-a11y/no-noninteractive-element-interactions': 'warn',
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelAttributes": ["htmlFor"]
+      }
+    ],
 
     // React
+    "react/destructuring-assignment": "off",
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'react/prop-types': 'off',
     'react-hooks/exhaustive-deps': 'off',
