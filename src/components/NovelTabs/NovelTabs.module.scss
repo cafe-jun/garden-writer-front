@@ -15,8 +15,9 @@
         border: 1px solid $gray-1;
         border-radius: 20px 20px 0 0;
         cursor: pointer;
+
         &.active {
-            background-color: $gray-4;
+            background-color: $gray-5;
         }
     }
 }
