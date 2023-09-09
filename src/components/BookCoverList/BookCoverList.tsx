@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { ReactElement } from 'react';
 
-import BCimg1 from '../../images/book-corver-1.png';
-import BCimg2 from '../../images/book-corver-2.png';
-import BCimg3 from '../../images/book-corver-3.png';
-import BCimg4 from '../../images/book-corver-4.png';
-import BCimg5 from '../../images/book-corver-5.png';
+import BCimg1 from '@/images/book-corver-1.png';
+import BCimg2 from '@/images/book-corver-2.png';
+import BCimg3 from '@/images/book-corver-3.png';
+import BCimg4 from '@/images/book-corver-4.png';
+import BCimg5 from '@/images/book-corver-5.png';
+
 import st from './BookCoverList.module.scss';
 import { BookCoverListProps } from './type';
 

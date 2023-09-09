@@ -1,6 +1,6 @@
 @import '../../../styles/value.scss';
 
-.container {
+.content {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -25,12 +25,14 @@
         font-weight: 400;
     }
 
-    .contentContainer {
+    .content_center {
         display: flex;
         flex-direction: column;
         width: $s384px;
         overflow: visible;
         align-items: flex-end;
+
+        margin-top: $s44px;
 
         &>p {
             align-self: center;
@@ -54,15 +56,8 @@
             background-color: $blue-1;
             border-radius: 62px;
             border: none;
+
+            margin-top: $s32px;
         }
     }
-
-}
-
-.mt44 {
-    margin-top: $s44px;
-}
-
-.mt32 {
-    margin-top: $s32px;
 }

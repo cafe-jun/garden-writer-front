@@ -4,6 +4,7 @@ import { ReactElement, useState } from 'react';
 import BookCover from '@/components/BookCover/BookCover';
 import BookCoverList from '@/components/BookCoverList/BookCoverList';
 import CategorySelect from '@/components/CategorySelect/CategorySelect';
+import HashTagInput from '@/components/HashTagInput/HashTagInput';
 import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput';
 import OneLineInput from '@/components/OneLineInput/OneLineInput';
 import PeopleCount from '@/components/PeopleCount/PeopleCount';
@@ -23,6 +24,12 @@ export default function WriteInfo(): ReactElement {
 
   // 한줄 소개
   const [oneLine, setOneLine] = useState<string>('');
+
+  // api가 어떤 형태로 저장하는지 몰라서 작업 못함
+  const [cagegory, setCategory] = useState();
+
+  // 해시태그 #이름 형태의 array
+  const [hashTags, setHashTags] = useState<string[]>([]);
 
   // 등장인물 소개
   const [actor, setActor] = useState<string>('');
@@ -74,6 +81,16 @@ export default function WriteInfo(): ReactElement {
           style={{ marginTop: '31px' }}
         />
 
+        {/* 해시태그 입력 */}
+        <HashTagInput
+          onChange={setHashTags}
+          categoryText="태그"
+          compulsory
+          errorText="태그 한가지 항목 이상 선택해주세요"
+          isError={false}
+          style={{ marginTop: '31px' }}
+        />
+
         {/* 등장인물 */}
         <MultipleLineInput
           onChange={setActor}
@@ -103,7 +120,9 @@ export default function WriteInfo(): ReactElement {
         {/* 기본 북커버 이미지 리스트 */}
         <BookCoverList style={{ marginTop: '16px' }} selectImage={setBookScr} />
 
-        <button className={`${st.nextBtn} ${st.mt32}`}>다음</button>
+        <button type="button" className={`${st.nextBtn} ${st.mt32}`}>
+          다음
+        </button>
       </div>
       {/* 중앙 content box end */}
     </div>

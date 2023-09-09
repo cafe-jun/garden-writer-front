@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { ReactElement, useState } from 'react';
 
-import SpeechBubble from '../../images/speech-bubble.svg';
+import SpeechBubble from '@/images/speech-bubble.svg';
+
 import { writeRoomCategoryProps } from './type';
 import st from './WriteRoomCategory.module.scss';
 /**

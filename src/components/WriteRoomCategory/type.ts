@@ -11,7 +11,7 @@ export interface writeRoomCategoryProps {
   speechBubbleText?: string;
 
   // 자식 component
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 
   style?: {
     marginTop?: string;
