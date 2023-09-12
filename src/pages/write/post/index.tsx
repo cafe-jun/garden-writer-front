@@ -1,5 +1,6 @@
 import { ReactElement, useState } from 'react';
 
+import MakeRoom from '@/components/modals/MakeRoom/MakeRoom';
 import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput';
 import OneLineInput from '@/components/OneLineInput/OneLineInput';
 
@@ -9,8 +10,25 @@ export default function CreatePost(): ReactElement {
   const [title, setTitle] = useState<string>('');
   const [contents, setContents] = useState<string>('');
   const [openLink, setOpenLink] = useState<string>('');
+
+  const [isModal, setIsModal] = useState<boolean>(false);
+
+  function showModal(): void {
+    setIsModal(true);
+  }
   return (
     <div className={st.content}>
+      {isModal ? (
+        <MakeRoom
+          nextStep={() => {
+            setIsModal(false);
+          }}
+          cancel={() => {
+            setIsModal(false);
+          }}
+        />
+      ) : null}
+
       <div className={`${st.content_center}`}>
         <p className={st.text1}>02.작가 모집 게시글 작성</p>
         <p className={st.text2}>작가들을 모집하고 새로운 세계관을 만들어보세요</p>
@@ -47,7 +65,7 @@ export default function CreatePost(): ReactElement {
           isError={false}
           speechBubbleText="“작가모집 게시글을 보고 작가 분들이 해당 링크로 연락을 할 수 있습니다. 카카오톡 오픈채팅방 (1:1 채팅방) 생성 후 링크를 기입해 주세요.”"
         />
-        <button type="button" className={st.nextBtn}>
+        <button onClick={showModal} type="button" className={st.nextBtn}>
           다음
         </button>
       </div>
