@@ -7,6 +7,11 @@ interface SignUpFormValues {
   phoneNumber: string;
   certificationNumber: string;
   nickname: string;
+  portfolios: Portfolio[];
+}
+
+interface Portfolio {
+  link: string;
 }
 
 export type { SignUpFormValueKeys, SignUpFormValues };

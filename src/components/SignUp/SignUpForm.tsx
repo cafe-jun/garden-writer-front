@@ -5,6 +5,7 @@ import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/co
 
 import FormInput from '../FormInput/FormInput';
 import FormInputWithButton from '../FormInputWithButton/FormInputWithButton';
+import { IncreaseInput } from '../IncreaseInput/IncreaseInput';
 import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
@@ -96,6 +97,11 @@ const SignUpForm = () => {
             label="휴대번호"
             placeholder="- 제외한 숫자만 입력 가능"
             buttonLabel="중복확인"
+          />
+          <IncreaseInput<SignUpFormValues>
+            valuePayload="portfolios"
+            label="작가 포트폴리오"
+            placeholder="나를 소개할 수 있는 링크 (SNS, 블로그, 웹소설 등)"
           />
         </article>
         <button className={styles.submitButton} type="submit" disabled={!isDirty || !isValid}>
