@@ -1,11 +1,18 @@
 import React from 'react';
-import { FieldValues, Path, useFormContext } from 'react-hook-form';
+import {
+  ArrayPath,
+  Controller,
+  FieldValues,
+  Path,
+  useFieldArray,
+  useFormContext,
+} from 'react-hook-form';
 
 import styles from './IncreateInput.module.scss';
 
 interface IncreateInputProps<T extends FieldValues> {
   type?: string;
-  valuePayload: Path<T>;
+  valuePayload: ArrayPath<T>;
   label: string;
   placeholder: string;
 }
@@ -16,12 +23,16 @@ export const IncreaseInput = <T extends FieldValues>({
   label,
   placeholder,
 }: IncreateInputProps<T>) => {
-  const { getValues, control, setValue } = useFormContext<T>();
+  const { control, setValue } = useFormContext<T>();
+  const { fields, append, replace } = useFieldArray({
+    control,
+    name: valuePayload,
+  });
 
-  const inputFieldValue = getValues(valuePayload);
-
-  const handleChange = (index: number, link: string) => {
-    // setValue(`${valuePayload}[${index}].link`, link);
+  const addInput = () => {
+    if (fields.length < 3) {
+      append({ link: '' } as any);
+    }
   };
 
   return (
@@ -29,21 +40,29 @@ export const IncreaseInput = <T extends FieldValues>({
       <div className={styles.formItemContainer}>
         <p className={styles.formLabel}>{label}</p>
         <div className={styles.inputWithButtonContainer}>
-          {/* {inputFieldValue.map((item: Portfolio, index: number) => (
+          {fields.map((item: any, index) => (
             <div key={index}>
               <Controller
-                name={valuePayload}
+                name={`${valuePayload}[${index}].link` as Path<T>}
                 control={control}
                 defaultValue={item.link}
                 render={({ field }) => (
-                  <input {...field} onChange={e => handleChange(index, e.target.value)} />
+                  <input
+                    {...field}
+                    onBlur={e => {
+                      field.onBlur();
+                      // replace(index, { link: e.target.value });
+                    }}
+                  />
                 )}
               />
             </div>
-          ))} */}
+          ))}
         </div>
       </div>
-      <button type="button">+</button>
+      <button type="button" onClick={addInput}>
+        +
+      </button>
     </div>
   );
 };

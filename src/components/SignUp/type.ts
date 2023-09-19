@@ -10,7 +10,7 @@ interface SignUpFormValues {
   portfolios: Portfolio[];
 }
 
-interface Portfolio {
+export interface Portfolio {
   link: string;
 }
 
