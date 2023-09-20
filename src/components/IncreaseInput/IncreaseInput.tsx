@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ArrayPath,
   Controller,
+  FieldArray,
   FieldValues,
   Path,
   useFieldArray,
@@ -23,15 +24,15 @@ export const IncreaseInput = <T extends FieldValues>({
   label,
   placeholder,
 }: IncreateInputProps<T>) => {
-  const { control, setValue } = useFormContext<T>();
-  const { fields, append, replace } = useFieldArray({
+  const { control } = useFormContext<T>();
+  const { fields, append, update } = useFieldArray({
     control,
     name: valuePayload,
   });
 
   const addInput = () => {
     if (fields.length < 3) {
-      append({ link: '' } as any);
+      append({ link: '' } as FieldArray<T, ArrayPath<T>>);
     }
   };
 
@@ -40,18 +41,19 @@ export const IncreaseInput = <T extends FieldValues>({
       <div className={styles.formItemContainer}>
         <p className={styles.formLabel}>{label}</p>
         <div className={styles.inputWithButtonContainer}>
-          {fields.map((item: any, index) => (
+          {fields.map((item: any, index: number) => (
             <div key={index}>
               <Controller
-                name={`${valuePayload}[${index}].link` as Path<T>}
+                name={`${valuePayload}[${index}][link]` as Path<T>}
                 control={control}
                 defaultValue={item.link}
                 render={({ field }) => (
                   <input
+                    type={type}
                     {...field}
                     onBlur={e => {
                       field.onBlur();
-                      // replace(index, { link: e.target.value });
+                      update(index, { link: e.target.value } as FieldArray<T, ArrayPath<T>>);
                     }}
                   />
                 )}
