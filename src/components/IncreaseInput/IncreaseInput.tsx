@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 import {
   ArrayPath,
@@ -8,6 +9,8 @@ import {
   useFieldArray,
   useFormContext,
 } from 'react-hook-form';
+
+import PlusCircle from '@/images/plus-circle.svg';
 
 import styles from './IncreateInput.module.scss';
 
@@ -42,28 +45,29 @@ export const IncreaseInput = <T extends FieldValues>({
         <p className={styles.formLabel}>{label}</p>
         <div className={styles.inputWithButtonContainer}>
           {fields.map((item: any, index: number) => (
-            <div key={index}>
-              <Controller
-                name={`${valuePayload}[${index}][link]` as Path<T>}
-                control={control}
-                defaultValue={item.link}
-                render={({ field }) => (
-                  <input
-                    type={type}
-                    {...field}
-                    onBlur={e => {
-                      field.onBlur();
-                      update(index, { link: e.target.value } as FieldArray<T, ArrayPath<T>>);
-                    }}
-                  />
-                )}
-              />
-            </div>
+            <Controller
+              key={index}
+              name={`${valuePayload}[${index}][link]` as Path<T>}
+              control={control}
+              defaultValue={item.link}
+              render={({ field }) => (
+                <input
+                  className={styles.input}
+                  placeholder="나를 소개할 수 있는 링크 (SNS, 블로그, 웹소설 등)"
+                  type={type}
+                  {...field}
+                  onBlur={e => {
+                    field.onBlur();
+                    update(index, { link: e.target.value } as FieldArray<T, ArrayPath<T>>);
+                  }}
+                />
+              )}
+            />
           ))}
         </div>
       </div>
-      <button type="button" onClick={addInput}>
-        +
+      <button type="button" className={styles.button} onClick={addInput}>
+        <Image src={PlusCircle} alt="plus" />
       </button>
     </div>
   );
