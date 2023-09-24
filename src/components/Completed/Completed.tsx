@@ -33,10 +33,12 @@ export const Completed = ({
         </div>
       </button>
       <button className={styles.actionsButton} type="button" onClick={handleRightButton}>
-        <div>{rightButtonLabel}</div>
-        {rightButtonDescription && (
-          <span className={styles.actionsButtonContentDescription}>{rightButtonDescription}</span>
-        )}
+        <div className={styles.actionsButtonContent}>
+          <span>{rightButtonLabel}</span>
+          {rightButtonDescription && (
+            <span className={styles.actionsButtonContentDescription}>{rightButtonDescription}</span>
+          )}
+        </div>
       </button>
     </div>
   </div>
