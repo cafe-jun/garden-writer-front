@@ -14,7 +14,7 @@ const FormInput = <T extends FieldValues>({
   validateSuccessMessage,
   label,
   placeholder,
-  validate = (value: string) => {
+  validate = (value: string): boolean => {
     if (regex !== undefined) return regex.test(value);
     return false;
   },
@@ -61,13 +61,16 @@ const FormInput = <T extends FieldValues>({
   }, []);
 
   const isRequired = useCallback(
-    (value: string) => value === '' && requiredMessage === undefined,
+    (value: string): boolean => value === '' && requiredMessage === undefined,
     []
   );
 
-  const handleBlurInputField = useCallback((triggerMethod: UseFormTrigger<T>, name: Path<T>) => {
-    triggerMethod(name);
-  }, []);
+  const handleBlurInputField = useCallback(
+    (triggerMethod: UseFormTrigger<T>, name: Path<T>): void => {
+      triggerMethod(name);
+    },
+    []
+  );
 
   return (
     <div className={styles.formItemContainer}>

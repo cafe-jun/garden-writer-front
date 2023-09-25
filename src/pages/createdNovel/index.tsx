@@ -5,10 +5,11 @@ import { Completed } from '@/components/Completed/Completed';
 import styles from './createdNovel.module.scss';
 
 const CreatedNovel = () => {
-  const handleLeftButton = () => {
+  const handleLeftButton = (): void => {
     console.log('handleLeftButton');
   };
-  const handleRightButton = () => {
+
+  const handleRightButton = (): void => {
     console.log('handleRightButton');
   };
 

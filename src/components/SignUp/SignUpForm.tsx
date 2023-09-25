@@ -21,7 +21,7 @@ const SignUpForm = () => {
   const emailButtonLabel = isDuplicated ? '중복 확인' : '인증 메일 발송';
   const emailValidateSuccessMessage = isDuplicated ? '' : '사용 가능한 이메일입니다.';
 
-  const handleEmailButton = () => {
+  const handleEmailButton = (): void => {
     if (isDuplicated) {
       setIsDuplicated(false);
     } else {

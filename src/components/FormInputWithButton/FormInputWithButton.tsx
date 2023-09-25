@@ -19,7 +19,7 @@ const FormInputWithButton = <T extends FieldValues>({
     if (regex !== undefined) return regex.test(value);
     return false;
   },
-  handleClickButton = () => {
+  handleClickButton = (): void => {
     console.log('click button');
   },
 }: FormInputWithButtonProps<T>) => {
