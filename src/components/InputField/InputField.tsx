@@ -1,6 +1,6 @@
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-import styles from './Form.module.scss';
+import styles from './InputField.module.scss';
 
 interface Props<T extends FieldValues> {
   type: string;
