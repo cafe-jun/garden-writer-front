@@ -7,6 +7,7 @@ import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/N
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { Select } from '@/components/Select/Select';
+import NovelPageHeaderBackground from '@/images/novel-page-header-background.png';
 
 import styles from './novel.module.scss';
 
@@ -60,6 +61,7 @@ const pageContentHeader = {
   title: '소설공방',
   description: '지금 바로 작가의 정원과 함께 소설을 연재해 보세요!',
   buttonTitle: '소설공방 개설',
+  backgroundImage: NovelPageHeaderBackground,
 };
 
 const NovelPage = () => {
@@ -93,6 +95,7 @@ const NovelPage = () => {
         description={pageContentHeader.description}
         buttonTitle={pageContentHeader.buttonTitle}
         handleButton={handleCreateNovelButton}
+        backgroundImage={pageContentHeader.backgroundImage}
       />
 
       <main className={styles.main}>
