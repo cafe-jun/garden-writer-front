@@ -5,6 +5,7 @@ import { InformationTextType } from '@/components/InformationText/type';
 import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
 import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/NovelTable/type';
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
+import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { Select } from '@/components/Select/Select';
 
 import styles from './novel.module.scss';
@@ -55,6 +56,12 @@ export const novelTabs = ['참여중', '미참여'];
 
 export const novelFilters = ['최신순', '오래된순'];
 
+const pageContentHeader = {
+  title: '소설공방',
+  description: '지금 바로 작가의 정원과 함께 소설을 연재해 보세요!',
+  buttonTitle: '소설공방 개설',
+};
+
 const NovelPage = () => {
   const [currentTab, setCurrentTab] = useState<string>(novelTabs[0]);
   const [filter, setFilter] = useState<string>(novelFilters[0]);
@@ -81,19 +88,12 @@ const NovelPage = () => {
 
   return (
     <div>
-      <header className={styles.header}>
-        <div className={styles.headerContents}>
-          <div className={styles.headerTextWrap}>
-            <h2 className={styles.headerTitle}>소설공방</h2>
-            <p className={styles.headerDescription}>
-              지금 바로 작가의 정원과 함께 소설을 연재해 보세요!
-            </p>
-          </div>
-          <button type="button" className={styles.headerButton} onClick={handleCreateNovelButton}>
-            소설공방 개설
-          </button>
-        </div>
-      </header>
+      <PageContentHeader
+        title={pageContentHeader.title}
+        description={pageContentHeader.description}
+        buttonTitle={pageContentHeader.buttonTitle}
+        handleButton={handleCreateNovelButton}
+      />
 
       <main className={styles.main}>
         <div>
