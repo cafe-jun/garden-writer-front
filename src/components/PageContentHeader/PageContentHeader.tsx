@@ -7,7 +7,7 @@ const PageContentHeader = ({ children, backgroundImage }: PageContentHeaderProps
   <header className={styles.header}>
     <div
       className={styles.headerBackground}
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{ backgroundImage: `url(${backgroundImage.src})` }}
     />
     <div className={styles.headerContents}>{children}</div>
   </header>

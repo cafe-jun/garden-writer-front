@@ -1,0 +1,18 @@
+@import '../../styles/value.scss';
+
+.headerTextWrap {
+    .headerBadge {
+        font-size: $s20px;
+        font-weight: 700;
+        color: $blue-3;
+    }
+    .headerTitle {
+        font-size: $s32px;
+        font-weight: 700;
+        color: $white-1;
+    }
+    .headerDescription {
+        font-size: s16px;
+        color: $white-1;
+    }
+}
