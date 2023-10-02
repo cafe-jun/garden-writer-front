@@ -90,13 +90,17 @@ const NovelPage = () => {
 
   return (
     <div>
-      <PageContentHeader
-        title={pageContentHeader.title}
-        description={pageContentHeader.description}
-        buttonTitle={pageContentHeader.buttonTitle}
-        handleButton={handleCreateNovelButton}
-        backgroundImage={pageContentHeader.backgroundImage}
-      />
+      <PageContentHeader backgroundImage={pageContentHeader.backgroundImage}>
+        <>
+          <div className={styles.headerTextWrap}>
+            <h2 className={styles.headerTitle}>{pageContentHeader.title}</h2>
+            <p className={styles.headerDescription}>{pageContentHeader.description}</p>
+          </div>
+          <button type="button" className={styles.headerButton} onClick={handleCreateNovelButton}>
+            {pageContentHeader.buttonTitle}
+          </button>
+        </>
+      </PageContentHeader>
 
       <main className={styles.main}>
         <div>
