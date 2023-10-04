@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
@@ -51,6 +51,24 @@ const RecruitmentPage = () => {
   const handleNovelFilter = (selectedItem: string) => {
     setFilter(selectedItem);
   };
+
+  useEffect(() => {
+    let filteredRecruitmentTableData = [];
+
+    if (filter === '전체') {
+      filteredRecruitmentTableData = recruitment;
+    } else if (filter === '모집중') {
+      filteredRecruitmentTableData = recruitment.filter(
+        recruitmentTableRow => recruitmentTableRow.status === RecruitmentTableStatus.active
+      );
+    } else {
+      filteredRecruitmentTableData = recruitment.filter(
+        recruitmentTableRow => recruitmentTableRow.status === RecruitmentTableStatus.completed
+      );
+    }
+
+    setRecruitmentTableData([...filteredRecruitmentTableData]);
+  }, [filter]);
 
   return (
     <div>
