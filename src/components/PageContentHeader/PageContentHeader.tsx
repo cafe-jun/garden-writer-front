@@ -12,4 +12,5 @@ const PageContentHeader = ({ children, backgroundImage }: PageContentHeaderProps
     <div className={styles.headerContents}>{children}</div>
   </header>
 );
+
 export default PageContentHeader;

@@ -1,17 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
+import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
+import { RecruitmentTable, RecruitmentTableStatus } from '@/components/RecruitmentTable/type';
+import { Select } from '@/components/Select/Select';
 import RecruitmentPageHeaderBackground from '@/images/recruitment-page-header-background.png';
 
-import styles from './recruitment.module.scss';
+import styles from './Recruitment.module.scss';
+
+export const recruitmentFilters = ['전체', '모집중', '모집완료'];
+
+export const pageContentHeader = {
+  badge: '작가 참여',
+  title: '혼자 글을 쓰는게 힘드시진 않으신가요?',
+  description: '나와 같은 생각을 가진 작가분들과 함께 이야기를 만들어보세요.',
+  backgroundImage: RecruitmentPageHeaderBackground,
+};
+
+export const recruitment = [
+  {
+    id: 'adasdf',
+    novelTitle: '재벌집 막내아들',
+    title: '같이 작성하실 분',
+    admin: 'Ayaan',
+    created: '2023-05-02',
+    status: RecruitmentTableStatus.active,
+    count: 299,
+    like: 10,
+    attend_users_number: 2,
+    user_limit: 5,
+  },
+  {
+    id: 'hdfgdfg',
+    novelTitle: '전지적 독자 시점',
+    title: '연재 고고~',
+    admin: 'Ayaan',
+    created: '2023-01-21',
+    status: RecruitmentTableStatus.completed,
+    count: 99999,
+    like: 130,
+    attend_users_number: 5,
+    user_limit: 5,
+  },
+];
 
 const RecruitmentPage = () => {
-  const pageContentHeader = {
-    badge: '작가 참여',
-    title: '혼자 글을 쓰는게 힘드시진 않으신가요?',
-    description: '나와 같은 생각을 가진 작가분들과 함께 이야기를 만들어보세요.',
-    backgroundImage: RecruitmentPageHeaderBackground,
+  const [filter, setFilter] = useState<string>(recruitmentFilters[1]);
+  const [recruitmentTableData, setRecruitmentTableData] = useState<RecruitmentTable[]>(recruitment);
+
+  const handleNovelFilter = (selectedItem: string) => {
+    setFilter(selectedItem);
   };
+
   return (
     <div>
       <PageContentHeader backgroundImage={pageContentHeader.backgroundImage}>
@@ -22,7 +62,18 @@ const RecruitmentPage = () => {
         </div>
       </PageContentHeader>
 
-      <main />
+      <main className={styles.main}>
+        <div className={styles.recruitmentContainer}>
+          <div className={styles.recruitmentHeader}>
+            <Select
+              selectedItem={filter}
+              options={recruitmentFilters}
+              handleSelectedItem={handleNovelFilter}
+            />
+          </div>
+          <Table tableData={recruitmentTableData} />
+        </div>
+      </main>
     </div>
   );
 };
