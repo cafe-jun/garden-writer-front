@@ -1,0 +1,457 @@
+@import '../../../styles/value.scss';
+
+.mainBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: url('../../../images/back-image.svg');
+    background-size: cover;
+
+    .mainBody_content {
+        display: flex;
+        flex-direction: row;
+        width: 1300px;
+        overflow: visible;
+
+        .mainBody_content_column {
+            display: flex;
+            flex-direction: column;
+            width: $s996px;
+
+            margin-left: $s40px;
+
+            .mainBody_tab {
+                margin-top: $s16px;
+            }
+
+            .mainBody_content_title {
+                display: flex;
+                width: 100%;
+                min-height: 56px;
+
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.50);
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+
+                padding: $s16px $s32px $s16px $s32px;
+
+                .content_status {
+                    color: $back-1;
+                    text-align: center;
+                    font-size: $s16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                }
+
+                .content_row {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-end;
+
+                    .content_text {
+                        color: $back-1;
+                        font-size: $s18px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+
+                        margin-right: $s24px;
+                    }
+
+                }
+
+                &.on {
+                    background: $white-1;
+                }
+            }
+
+            .main {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                margin-top: $s8px;
+
+                .writingNovel_textarea {
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: $s10px;
+                    background: $white-1;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+                    width: 100%;
+                    height: $s560px;
+
+                    margin-top: $s16px;
+
+                    padding-top: $s16px;
+                    padding-bottom: $s16px;
+                }
+
+                .writingNovel_topBar {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    width: 100%;
+
+                    border-radius: $s10px;
+                    background: $white-1;
+                    box-shadow: 0px $s4px $s4px 0px rgba(0, 0, 0, 0.25);
+                    padding: $s18px $s32px $s18px $s32px;
+
+                    .writingNovel_row {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+
+                        .writingNovel_Title {
+                            color: $back-1;
+                            font-size: $s16px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                            border: none;
+                            outline: none;
+                            width: fit-content;
+                        }
+
+                        .writingNovel_modify {
+                            display: flex;
+                            width: $s52px;
+                            height: $s16px;
+                            border-radius: $s100px;
+                            background-color: $blue-3;
+                            border: none;
+
+                            color: $white-1;
+                            text-align: center;
+                            font-size: $s8px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+
+                            align-items: center;
+                            justify-content: center;
+
+                            cursor: pointer;
+                        }
+
+
+
+                    }
+
+                    .writingNovel_status {
+                        display: flex;
+                        color: $back-1;
+                        height: fit-content;
+                        text-align: center;
+                        font-size: $s16px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                    }
+                }
+
+                .main_list {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    border-radius: 0px 0px 10px 10px;
+                    background-color: rgba(255, 255, 255, 0.50);
+
+
+
+                    .main_list_selectBar {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+
+                        .mainList {
+                            display: flex;
+                            width: $s90px;
+                            height: $s30px;
+
+                            border-radius: 100px;
+                            background: rgba(255, 255, 255, 0.50);
+                            align-items: center;
+                            justify-content: center;
+
+                            margin-top: $s16px;
+                            margin-left: $s24px;
+                        }
+
+                        .main_list_goPost {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: none;
+
+                            width: $s216px;
+                            height: $s36px;
+                            border-radius: $s200px;
+                            background-color: $white-1;
+
+                            margin: $s13px $s24px 0px auto;
+
+                            cursor: pointer;
+
+                            color: $blue-3;
+                            font-size: $s12px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+
+                        }
+                    }
+
+                    .main_list_columnName {
+                        display: flex;
+                        width: 100%;
+                        height: $s48px;
+                        flex-direction: row;
+                        align-items: center;
+
+                        .main_list_episode,
+                        .main_list_title,
+                        .main_list_finalRetouchDate,
+                        .main_list_status,
+                        .main_list_serialApprovalDate,
+                        .main_list_views,
+                        .main_list_commnents,
+                        .main_list_likes {
+                            display: flex;
+                            height: $s48px;
+                            align-items: center;
+                            justify-content: center;
+
+                            color: $back-1;
+                            text-align: center;
+                            font-size: $s14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+                        .main_list_title,
+                        .main_list_finalRetouchDate,
+                        .main_list_status,
+                        .main_list_serialApprovalDate,
+                        .main_list_views,
+                        .main_list_commnents,
+                        .main_list_likes {
+                            margin-left: $s12px;
+                        }
+
+                        .main_list_episode {
+                            width: $s48px;
+                            margin-left: $s84px;
+                        }
+
+                        .main_list_title {
+                            width: $s160px;
+                        }
+
+                        .main_list_finalRetouchDate {
+                            width: $s120px;
+                        }
+
+                        .main_list_status {
+                            width: $s118px;
+                        }
+
+                        .main_list_serialApprovalDate {
+                            width: $s118px;
+                        }
+
+                        .main_list_views {
+                            width: $s60px;
+                        }
+
+                        .main_list_commnents {
+                            width: $s60px;
+                        }
+
+                        .main_list_likes {
+                            width: $s60px;
+                        }
+                    }
+
+                    .main_writerlist_columnName {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        width: 100%;
+                        background: rgba(255, 255, 255, 0.50);
+
+                        &.mt8 {
+                            margin-top: $s8px;
+                        }
+
+                        .main_writerlist_Number,
+                        .main_writerlist_nickName,
+                        .main_writerlist_textAmount,
+                        .main_writerlist_dateForParticipation,
+                        .main_writerlist_approvalStatus,
+                        .main_writerlist_exitDate,
+                        .main_writerlist_participationStatus {
+                            display: flex;
+                            height: $s48px;
+
+                            align-items: center;
+                            justify-content: center;
+
+                            color: $back-1;
+                            text-align: center;
+                            font-size: $s14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+                        .main_writerlist_Number {
+                            width: $s48px;
+                            margin-left: $s40px;
+                        }
+
+                        .main_writerlist_nickName {
+                            width: $s160px;
+                        }
+
+                        .main_writerlist_textAmount {
+                            width: $s120px;
+                        }
+
+                        .main_writerlist_dateForParticipation {
+                            width: $s96px;
+                        }
+
+                        .main_writerlist_approvalStatus {
+                            width: $s118px;
+                        }
+
+                        .main_writerlist_exitDate {
+                            width: $s118px;
+                        }
+
+                        .main_writerlist_participationStatus {
+                            width: $s80px;
+                        }
+                    }
+
+                }
+
+                .main_imgAndTextBox {
+                    display: flex;
+                    flex-direction: row;
+
+
+                    // 임시
+                    .img {
+                        width: 270px;
+                        height: 202px;
+                        background-color: red;
+                    }
+
+                    .main_textColumn {
+                        display: flex;
+                        flex-direction: column;
+
+                        .main_tagBox {
+                            display: flex;
+                            width: $s718px;
+                            height: 56px;
+
+                            margin-left: $s8px;
+                            margin-top: $s8px;
+
+                            padding: $s14px $s32px $s14px $s32px;
+
+                            border-radius: 10px;
+                            background: rgba(255, 255, 255, 0.50);
+
+                            flex-direction: row;
+                            justify-content: space-between;
+
+                            align-items: center;
+
+                            &.mdf {
+                                background-color: $white-1;
+
+                                .main_tagBox_tag {
+                                    background-color: $gray-1;
+                                }
+
+                                .main_tag_date {
+                                    color: $gray-7;
+                                }
+                            }
+
+                            .main_tag_flexWrap {
+                                display: flex;
+                                flex-wrap: wrap;
+                                flex-direction: row;
+                            }
+
+                            .main_tagBox_tag {
+                                display: flex;
+                                padding: $s5px $s18px $s5px $s18px;
+                                background-color: $white-1;
+                                border-radius: $s8px;
+                                margin-right: $s8px;
+
+                                color: #333;
+                                text-align: center;
+                                font-size: $s12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+
+                            .main_tag_date {
+                                color: $blue-1;
+                                text-align: center;
+                                font-size: $s8px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+                        }
+                    }
+                }
+
+                .main_infoModifyBtn {
+                    display: flex;
+                    width: $s200px;
+                    height: $s48px;
+                    border: none;
+                    border-radius: $s200px;
+                    background-color: rgba(255, 255, 255, 0.80);
+                    align-items: center;
+                    justify-content: center;
+
+                    align-self: center;
+
+                    margin-top: $s32px;
+
+                    color: $blue-1;
+                    text-align: center;
+                    font-size: $s14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
