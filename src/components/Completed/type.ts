@@ -1,6 +1,7 @@
+import React from 'react';
+
 export interface CompletedProps {
-  title: string;
-  description: string;
+  children: React.ReactNode;
   leftButtonLabel: string;
   rightButtonLabel: string;
   leftButtonDescription?: string;
