@@ -15,6 +15,10 @@
 
     cursor: pointer;
 
+    &.moving {
+        opacity: 0.4;
+    }
+
     .item_name {
         color: $back-1;
         font-size: $s14px;

@@ -1,5 +1,21 @@
-import { closestCenter, DndContext } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  KeyboardSensor,
+  PointerSensor,
+  UniqueIdentifier,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+// import { restrictToVerticalAxis } from '@dnd-kit/modifiers'; //uninstall but, interesting information
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { ReactElement, useId, useState } from 'react';
 
 import DndItem from '../DndItem/DndItem';
@@ -10,10 +26,26 @@ export default function WriterManagerBox({
   data,
   handleDragEnd,
 }: WriterManagerBoxProps): ReactElement {
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
   const [modifyMode, setModifyMode] = useState<boolean>(false);
   const id: string = useId();
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   return (
-    <DndContext id={id} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+    <DndContext
+      sensors={sensors}
+      id={id}
+      collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragEnd={(e: DragEndEvent) => {
+        setActiveId(null);
+        handleDragEnd(e);
+      }}
+    >
       <div className={st.column}>
         <div className={st.box}>
           <div className={st.box_title}>참여작가(3/5)</div>
@@ -23,9 +55,15 @@ export default function WriterManagerBox({
             strategy={verticalListSortingStrategy}
           >
             {data.map((item: string) => (
-              <DndItem disabled={!modifyMode} id={item} key={item} />
+              // 마우스가 드래그를 하면 마우스를 따라오는 것이 아닌 드래그 아이템이 놓아질 위치에 그려지는 element
+              <DndItem overlayMode={false} disabled={!modifyMode} id={item} key={item} />
             ))}
           </SortableContext>
+
+          {/* 마우스가 드래그를 시작하면 마우스를 따라오는 오버레이 element */}
+          <DragOverlay dropAnimation={null}>
+            {activeId ? <DndItem overlayMode={false} disabled={!modifyMode} id={activeId} /> : null}
+          </DragOverlay>
 
           {!modifyMode ? (
             <button onClick={doModify} className={st.box_button} type="button">
@@ -55,5 +93,11 @@ export default function WriterManagerBox({
   }
   function doModify() {
     setModifyMode(true);
+  }
+  function handleDragStart(event: DragStartEvent) {
+    if (!event) {
+      setActiveId(null);
+    }
+    setActiveId(event.active.id);
   }
 }

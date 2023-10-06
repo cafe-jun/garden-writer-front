@@ -2,12 +2,14 @@ import { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { ReactElement, useState } from 'react';
 
+import CusSelectBox from '@/components/CusSelectBox/CusSelectBox';
 import EpisodeListOneRow from '@/components/EpisodeListOneRow/EpisodeListOneRow';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
 import PaginationBar from '@/components/PaginationBar/PaginationBar';
 import ScrollTextBox from '@/components/ScrollTextBox/ScrollTextBox';
 import WriteChat from '@/components/WriteChat/WirteChat';
+import WriteChatSendBox from '@/components/WriteChatSendBox/WriteChatSendBox';
 import WriterListOneRow from '@/components/WriterListOneRow/WriterListOneRow';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
 
@@ -24,6 +26,8 @@ export default function WriteDetail(): ReactElement {
   const [currentTap, setCurrentTap] = useState(tabList[0]);
 
   const [modityMode, setModifyMode] = useState<boolean>(false);
+
+  const [selectListData, setSelectListData] = useState<string[]>(['첫화부터', '마지막화부터']);
 
   // const docParser = new DOMParser();
   const htmlStr =
@@ -114,7 +118,7 @@ export default function WriteDetail(): ReactElement {
               <div className={st.main_list}>
                 {/* select bar가 있는 영역 start */}
                 <div className={st.main_list_selectBar}>
-                  <div className={st.mainList}>asdf</div>
+                  <CusSelectBox data={selectListData} />
                 </div>
                 {/* select bar가 있는 영역 end */}
 
@@ -161,6 +165,8 @@ export default function WriteDetail(): ReactElement {
                   <WriteChat key={i} />
                 ))}
               </div>
+
+              <WriteChatSendBox />
             </div>
           ) : null}
 
@@ -169,7 +175,7 @@ export default function WriteDetail(): ReactElement {
               <div className={st.main_list}>
                 {/* select bar가 있는 영역 start */}
                 <div className={st.main_list_selectBar}>
-                  <div className={st.mainList}>asdf</div>
+                  <CusSelectBox data={selectListData} />
 
                   <button type="button" className={st.main_list_goPost}>
                     작가 모집글 보러가기
@@ -209,6 +215,7 @@ export default function WriteDetail(): ReactElement {
 
   function handleCurrentTab(tab: string): void {
     setCurrentTap(tab);
+    setModifyMode(false);
   }
 
   function handleDragEnd(event: DragEndEvent): void {

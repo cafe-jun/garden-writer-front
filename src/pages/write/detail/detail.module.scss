@@ -86,7 +86,7 @@
                     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
                     width: 100%;
-                    height: $s560px;
+                    height: $s500px;
 
                     margin-top: $s16px;
 
@@ -174,20 +174,6 @@
                         display: flex;
                         flex-direction: row;
                         justify-content: space-between;
-
-                        .mainList {
-                            display: flex;
-                            width: $s90px;
-                            height: $s30px;
-
-                            border-radius: 100px;
-                            background: rgba(255, 255, 255, 0.50);
-                            align-items: center;
-                            justify-content: center;
-
-                            margin-top: $s16px;
-                            margin-left: $s24px;
-                        }
 
                         .main_list_goPost {
                             display: flex;

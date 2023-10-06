@@ -45,6 +45,8 @@
         padding-bottom: $s24px;
 
 
+
+
         .btn_panel_label {
             display: flex;
             flex-direction: row;
@@ -53,6 +55,8 @@
             width: $s121px;
             margin-left: $s16px;
             margin-top: $s22px;
+
+            cursor: pointer;
 
             input {
                 width: $s24px;

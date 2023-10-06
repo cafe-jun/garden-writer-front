@@ -13,13 +13,7 @@ export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
       장르이름
       <Image src={bottomArrow} alt="소설 장르 선택 패널 열기 아이콘" />
       {openPenel ? (
-        <div
-          role="presentation"
-          className={st.btn_panel}
-          onClick={event => {
-            event.stopPropagation();
-          }}
-        >
+        <div className={st.btn_panel}>
           {[
             '11111',
             '2222',
