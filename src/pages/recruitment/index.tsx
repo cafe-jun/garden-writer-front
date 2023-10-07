@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
+import PaginationBar from '@/components/PaginationBar/PaginationBar';
 import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
 import { RecruitmentTable, RecruitmentTableStatus } from '@/components/RecruitmentTable/type';
 import { Select } from '@/components/Select/Select';
@@ -91,6 +92,8 @@ const RecruitmentPage = () => {
           </div>
           <Table tableData={recruitmentTableData} />
         </div>
+
+        <PaginationBar />
       </main>
     </div>
   );
