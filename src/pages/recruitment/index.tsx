@@ -18,11 +18,15 @@ export const pageContentHeader = {
   backgroundImage: RecruitmentPageHeaderBackground,
 };
 
-export const recruitment = [
+export const recruitment: RecruitmentTable[] = [
   {
     id: 'adasdf',
     novelTitle: '재벌집 막내아들',
     title: '같이 작성하실 분',
+    description: `소설 함께 쓰실 분 모집합니다!
+    평일 중 3일 정도는 시간나시는 분 구하고 있어요~
+    완료 목표는 올해 12월 입니다!
+    오픈 채팅으로 연락 주세요!`,
     admin: 'Ayaan',
     created: '2023-05-02',
     status: RecruitmentTableStatus.active,
@@ -30,11 +34,13 @@ export const recruitment = [
     like: 10,
     attend_users_number: 2,
     user_limit: 5,
+    openChatUrl: 'https://open.kakao.com/123123123123',
   },
   {
     id: 'hdfgdfg',
     novelTitle: '전지적 독자 시점',
     title: '연재 고고~',
+    description: '',
     admin: 'Ayaan',
     created: '2023-01-21',
     status: RecruitmentTableStatus.completed,
@@ -42,6 +48,7 @@ export const recruitment = [
     like: 130,
     attend_users_number: 5,
     user_limit: 5,
+    openChatUrl: '',
   },
 ];
 

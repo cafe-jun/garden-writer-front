@@ -6,6 +6,7 @@ export interface RecruitmentTable {
   id: string;
   novelTitle: string;
   title: string;
+  description: string;
   admin: string;
   created: string;
   status: RecruitmentTableStatus;
@@ -13,6 +14,7 @@ export interface RecruitmentTable {
   like: number;
   attend_users_number: number;
   user_limit: number;
+  openChatUrl: string;
 }
 
 export enum RecruitmentTableStatus {
