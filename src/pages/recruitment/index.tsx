@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
@@ -7,7 +8,7 @@ import { RecruitmentTable, RecruitmentTableStatus } from '@/components/Recruitme
 import { Select } from '@/components/Select/Select';
 import RecruitmentPageHeaderBackground from '@/images/recruitment-page-header-background.png';
 
-import styles from './Recruitment.module.scss';
+import styles from './recruitment.module.scss';
 
 export const recruitmentFilters = ['전체', '모집중', '모집완료'];
 
@@ -53,11 +54,16 @@ export const recruitment: RecruitmentTable[] = [
 ];
 
 const RecruitmentPage = () => {
+  const router = useRouter();
   const [filter, setFilter] = useState<string>(recruitmentFilters[1]);
   const [recruitmentTableData, setRecruitmentTableData] = useState<RecruitmentTable[]>(recruitment);
 
-  const handleNovelFilter = (selectedItem: string) => {
+  const handleNovelFilter = (selectedItem: string): void => {
     setFilter(selectedItem);
+  };
+
+  const handleTableItem = (tableItem: RecruitmentTable): void => {
+    router.push(`/recruitment/detail/${tableItem.id}`);
   };
 
   useEffect(() => {
@@ -97,7 +103,7 @@ const RecruitmentPage = () => {
               handleSelectedItem={handleNovelFilter}
             />
           </div>
-          <Table tableData={recruitmentTableData} />
+          <Table tableData={recruitmentTableData} handleTableItem={handleTableItem} />
         </div>
 
         <PaginationBar />

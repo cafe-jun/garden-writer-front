@@ -1,5 +1,6 @@
 export interface RecruitmentTableProps {
-  tableData: RecruitmentTable[];
+  tableData?: RecruitmentTable[];
+  handleTableItem: (tableItem: RecruitmentTable) => void;
 }
 
 export interface RecruitmentTable {
