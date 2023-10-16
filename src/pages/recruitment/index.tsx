@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import PaginationBar from '@/components/PaginationBar/PaginationBar';
@@ -7,6 +8,7 @@ import { RecruitmentTable as Table } from '@/components/RecruitmentTable/Recruit
 import { RecruitmentTable, RecruitmentTableStatus } from '@/components/RecruitmentTable/type';
 import { Select } from '@/components/Select/Select';
 import RecruitmentPageHeaderBackground from '@/images/recruitment-page-header-background.png';
+import SearchIcon from '@/images/search-icon.svg';
 
 import styles from './recruitment.module.scss';
 
@@ -57,6 +59,7 @@ const RecruitmentPage = () => {
   const router = useRouter();
   const [filter, setFilter] = useState<string>(recruitmentFilters[1]);
   const [recruitmentTableData, setRecruitmentTableData] = useState<RecruitmentTable[]>(recruitment);
+  const [search, setSearch] = useState<string>('');
 
   const handleNovelFilter = (selectedItem: string): void => {
     setFilter(selectedItem);
@@ -64,6 +67,24 @@ const RecruitmentPage = () => {
 
   const handleTableItem = (tableItem: RecruitmentTable): void => {
     router.push(`/recruitment/detail/${tableItem.id}`);
+  };
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value);
+  };
+
+  const handleSubmitSearch = (): void => {
+    console.log(search);
+  };
+
+  const handleEnterSearch = (e: KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      handleSubmitSearch();
+    }
+  };
+
+  const handleClickSearchButton = (): void => {
+    handleSubmitSearch();
   };
 
   useEffect(() => {
@@ -96,6 +117,19 @@ const RecruitmentPage = () => {
 
       <main className={styles.main}>
         <div className={styles.recruitmentContainer}>
+          <div className={styles.recruitmentSearchContainer}>
+            <div className={styles.recruitmentSearchWrap}>
+              <input
+                value={search}
+                onChange={handleSearch}
+                onKeyDown={e => handleEnterSearch(e)}
+                placeholder="검색어를 입력해주세요."
+              />
+              <button type="button" onClick={handleClickSearchButton}>
+                <Image src={SearchIcon} alt="search" />
+              </button>
+            </div>
+          </div>
           <div className={styles.recruitmentHeader}>
             <Select
               selectedItem={filter}
