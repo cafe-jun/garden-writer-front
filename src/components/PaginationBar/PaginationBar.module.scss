@@ -60,6 +60,14 @@
     }
 }
 
+.paginationDark {
+    li {
+        a {
+            color: $gray-9;
+        }
+    }
+}
+
 .colorRed {
     color: $back-1 !important;
 }

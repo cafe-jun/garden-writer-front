@@ -3,9 +3,9 @@ import Pagination from 'react-js-pagination';
 
 import st from './PaginationBar.module.scss';
 
-export default function PaginationBar(): ReactElement {
+export default function PaginationBar({ type = 'white' }): ReactElement {
   return (
-    <div className={st.pagination}>
+    <div className={`${st.pagination} ${type === 'dark' && st.paginationDark}`}>
       <Pagination
         // 현재 보고있는 페이지
         activePage={3}

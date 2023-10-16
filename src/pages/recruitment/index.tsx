@@ -106,7 +106,7 @@ const RecruitmentPage = () => {
           <Table tableData={recruitmentTableData} handleTableItem={handleTableItem} />
         </div>
 
-        <PaginationBar />
+        <PaginationBar type="dark" />
       </main>
     </div>
   );
