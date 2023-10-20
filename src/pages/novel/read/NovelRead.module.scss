@@ -33,12 +33,13 @@
     }
 
     .novelText {
-        display: flex;
         width: $s996px;
         color: $white-1;
         font-size: $s20px;
         font-style: normal;
         font-weight: 500;
+
+        margin-top: $s72px;
     }
 
     .main_commentCount {
@@ -54,5 +55,7 @@
 
         border: solid 1px #ffffff44;
         border-width: 0px 0px 1px 0px;
+
+        margin-top: $s80px;
     }
 }
