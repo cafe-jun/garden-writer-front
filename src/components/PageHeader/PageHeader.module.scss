@@ -1,0 +1,31 @@
+@import '../../styles/value.scss';
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    font-size: $s16px;
+    color: $blue-1;
+
+    .headerLogo {
+        width: 30px;
+    }
+
+    a {
+        text-decoration: none;
+        &:visited, &:active {
+            color: $blue-1;
+        }
+    }
+
+    .headerLeftContents {
+        display: flex;
+        gap: 50px;
+        margin-left: 50px;
+    }
+    .headerRightContents {
+        display: flex;
+        gap: 50px;
+    }
+}
