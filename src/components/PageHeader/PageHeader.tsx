@@ -1,13 +1,17 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useMemo, useState } from 'react';
 
 import Logo from '@/images/login-logo.svg';
+import LogoWhite from '@/images/logo-white.svg';
+import SearchIconPrimary from '@/images/search-icon-primary.svg';
+import SearchIconWhite from '@/images/search-icon-white.svg';
 
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
+import { PageHeaderBackground, PageHeaderProps } from './type';
 
-export const PageHeader = () => {
+export const PageHeader = ({ background = PageHeaderBackground.original }: PageHeaderProps) => {
   const [search, setSearch] = useState<string>('');
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -18,9 +22,44 @@ export const PageHeader = () => {
     console.log('search');
   };
 
+  const searchStyle = useMemo((): string => {
+    switch (background) {
+      // eslint-disable-next-line default-case-last
+      default:
+      case PageHeaderBackground.original:
+        return styles.recruitmentSearchWrapOriginal;
+      case PageHeaderBackground.white:
+        return styles.recruitmentSearchWrapWhite;
+    }
+  }, []);
+
+  const searchIcon = useMemo((): StaticImageData => {
+    switch (background) {
+      // eslint-disable-next-line default-case-last
+      default:
+      case PageHeaderBackground.original:
+        return SearchIconPrimary;
+      case PageHeaderBackground.white:
+        return SearchIconWhite;
+    }
+  }, []);
+
+  const LogoIcon = useMemo((): StaticImageData => {
+    switch (background) {
+      // eslint-disable-next-line default-case-last
+      default:
+      case PageHeaderBackground.original:
+        return Logo;
+      case PageHeaderBackground.white:
+        return LogoWhite;
+    }
+  }, []);
+
   return (
-    <header className={styles.header}>
-      <Image className={styles.headerLogo} src={Logo} alt="logo" />
+    <header
+      className={`${styles.header} ${background === PageHeaderBackground.white && styles.white}`}
+    >
+      <Image className={styles.headerLogo} src={LogoIcon} alt="logo" />
       <div className={styles.headerLeftContents}>
         <Link href="/" replace={false} prefetch={false}>
           웹소설
@@ -36,6 +75,8 @@ export const PageHeader = () => {
         search={search}
         handleSearch={handleSearch}
         handleSubmitSearch={handleSubmitSearch}
+        style={searchStyle}
+        buttonIcon={searchIcon}
       />
       <div className={styles.headerRightContents}>
         <div>알림</div>

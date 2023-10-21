@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
+import { PageHeader } from '@/components/PageHeader/PageHeader';
 import PaginationBar from '@/components/PaginationBar/PaginationBar';
 import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
 import { RecruitmentTable, RecruitmentTableStatus } from '@/components/RecruitmentTable/type';
@@ -96,6 +97,7 @@ const RecruitmentPage = () => {
 
   return (
     <div>
+      <PageHeader background="white" />
       <PageContentHeader backgroundImage={pageContentHeader.backgroundImage}>
         <div className={styles.headerTextWrap}>
           <p className={styles.headerBadge}>{pageContentHeader.badge}</p>
