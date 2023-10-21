@@ -6,7 +6,13 @@ import SearchIcon from '@/images/search-icon.svg';
 import styles from './SearchInput.module.scss';
 import { SearchInputProps } from './type';
 
-export const SearchInput = ({ handleSearch, handleSubmitSearch, search }: SearchInputProps) => {
+export const SearchInput = ({
+  handleSearch,
+  handleSubmitSearch,
+  search,
+  style,
+  buttonIcon = SearchIcon,
+}: SearchInputProps) => {
   const handleEnterSearch = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       handleSubmitSearch();
@@ -17,7 +23,7 @@ export const SearchInput = ({ handleSearch, handleSubmitSearch, search }: Search
     handleSubmitSearch();
   };
   return (
-    <div className={styles.recruitmentSearchWrap}>
+    <div className={`${styles.recruitmentSearchWrap} ${style}`}>
       <input
         value={search}
         onChange={handleSearch}
@@ -25,7 +31,7 @@ export const SearchInput = ({ handleSearch, handleSubmitSearch, search }: Search
         placeholder="검색어를 입력해주세요."
       />
       <button type="button" onClick={handleClickSearchButton}>
-        <Image src={SearchIcon} alt="search" />
+        <Image src={buttonIcon} alt="search" />
       </button>
     </div>
   );
