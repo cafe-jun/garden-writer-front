@@ -14,6 +14,8 @@ import { PageHeaderBackground, PageHeaderProps } from './type';
 export const PageHeader = ({ background = PageHeaderBackground.original }: PageHeaderProps) => {
   const [search, setSearch] = useState<string>('');
 
+  const isDot = true;
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
   };
@@ -79,7 +81,7 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
         buttonIcon={searchIcon}
       />
       <div className={styles.headerRightContents}>
-        <div>알림</div>
+        <div className={isDot && styles.alarm}>알림</div>
         <Link href="/" replace={false} prefetch={false}>
           내정보
         </Link>

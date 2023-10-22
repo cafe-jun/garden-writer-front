@@ -32,6 +32,19 @@
     .headerRightContents {
         display: flex;
         gap: 50px;
+        .alarm {
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                top: -3px;
+                left: -8px;
+                width: 8px;
+                height: 8px;
+                background-color: $red-2;
+                border-radius: 50%;
+            }
+        }
     }
 
     &.white {
