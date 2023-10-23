@@ -7,14 +7,14 @@ import LogoWhite from '@/images/logo-white.svg';
 import SearchIconPrimary from '@/images/search-icon-primary.svg';
 import SearchIconWhite from '@/images/search-icon-white.svg';
 
+import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
 import { PageHeaderBackground, PageHeaderProps } from './type';
 
 export const PageHeader = ({ background = PageHeaderBackground.original }: PageHeaderProps) => {
   const [search, setSearch] = useState<string>('');
-
-  const isDot = true;
+  const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
@@ -22,6 +22,14 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
 
   const handleSubmitSearch = (): void => {
     console.log('search');
+  };
+
+  const handleVisibleAralm = (): void => {
+    setVisibleAlarm(prev => !prev);
+  };
+
+  const handleAlarmItem = (id: number): void => {
+    console.log(id);
   };
 
   const searchStyle = useMemo((): string => {
@@ -81,7 +89,11 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
         buttonIcon={searchIcon}
       />
       <div className={styles.headerRightContents}>
-        <div className={isDot && styles.alarm}>알림</div>
+        <Notice
+          visible={visibleAlarm}
+          handleVisible={handleVisibleAralm}
+          handleAlarmItem={handleAlarmItem}
+        />
         <Link href="/" replace={false} prefetch={false}>
           내정보
         </Link>
