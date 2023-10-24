@@ -71,9 +71,12 @@ export const Notice = ({ visible, handleVisible, handleAlarmItem }: NoticeProps)
                     className={`${styles.alarmItem} ${is_read && styles.read}`}
                   >
                     <div className={styles.alarmItemLeft}>
-                      <span>
-                        {user} 님이 {title} {actionDescription}
-                      </span>
+                      <div className={styles.alarmItemLeftTitleWrap}>
+                        <strong>{user}</strong>
+                        <span> 님이 </span>
+                        <strong className={styles.alarmItemLeftTitle}>{title}</strong>
+                        <span> {actionDescription}</span>
+                      </div>
                       {description && (
                         <span className={styles.alarmItemLeftDescription}>{description}</span>
                       )}

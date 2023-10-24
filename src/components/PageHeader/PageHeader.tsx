@@ -26,10 +26,17 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
 
   const handleVisibleAralm = (): void => {
     setVisibleAlarm(prev => !prev);
+    if (!visibleAlarm) {
+      readAlarm();
+    }
   };
 
   const handleAlarmItem = (id: number): void => {
     console.log(id);
+  };
+
+  const readAlarm = () => {
+    console.log('read api');
   };
 
   const searchStyle = useMemo((): string => {

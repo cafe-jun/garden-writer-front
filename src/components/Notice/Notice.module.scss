@@ -50,6 +50,16 @@
                     display: flex;
                     flex-direction: column;
                     width: 325px;
+                    .alarmItemLeftTitleWrap {
+                        display: flex;                        
+                        .alarmItemLeftTitle {
+                            display: block;
+                            max-width: 135px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
                     .alarmItemLeftDescription {
                         font-size: $s12px;
                     }
