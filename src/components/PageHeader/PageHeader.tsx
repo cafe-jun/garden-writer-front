@@ -12,7 +12,7 @@ import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
 import { PageHeaderBackground, PageHeaderProps } from './type';
 
-export const PageHeader = ({ background = PageHeaderBackground.original }: PageHeaderProps) => {
+export const PageHeader = ({ background }: PageHeaderProps) => {
   const [search, setSearch] = useState<string>('');
   const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
 
@@ -48,7 +48,7 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
       case PageHeaderBackground.white:
         return styles.recruitmentSearchWrapWhite;
     }
-  }, []);
+  }, [background]);
 
   const searchIcon = useMemo((): StaticImageData => {
     switch (background) {
@@ -59,7 +59,7 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
       case PageHeaderBackground.white:
         return SearchIconWhite;
     }
-  }, []);
+  }, [background]);
 
   const LogoIcon = useMemo((): StaticImageData => {
     switch (background) {
@@ -70,7 +70,7 @@ export const PageHeader = ({ background = PageHeaderBackground.original }: PageH
       case PageHeaderBackground.white:
         return LogoWhite;
     }
-  }, []);
+  }, [background]);
 
   return (
     <header

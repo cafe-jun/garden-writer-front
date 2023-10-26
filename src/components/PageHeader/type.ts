@@ -1,5 +1,5 @@
 export interface PageHeaderProps {
-  background?: string;
+  background: string;
 }
 
 export enum PageHeaderBackground {
