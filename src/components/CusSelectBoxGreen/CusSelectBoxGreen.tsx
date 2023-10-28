@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import { ReactElement, useState } from 'react';
 
-import colorBottomArrow from '@/images/color-bottom-arrow.svg';
+import colorBottomArrow from '@/images/green-bottom-arrow.svg';
 
-import st from './CusSelectBox.module.scss';
-import { CusSelectBoxProps } from './type';
+import st from './CusSelectBoxGreen.module.scss';
+import { CusSelectBoxGreenProps } from './type';
 
-export default function CusSelectBox({ data }: CusSelectBoxProps): ReactElement {
+export default function CusSelectBoxGreen({ data }: CusSelectBoxGreenProps): ReactElement {
   const [selectItem, setSelectItem] = useState<string>('선택된');
   const [show, setShow] = useState<boolean>(false);
   return (

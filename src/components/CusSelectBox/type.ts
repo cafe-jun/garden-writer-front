@@ -1,3 +1,3 @@
-export interface CusSelectBox {
+export interface CusSelectBoxProps {
   data: string[];
 }
