@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 
 import { InformationText } from '@/components/InformationText/InformationText';
@@ -7,6 +8,7 @@ import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/N
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { Select } from '@/components/Select/Select';
+import novelList from '@/fetch/get/novelList';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.png';
 
 import styles from './novel.module.scss';
@@ -69,6 +71,16 @@ const NovelPage = () => {
   const [filter, setFilter] = useState<string>(novelFilters[0]);
   const [currentNovelTableData, setCurrentNovelTableData] =
     useState<NovelTable[]>(activeNovelTableData);
+  const { mutate, status, data } = useMutation({
+    mutationKey: ['api/novelList'],
+    mutationFn: novelList,
+    onSuccess(data) {
+      console.log(data);
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
 
   const handleCurrentTab = (tab: string) => {
     if (currentTab === tab) return;
