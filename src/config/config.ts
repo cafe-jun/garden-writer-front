@@ -1,4 +1,10 @@
 export const config = {
+  apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
+  apiUrl: {
+    // 로그인 api
+    login: '/auth/login',
+    novelList: '/novel-room',
+  },
   categorys: [
     '일반소설',
     '로멘스/드라마',

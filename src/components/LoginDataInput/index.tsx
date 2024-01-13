@@ -7,10 +7,10 @@ import { LoginDataInputProps } from './type';
  *
  * @returns reactElement
  */
-export default function LoginDataInput(props: LoginDataInputProps): ReactElement {
+export default function LoginDataInput({ ...props }: LoginDataInputProps): ReactElement {
   return (
     <div className={`${st.container} ${st.mt18}`}>
-      <input placeholder={props.placeholder} disabled={false} />
+      <input {...props} disabled={false} />
       {props.isError ? <p>로그인 정보가 일치 하지 않습니다</p> : null}
     </div>
   );
