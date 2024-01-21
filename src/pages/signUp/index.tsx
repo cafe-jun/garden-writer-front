@@ -9,7 +9,7 @@ const SignUpPage = () => {
     password: '',
     passwordConfirm: '',
     nickname: '',
-    phoneNumber: '',
+    // phoneNumber: '',
     portfolios: [{ link: '' }],
   };
 

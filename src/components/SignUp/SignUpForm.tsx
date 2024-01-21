@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { emailRegex, nicknameRegex, passwordRegex, phoneNumberRegex } from '@/constants/regex';
+import { emailRegex, nicknameRegex, passwordRegex } from '@/constants/regex';
+import { useTimer } from '@/hooks/useTimer';
 
 import FormInput from '../FormInput/FormInput';
 import FormInputWithButton from '../FormInputWithButton/FormInputWithButton';
@@ -11,6 +12,11 @@ import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
+  const [isPushEmail, setIsPushEmail] = useState<boolean>(false);
+  const { time, isActive, startTimer, resetTimer } = useTimer({
+    initialTime: 600,
+    onTimerComplete: handleTimerComplete,
+  });
   const { formState, handleSubmit } = useFormContext<SignUpFormValues>();
   const { isDirty, isValid } = formState;
 
@@ -21,13 +27,34 @@ const SignUpForm = () => {
   const emailButtonLabel = isDuplicated ? '중복 확인' : '인증 메일 발송';
   const emailValidateSuccessMessage = isDuplicated ? '' : '사용 가능한 이메일입니다.';
 
+  function handleTimerComplete() {
+    setIsPushEmail(false);
+  }
+
   const handleEmailButton = (): void => {
+    if (isDuplicated) {
+      handleEmailDuplicatedButton();
+    } else {
+      handlePushEmailButton();
+    }
+  };
+
+  const handleCertificationNumberButton = (): void => {
+    console.log(true);
+  };
+
+  function handleEmailDuplicatedButton(): void {
     if (isDuplicated) {
       setIsDuplicated(false);
     } else {
       setIsDuplicated(true);
     }
-  };
+  }
+
+  function handlePushEmailButton(): void {
+    setIsPushEmail(true);
+    startTimer();
+  }
 
   return (
     <div className={styles.container}>
@@ -45,19 +72,30 @@ const SignUpForm = () => {
             validateErrorMessage="이메일 형식을 지켜주세요."
             validateSuccessMessage={emailValidateSuccessMessage}
             label="이메일"
+            disabled={!isDuplicated}
+            buttonDisabled={!isDuplicated && isPushEmail}
             placeholder="이메일"
             buttonLabel={emailButtonLabel}
             handleClickButton={handleEmailButton}
           />
-          <FormInputWithButton<SignUpFormValues>
-            valuePayload="certificationNumber"
-            requiredMessage="인증번호를 입력해주세요."
-            validateErrorMessage="인증번호가 일치하지 않습니다."
-            validateSuccessMessage="인증번호가 일치합니다."
-            label="인증번호"
-            placeholder="인증번호를 입력해주세요."
-            buttonLabel="확인하기"
-          />
+          <div className={styles.certificationNumberWrap}>
+            <FormInputWithButton<SignUpFormValues>
+              valuePayload="certificationNumber"
+              requiredMessage="인증번호를 입력해주세요."
+              validateErrorMessage="인증번호가 일치하지 않습니다."
+              validateSuccessMessage="인증번호가 일치합니다."
+              label="인증번호"
+              placeholder="인증번호를 입력해주세요."
+              buttonLabel="확인하기"
+              handleClickButton={handleCertificationNumberButton}
+              buttonDisabled={!isActive}
+            />
+            {isActive && (
+              <p className={styles.certificationNumberTimer}>
+                {Math.floor(time / 60)}:{time % 60}
+              </p>
+            )}
+          </div>
           <FormInput<SignUpFormValues>
             type="password"
             regex={passwordRegex}
@@ -90,14 +128,14 @@ const SignUpForm = () => {
         </div>
         <article className={styles.formContentsMore}>
           <h3 className={styles.subTitle}>추가정보(선택)</h3>
-          <FormInputWithButton<SignUpFormValues>
+          {/* <FormInputWithButton<SignUpFormValues>
             regex={phoneNumberRegex}
             valuePayload="phoneNumber"
             validateErrorMessage="- 제외한 숫자만 입력해주세요."
             label="휴대번호"
             placeholder="- 제외한 숫자만 입력 가능"
             buttonLabel="중복확인"
-          />
+          /> */}
           <IncreaseInput<SignUpFormValues>
             valuePayload="portfolios"
             label="작가 포트폴리오"

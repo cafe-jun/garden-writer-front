@@ -13,11 +13,13 @@ const FormInputWithButton = <T extends FieldValues>({
   validateErrorMessage,
   validateSuccessMessage,
   label,
+  disabled = false,
+  buttonDisabled = false,
   placeholder,
   buttonLabel,
   validate = (value: string) => {
     if (regex !== undefined) return regex.test(value);
-    return false;
+    return true;
   },
   handleClickButton = (): void => {
     console.log('click button');
@@ -36,13 +38,14 @@ const FormInputWithButton = <T extends FieldValues>({
       validateErrorMessage={validateErrorMessage}
       validateSuccessMessage={validateSuccessMessage}
       label={label}
+      disabled={disabled}
       placeholder={placeholder}
       validate={validate}
     >
       <button
         className={styles.inputButton}
         type="button"
-        disabled={!validate(inputFieldValue)}
+        disabled={!validate(inputFieldValue) || buttonDisabled}
         onClick={handleClickButton}
       >
         {buttonLabel}

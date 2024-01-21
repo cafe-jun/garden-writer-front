@@ -13,6 +13,7 @@ const FormInput = <T extends FieldValues>({
   validateErrorMessage,
   validateSuccessMessage,
   label,
+  disabled = false,
   placeholder,
   validate = (value: string): boolean => {
     if (regex !== undefined) return regex.test(value);
@@ -78,6 +79,7 @@ const FormInput = <T extends FieldValues>({
       <div className={styles.inputWithButtonContainer}>
         <InputField
           type={type}
+          disabled={disabled}
           name={valuePayload}
           placeholder={placeholder}
           register={register}

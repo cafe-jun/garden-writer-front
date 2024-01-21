@@ -4,7 +4,7 @@ interface SignUpFormValues {
   email: string;
   password: string;
   passwordConfirm: string;
-  phoneNumber: string;
+  // phoneNumber: string;
   certificationNumber: string;
   nickname: string;
   portfolios: Portfolio[];

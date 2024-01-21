@@ -9,6 +9,7 @@ export interface FormInputProps<T extends FieldValues> {
   validateErrorMessage?: string;
   validateSuccessMessage?: string;
   label: string;
+  disabled?: boolean;
   placeholder: string;
   validate?: (value: string) => boolean;
   children?: ReactNode;
