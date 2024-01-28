@@ -24,13 +24,13 @@ export const NovelTable = ({ tableData }: NovelTableProps) => (
           <td>{index + 1}</td>
           <td>{item.category}</td>
           <td>{item.title}</td>
-          <td>{item.created}</td>
-          <td>{item.completed}</td>
-          <td>{item.user_type}</td>
+          <td>{item.createdAt}</td>
+          <td>{item.completionAt}</td>
+          <td>{item.writerStatus}</td>
           <td>
-            {item.attend_users_number}/{item.user_limit}
+            {item.currentAttendCnt}/{item.currentWriterCnt}
           </td>
-          <td>{item.current_writer}</td>
+          <td>{item.id}</td>
           <td>{item.status}</td>
         </tr>
       ))}
