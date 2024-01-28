@@ -9,7 +9,9 @@ import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput'
 import OneLineInput from '@/components/OneLineInput/OneLineInput';
 import PeopleCount from '@/components/PeopleCount/PeopleCount';
 import WriterPeople from '@/components/WriterPeople/WrtierPeople';
+import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
 
+import CreatePost from '../post';
 import st from './info.module.scss';
 
 export default function WriteInfo(): ReactElement {
@@ -39,6 +41,13 @@ export default function WriteInfo(): ReactElement {
 
   // 북커버 리스트에서 이미지를 선택시 해당 변수에 이미지가 저장됨
   const [bookSrc, setBookScr] = useState<StaticImageData>();
+
+  const { setNovel, ...props } = useCreateNovelPost();
+
+  const [page, setPage] = useState<boolean>(false);
+  if (page) {
+    return <CreatePost />;
+  }
   return (
     <div className={st.container}>
       {/* 중앙 content box start */}
@@ -47,13 +56,48 @@ export default function WriteInfo(): ReactElement {
         <p className={st.text2}>작가들을 모집하고 새로운 세계관을 만들어보세요</p>
 
         {/* 여러명이 하는지 아님 개인이 하는지 */}
-        <WriterPeople onChange={setPeople} />
+        <WriterPeople
+          onChange={value => {
+            setPeople(value);
+            if (value === 1) {
+              setNovel({ type: 'group2' });
+            } else {
+              setNovel({ type: 'solo' });
+            }
+          }}
+        />
         {/* 여러명일 경우 인원선택 */}
-        {people === 1 ? <PeopleCount onChange={setPeopleCount} /> : null}
+        {people === 1 ? (
+          <PeopleCount
+            onChange={value => {
+              setPeopleCount(value);
+              switch (value) {
+                case 2:
+                  setNovel({ type: 'group2' });
+                  break;
+                case 3:
+                  setNovel({ type: 'group3' });
+                  break;
+                case 4:
+                  setNovel({ type: 'group4' });
+                  break;
+                case 5:
+                  setNovel({ type: 'group5' });
+                  break;
+                default:
+                  break;
+              }
+            }}
+          />
+        ) : null}
 
         {/* 제목 */}
         <OneLineInput
-          onChange={setTitle}
+          onChange={value => {
+            setNovel({
+              title: value,
+            });
+          }}
           style={{ marginTop: '60px' }}
           compulsory
           categoryText="제목"
@@ -65,7 +109,11 @@ export default function WriteInfo(): ReactElement {
 
         {/* 한줄 소개 */}
         <OneLineInput
-          onChange={setOneLine}
+          onChange={value => {
+            setNovel({
+              subTitle: value,
+            });
+          }}
           style={{ marginTop: '31px' }}
           compulsory
           categoryText="한줄 소개"
@@ -93,7 +141,9 @@ export default function WriteInfo(): ReactElement {
 
         {/* 등장인물 */}
         <MultipleLineInput
-          onChange={setActor}
+          onChange={value => {
+            setNovel({ actor: value });
+          }}
           style={{ marginTop: '55px' }}
           compulsory={false}
           categoryText="등장인물"
@@ -105,7 +155,9 @@ export default function WriteInfo(): ReactElement {
 
         {/* 줄거리 */}
         <MultipleLineInput
-          onChange={setSummary}
+          onChange={value => {
+            setNovel({ summary: value });
+          }}
           style={{ marginTop: '20px' }}
           compulsory={false}
           categoryText="줄거리"
@@ -120,7 +172,14 @@ export default function WriteInfo(): ReactElement {
         {/* 기본 북커버 이미지 리스트 */}
         <BookCoverList style={{ marginTop: '16px' }} selectImage={setBookScr} />
 
-        <button type="button" className={`${st.nextBtn} ${st.mt32}`}>
+        <button
+          type="button"
+          className={`${st.nextBtn} ${st.mt32}`}
+          onClick={() => {
+            setPage(true);
+            console.log(props);
+          }}
+        >
           다음
         </button>
       </div>
