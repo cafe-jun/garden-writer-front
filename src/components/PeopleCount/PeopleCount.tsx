@@ -18,7 +18,7 @@ export default function PeopleCount(props: PeopleCountProps): ReactElement {
         </label>
 
         <label className={st.inputBox}>
-          <input type="radio" name="count" onInput={() => props.onChange(2)} />
+          <input type="radio" name="count" onInput={() => props.onChange(3)} />
           <p className={st.ml16}>3명</p>
         </label>
       </div>
@@ -27,12 +27,12 @@ export default function PeopleCount(props: PeopleCountProps): ReactElement {
       {/* 두 번째 줄 start */}
       <div className={`${st.rowBox} ${st.mt32}`}>
         <label className={st.inputBox}>
-          <input type="radio" name="count" onInput={() => props.onChange(2)} />
+          <input type="radio" name="count" onInput={() => props.onChange(4)} />
           <p className={st.ml16}>4명</p>
         </label>
 
         <label className={st.inputBox}>
-          <input type="radio" name="count" onInput={() => props.onChange(2)} />
+          <input type="radio" name="count" onInput={() => props.onChange(5)} />
           <p className={st.ml16}>5명</p>
         </label>
       </div>

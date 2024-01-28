@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
 
 import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
 import st from './MultipleLineInput.module.scss';
@@ -18,7 +18,13 @@ export default function MultipleLineInput(props: MultipleLineInputProps): ReactE
       speechBubbleText={props.speechBubbleText}
     >
       <div className={st.container}>
-        <textarea placeholder={props.placeholder} className={st.inputBox} />
+        <textarea
+          placeholder={props.placeholder}
+          className={st.inputBox}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.onChange(event.target.value);
+          }}
+        />
         {props.isError ? <p>{props.errorText}</p> : null}
       </div>
     </WriteRoomCategory>
