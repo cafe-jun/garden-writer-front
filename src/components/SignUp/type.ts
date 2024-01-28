@@ -5,9 +5,9 @@ interface SignUpFormValues {
   password: string;
   passwordConfirm: string;
   // phoneNumber: string;
-  certificationNumber: string;
+  // certificationNumber: string;
   nickname: string;
-  portfolios: Portfolio[];
+  // portfolios: Portfolio[];
 }
 
 export interface Portfolio {

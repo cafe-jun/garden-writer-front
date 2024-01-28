@@ -6,36 +6,37 @@ import { useTimer } from '@/hooks/useTimer';
 
 import FormInput from '../FormInput/FormInput';
 import FormInputWithButton from '../FormInputWithButton/FormInputWithButton';
-import { IncreaseInput } from '../IncreaseInput/IncreaseInput';
 import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
-  const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
+  const [isDuplicated, setIsDuplicated] = useState<boolean>(false);
+  const [isClickDuplicated, setIsClickDuplicated] = useState<boolean>(false);
   const [isPushEmail, setIsPushEmail] = useState<boolean>(false);
   const { time, isActive, startTimer, resetTimer } = useTimer({
     initialTime: 600,
     onTimerComplete: handleTimerComplete,
   });
-  const { formState, handleSubmit } = useFormContext<SignUpFormValues>();
+  const { formState, handleSubmit, getValues } = useFormContext<SignUpFormValues>();
   const { isDirty, isValid } = formState;
 
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
     console.log(data);
   };
 
-  const emailButtonLabel = isDuplicated ? '중복 확인' : '인증 메일 발송';
-  const emailValidateSuccessMessage = isDuplicated ? '' : '사용 가능한 이메일입니다.';
+  // const emailButtonLabel = isClickDuplicated ? '인증 메일 발송' : '중복 확인';
+  const emailButtonLabel = '중복 확인';
+  const emailValidateSuccessMessage = isClickDuplicated ? '사용 가능한 이메일입니다.' : '';
 
   function handleTimerComplete() {
     setIsPushEmail(false);
   }
 
   const handleEmailButton = (): void => {
-    if (isDuplicated) {
-      handleEmailDuplicatedButton();
+    if (isClickDuplicated) {
+      // handlePushEmailButton();
     } else {
-      handlePushEmailButton();
+      handleEmailDuplicatedButton();
     }
   };
 
@@ -44,16 +45,24 @@ const SignUpForm = () => {
   };
 
   function handleEmailDuplicatedButton(): void {
-    if (isDuplicated) {
-      setIsDuplicated(false);
-    } else {
+    // fetch 후
+    const res = false;
+    if (res) {
+      setIsClickDuplicated(false);
       setIsDuplicated(true);
+    } else {
+      setIsClickDuplicated(true);
+      setIsDuplicated(false);
     }
   }
 
   function handlePushEmailButton(): void {
     setIsPushEmail(true);
     startTimer();
+  }
+
+  function passwordConfirmValidate() {
+    return getValues('password') !== '' && getValues('password') === getValues('passwordConfirm');
   }
 
   return (
@@ -72,13 +81,13 @@ const SignUpForm = () => {
             validateErrorMessage="이메일 형식을 지켜주세요."
             validateSuccessMessage={emailValidateSuccessMessage}
             label="이메일"
-            disabled={!isDuplicated}
+            disabled={isClickDuplicated && !isDuplicated}
             buttonDisabled={!isDuplicated && isPushEmail}
             placeholder="이메일"
             buttonLabel={emailButtonLabel}
             handleClickButton={handleEmailButton}
           />
-          <div className={styles.certificationNumberWrap}>
+          {/* <div className={styles.certificationNumberWrap}>
             <FormInputWithButton<SignUpFormValues>
               valuePayload="certificationNumber"
               requiredMessage="인증번호를 입력해주세요."
@@ -95,7 +104,7 @@ const SignUpForm = () => {
                 {Math.floor(time / 60)}:{time % 60}
               </p>
             )}
-          </div>
+          </div> */}
           <FormInput<SignUpFormValues>
             type="password"
             regex={passwordRegex}
@@ -108,6 +117,7 @@ const SignUpForm = () => {
           />
           <FormInput<SignUpFormValues>
             type="password"
+            validate={() => passwordConfirmValidate()}
             valuePayload="passwordConfirm"
             requiredMessage="비밀번호를 확인해주세요."
             validateErrorMessage="비밀번호가 일치하지 않습니다."
@@ -126,22 +136,22 @@ const SignUpForm = () => {
             buttonLabel="중복확인"
           />
         </div>
-        <article className={styles.formContentsMore}>
+        {/* <article className={styles.formContentsMore}>
           <h3 className={styles.subTitle}>추가정보(선택)</h3>
-          {/* <FormInputWithButton<SignUpFormValues>
+          <FormInputWithButton<SignUpFormValues>
             regex={phoneNumberRegex}
             valuePayload="phoneNumber"
             validateErrorMessage="- 제외한 숫자만 입력해주세요."
             label="휴대번호"
             placeholder="- 제외한 숫자만 입력 가능"
             buttonLabel="중복확인"
-          /> */}
+          />
           <IncreaseInput<SignUpFormValues>
             valuePayload="portfolios"
             label="작가 포트폴리오"
             placeholder="나를 소개할 수 있는 링크 (SNS, 블로그, 웹소설 등)"
           />
-        </article>
+        </article> */}
         <button className={styles.submitButton} type="submit" disabled={!isDirty || !isValid}>
           시작하기
         </button>

@@ -43,13 +43,10 @@ const FormInput = <T extends FieldValues>({
     []
   );
 
-  const isValidSuccess = useMemo(
-    () =>
-      errors[valuePayload] === undefined &&
-      validateSuccessMessage !== '' &&
-      inputValidate(inputFieldValue),
-    [errors[valuePayload], validateSuccessMessage]
-  );
+  const isValidSuccess =
+    errors[valuePayload] === undefined &&
+    validateSuccessMessage !== '' &&
+    inputValidate(inputFieldValue);
 
   const rules = useMemo(() => {
     const defaultRule = {

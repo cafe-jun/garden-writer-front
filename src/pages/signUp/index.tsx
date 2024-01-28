@@ -5,12 +5,12 @@ import { SignUpFormValues } from '@/components/SignUp/type';
 const SignUpPage = () => {
   const initFormValues: SignUpFormValues = {
     email: '',
-    certificationNumber: '',
+    // certificationNumber: '',
     password: '',
     passwordConfirm: '',
     nickname: '',
     // phoneNumber: '',
-    portfolios: [{ link: '' }],
+    // portfolios: [{ link: '' }],
   };
 
   return (
