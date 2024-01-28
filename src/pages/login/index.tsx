@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import { KeyboardEvent, ReactElement } from 'react';
 
 import LoginDataInput from '@/components/LoginDataInput';
 import loginApi from '@/fetch/post/loginApi';
@@ -14,18 +14,27 @@ import st from './login.module.scss';
 export default function Login(): ReactElement {
   const { email, setEmail, password, setPasswd } = useLoginData();
   const route = useRouter();
-  const { mutate, status } = useMutation({
+  const { mutate, status, isError } = useMutation({
     mutationKey: ['api/login'],
     mutationFn: loginApi,
     onSuccess(data) {
       localStorage.setItem('access', `${data.data.accessToken}`);
       console.log(data);
-      route.replace('/novel');
+      if (data.data.hasRoom) {
+        route.replace('/novel');
+      } else {
+        route.replace('/novel/before');
+      }
     },
     onError(err) {
       console.log(err);
     },
   });
+  function keyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      mutate({ email, password });
+    }
+  }
   return (
     <div className={`${st.container} ${st.mt92}`}>
       {/* 중앙에 배치되는 compoent container start */}
@@ -37,23 +46,29 @@ export default function Login(): ReactElement {
           <span>더 높은 가치를 공유하세요</span>
         </p>
         <LoginDataInput
+          onKeyDown={e => {
+            keyDown(e);
+          }}
           value={email}
           onChange={e => {
             setEmail(e.target.value);
           }}
           placeholder="이메일을 입력해주세요"
-          isError={false}
-          disabled={false}
+          isError={isError}
+          disabled={status === 'pending'}
         />
         <LoginDataInput
+          onKeyDown={e => {
+            keyDown(e);
+          }}
           type="password"
           value={password}
           onChange={e => {
             setPasswd(e.target.value);
           }}
           placeholder="비밀번호를 입력해주세요"
-          isError={false}
-          disabled={false}
+          isError={isError}
+          disabled={status === 'pending'}
         />
 
         <button
