@@ -28,6 +28,11 @@ export interface novelPost {
   completionAt: string | null;
   status: string; // ??
 }
+export interface signUpRequestModel {
+  email: string;
+  nickname: string;
+  password: string;
+}
 export interface loginApiArg {
   email: string;
   password: string;

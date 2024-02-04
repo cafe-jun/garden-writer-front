@@ -1,7 +1,10 @@
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex } from '@/constants/regex';
+import signUp from '@/fetch/post/signUp';
 import { useTimer } from '@/hooks/useTimer';
 
 import FormInput from '../FormInput/FormInput';
@@ -13,15 +16,30 @@ const SignUpForm = () => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(false);
   const [isClickDuplicated, setIsClickDuplicated] = useState<boolean>(false);
   const [isPushEmail, setIsPushEmail] = useState<boolean>(false);
+  const route = useRouter();
   const { time, isActive, startTimer, resetTimer } = useTimer({
     initialTime: 600,
     onTimerComplete: handleTimerComplete,
   });
   const { formState, handleSubmit, getValues } = useFormContext<SignUpFormValues>();
   const { isDirty, isValid } = formState;
+  const { mutate, status, isError } = useMutation({
+    mutationKey: ['api/signUp'],
+    mutationFn: signUp,
+  });
 
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
-    console.log(data);
+    try {
+      mutate({
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+      });
+
+      route.replace('/login');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // const emailButtonLabel = isClickDuplicated ? '인증 메일 발송' : '중복 확인';
