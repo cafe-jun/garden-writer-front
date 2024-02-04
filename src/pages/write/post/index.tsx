@@ -1,17 +1,56 @@
+import { useMutation } from '@tanstack/react-query';
 import { ReactElement, useState } from 'react';
 
 import MakeRoom from '@/components/modals/MakeRoom/MakeRoom';
 import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput';
 import OneLineInput from '@/components/OneLineInput/OneLineInput';
+import CreateRoom from '@/fetch/post/createRoom';
+import CreateWritePost from '@/fetch/post/createWriterPost';
+import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
 
 import st from './post.module.scss';
 
 export default function CreatePost(): ReactElement {
-  const [title, setTitle] = useState<string>('');
-  const [contents, setContents] = useState<string>('');
-  const [openLink, setOpenLink] = useState<string>('');
-
   const [isModal, setIsModal] = useState<boolean>(false);
+  const {
+    type,
+    title,
+    subTitle,
+    category,
+    hasTag,
+    actor,
+    summary,
+
+    postTitle,
+    postContent,
+    openLink,
+    setPost,
+  } = useCreateNovelPost();
+  const { mutate: createWrite } = useMutation({
+    mutationKey: ['api/createWritePost'],
+    mutationFn: CreateWritePost,
+    onSuccess(res) {
+      console.log('소설공방 모집글 생성 성공');
+      console.log(res);
+    },
+    onError(err) {
+      console.log('소설공방 작가 모집글 생성 실패');
+      console.log(err);
+    },
+  });
+  const { mutate } = useMutation({
+    mutationKey: ['api/createRoom'],
+    mutationFn: CreateRoom,
+    onSuccess(res) {
+      console.log('success');
+      console.log(res);
+      // createWrite({})
+    },
+    onError(res) {
+      console.log('err');
+      console.log(res);
+    },
+  });
 
   function showModal(): void {
     setIsModal(true);
@@ -22,6 +61,7 @@ export default function CreatePost(): ReactElement {
         <MakeRoom
           nextStep={() => {
             setIsModal(false);
+            mutate({ category, character: actor, subTitle, summary, title, type });
           }}
           cancel={() => {
             setIsModal(false);
@@ -34,7 +74,9 @@ export default function CreatePost(): ReactElement {
         <p className={st.text2}>작가들을 모집하고 새로운 세계관을 만들어보세요</p>
 
         <OneLineInput
-          onChange={setTitle}
+          onChange={value => {
+            setPost({ postTitle: value });
+          }}
           style={{ marginTop: '84px' }}
           compulsory
           categoryText="제목"
@@ -45,7 +87,11 @@ export default function CreatePost(): ReactElement {
         />
 
         <MultipleLineInput
-          onChange={setContents}
+          onChange={value => {
+            setPost({
+              postContent: value,
+            });
+          }}
           style={{ marginTop: '31px' }}
           compulsory
           categoryText="작가 모집 내용"
@@ -56,7 +102,11 @@ export default function CreatePost(): ReactElement {
         />
 
         <OneLineInput
-          onChange={setOpenLink}
+          onChange={value => {
+            setPost({
+              openLink: value,
+            });
+          }}
           style={{ marginTop: '41px' }}
           compulsory
           categoryText="오픈채팅 링크"

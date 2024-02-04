@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import Pagination from 'react-js-pagination';
 
 import { InformationText } from '@/components/InformationText/InformationText';
 import { InformationTextType } from '@/components/InformationText/type';
@@ -7,6 +10,8 @@ import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/N
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { Select } from '@/components/Select/Select';
+import novelList from '@/fetch/get/novelList';
+import { novelListResponse, novelPost, roomStatus } from '@/fetch/types';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.png';
 
 import styles from './novel.module.scss';
@@ -65,29 +70,55 @@ const pageContentHeader = {
 };
 
 const NovelPage = () => {
+  const route = useRouter();
   const [currentTab, setCurrentTab] = useState<string>(novelTabs[0]);
   const [filter, setFilter] = useState<string>(novelFilters[0]);
-  const [currentNovelTableData, setCurrentNovelTableData] =
-    useState<NovelTable[]>(activeNovelTableData);
+  const [novelTable, setNovelTable] = useState<novelPost[]>([]);
 
+  const [roomState, setRoomStatus] = useState<roomStatus>('participating');
+  const [chunk, setChunk] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
+
+  const { data, isLoading, isError } = useQuery<novelListResponse>({
+    queryKey: ['api/novelList', roomState, chunk, page],
+    queryFn: () => novelList(roomState, chunk, page),
+    placeholderData: keepPreviousData,
+  });
+
+  // 참여중, 미참여 탭 버튼을 클릭했을 때
   const handleCurrentTab = (tab: string) => {
     if (currentTab === tab) return;
 
     setCurrentTab(tab);
     if (tab === '참여중') {
-      return setCurrentNovelTableData(activeNovelTableData);
+      setRoomStatus('participating');
+      setPage(1);
+    } else {
+      setRoomStatus('not_participating');
+      setPage(1);
     }
-    return setCurrentNovelTableData(deactiveNovelTableData);
   };
 
+  // 소설 공방 개설 버튼이 눌렸을 때
   const handleCreateNovelButton = () => {
     console.log('create novel');
+    route.push('/write/info');
   };
 
+  // 정렬 select box를 클릭했을 때
   const handleNovelFilter = (selectedItem: string) => {
     setFilter(selectedItem);
   };
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+  // if (isLoading) {
+  //   return <p>adsf</p>;
+  // }
+  // if (isError) {
+  //   return <p>adsf</p>;
+  // }
   return (
     <div>
       <PageContentHeader backgroundImage={pageContentHeader.backgroundImage}>
@@ -121,9 +152,25 @@ const NovelPage = () => {
                 handleSelectedItem={handleNovelFilter}
               />
             </div>
-            <Table tableData={currentNovelTableData} />
+            {/* {isLoading ?  : null} */}
+            <Table tableData={data?.data ?? []} />
           </div>
         </div>
+
+        <Pagination
+          innerClass="cus-pagination"
+          itemClass="cus-pagination-li"
+          activePage={page}
+          itemsCountPerPage={chunk}
+          totalItemsCount={data?.meta?.totalCount ?? 0}
+          pageRangeDisplayed={5}
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={n => {
+            console.log(n);
+            setPage(n);
+          }}
+        />
       </main>
     </div>
   );

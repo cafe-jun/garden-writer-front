@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
 
 import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
 import st from './OneLineInput.module.scss';
@@ -17,7 +17,13 @@ export default function OneLineInput(props: OneLineInputProps): ReactElement {
       speechBubbleText={props.speechBubbleText}
     >
       <div className={st.container}>
-        <input placeholder={props.placeholder} className={st.inputBox} />
+        <input
+          placeholder={props.placeholder}
+          className={st.inputBox}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            props.onChange(event.target.value);
+          }}
+        />
         {props.isError ? <p>{props.errorText}</p> : null}
       </div>
     </WriteRoomCategory>
