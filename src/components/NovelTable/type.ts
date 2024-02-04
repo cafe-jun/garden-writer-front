@@ -1,5 +1,7 @@
+import { novelPost } from '@/fetch/types';
+
 export interface NovelTableProps {
-  tableData: NovelTable[];
+  tableData: novelPost[];
 }
 export interface NovelTable {
   id: string;

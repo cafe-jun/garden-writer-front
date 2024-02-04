@@ -18,3 +18,46 @@ body {
     -ms-user-select: none;
     user-select: none
 }
+
+.cus-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 50px auto;
+}
+
+.cus-pagination-li {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: lightgray;
+    transition: all 0.3s;
+    list-style-type: none;
+}
+
+.cus-pagination-li:hover,
+.cus-pagination-li:active,
+.cus-pagination-li.active {
+    background-color: gray;
+    color: white;
+}
+
+.cus-pagination-li:nth-child(1)>a,
+.cus-pagination-li:nth-child(2)>a,
+.cus-pagination-li:nth-last-child(1)>a,
+.cus-pagination-li:nth-last-child(2)>a {
+    font-size: 20px;
+}
+
+.cus-pagination-li>a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+
+    text-decoration: none;
+    color: black;
+}
