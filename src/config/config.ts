@@ -7,6 +7,9 @@ export const config = {
     // 로그인 api
     login: '/auth/login',
 
+    // 회원 목록
+    user: '/user',
+
     // 소설공방모집글 리스트 api,
     novelList: '/novel-room',
 
