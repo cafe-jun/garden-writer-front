@@ -10,6 +10,8 @@ export interface FormInputWithButtonProps<T extends FieldValues> {
   label: string;
   placeholder: string;
   buttonLabel: string;
+  disabled?: boolean;
+  buttonDisabled?: boolean;
   validate?: (value: string) => boolean;
   handleClickButton?: () => void;
 }

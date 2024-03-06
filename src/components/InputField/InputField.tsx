@@ -6,6 +6,7 @@ interface Props<T extends FieldValues> {
   type: string;
   name: Path<T>;
   placeholder: string;
+  disabled: boolean;
   register: UseFormRegister<T>;
   rules?: RegisterOptions<T, Path<T>>;
 }
@@ -15,10 +16,12 @@ const InputField = <T extends FieldValues>({
   name,
   placeholder,
   register,
+  disabled,
   rules,
 }: Props<T>) => (
   <input
     className={styles.input}
+    disabled={disabled}
     type={type}
     {...register(name, rules)}
     placeholder={placeholder}

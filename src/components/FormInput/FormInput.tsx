@@ -13,6 +13,7 @@ const FormInput = <T extends FieldValues>({
   validateErrorMessage,
   validateSuccessMessage,
   label,
+  disabled = false,
   placeholder,
   validate = (value: string): boolean => {
     if (regex !== undefined) return regex.test(value);
@@ -42,13 +43,10 @@ const FormInput = <T extends FieldValues>({
     []
   );
 
-  const isValidSuccess = useMemo(
-    () =>
-      errors[valuePayload] === undefined &&
-      validateSuccessMessage !== '' &&
-      inputValidate(inputFieldValue),
-    [errors[valuePayload], validateSuccessMessage]
-  );
+  const isValidSuccess =
+    errors[valuePayload] === undefined &&
+    validateSuccessMessage !== '' &&
+    inputValidate(inputFieldValue);
 
   const rules = useMemo(() => {
     const defaultRule = {
@@ -78,6 +76,7 @@ const FormInput = <T extends FieldValues>({
       <div className={styles.inputWithButtonContainer}>
         <InputField
           type={type}
+          disabled={disabled}
           name={valuePayload}
           placeholder={placeholder}
           register={register}

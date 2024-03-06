@@ -1,8 +1,14 @@
 export const config = {
   apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
   apiUrl: {
+    // 회원가입
+    signUp: '/user/join',
+
     // 로그인 api
     login: '/auth/login',
+
+    // 회원 목록
+    user: '/user',
 
     // 소설공방모집글 리스트 api,
     novelList: '/novel-room',
