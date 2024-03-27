@@ -10,8 +10,9 @@ import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/N
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { Select } from '@/components/Select/Select';
-import novelList from '@/fetch/get/novelList';
-import { novelListResponse, novelPost, roomStatus } from '@/fetch/types';
+import { config } from '@/config/config';
+import { novelList } from '@/fetch/get';
+import { NovelListResponse, NovelPost, RoomStatus } from '@/fetch/types';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.png';
 
 import styles from './novel.module.scss';
@@ -58,7 +59,7 @@ export const deactiveNovelTableData: NovelTable[] = [
   },
 ];
 
-export const novelTabs = ['참여중', '미참여'];
+export const novelTabs = ['참여중', '내 활동'];
 
 export const novelFilters = ['최신순', '오래된순'];
 
@@ -73,15 +74,14 @@ const NovelPage = () => {
   const route = useRouter();
   const [currentTab, setCurrentTab] = useState<string>(novelTabs[0]);
   const [filter, setFilter] = useState<string>(novelFilters[0]);
-  const [novelTable, setNovelTable] = useState<novelPost[]>([]);
+  const [novelTable, setNovelTable] = useState<NovelPost[]>([]);
 
-  const [roomState, setRoomStatus] = useState<roomStatus>('participating');
-  const [chunk, setChunk] = useState<number>(10);
+  const [roomState, setRoomStatus] = useState<RoomStatus>('attending');
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, isError } = useQuery<novelListResponse>({
-    queryKey: ['api/novelList', roomState, chunk, page],
-    queryFn: () => novelList(roomState, chunk, page),
+  const { data, isLoading, isError } = useQuery<NovelListResponse>({
+    queryKey: ['api/novelList', roomState, page],
+    queryFn: () => novelList({ roomState, page }),
     placeholderData: keepPreviousData,
   });
 
@@ -91,10 +91,10 @@ const NovelPage = () => {
 
     setCurrentTab(tab);
     if (tab === '참여중') {
-      setRoomStatus('participating');
+      setRoomStatus('attending');
       setPage(1);
     } else {
-      setRoomStatus('not_participating');
+      setRoomStatus('non_attending');
       setPage(1);
     }
   };
@@ -161,7 +161,7 @@ const NovelPage = () => {
           innerClass="cus-pagination"
           itemClass="cus-pagination-li"
           activePage={page}
-          itemsCountPerPage={chunk}
+          itemsCountPerPage={config.pageSize}
           totalItemsCount={data?.meta?.totalCount ?? 0}
           pageRangeDisplayed={5}
           prevPageText="‹"
