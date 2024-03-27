@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex } from '@/constants/regex';
-import userList from '@/fetch/get/userList';
-import signUp from '@/fetch/post/signUp';
+import { userList } from '@/fetch/get';
+import { signUp } from '@/fetch/post';
 import { useTimer } from '@/hooks/useTimer';
 
 import FormInput from '../FormInput/FormInput';
@@ -82,7 +82,7 @@ const SignUpForm = () => {
   }
 
   const handleEmailDuplicatedButton = (): void => {
-    const isDuplicated = userListData.data.some((data: any) => data.email === getValues('email'));
+    const isDuplicated = userListData?.data.some((data: any) => data.email === getValues('email'));
 
     if (isDuplicated) {
       setIsClickedEmailDuplicateButton(false);
@@ -94,7 +94,7 @@ const SignUpForm = () => {
   };
 
   const handleNicknameButton = (): void => {
-    const isDuplicated = userListData.data.some(
+    const isDuplicated = userListData?.data.some(
       (data: any) => data.nickname === getValues('nickname')
     );
 
