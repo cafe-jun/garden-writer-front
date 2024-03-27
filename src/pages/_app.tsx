@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();
 
   useEffect(() => {
-    if (['/recruitment', '/novel'].includes(asPath)) {
+    if ([''].includes(asPath)) {
       setPageHeaderBackground(PageHeaderBackground.white);
     } else {
       setPageHeaderBackground(PageHeaderBackground.original);
