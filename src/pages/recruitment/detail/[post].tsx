@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { RecruitmentTable, RecruitmentTableStatus } from '@/components/RecruitmentTable/type';
+import { RecruitmentTableStatus } from '@/components/RecruitmentTable/type';
 import EyeIcon from '@/images/eye.svg';
 import HeartRed from '@/images/heart-red.svg';
 
@@ -12,7 +12,7 @@ const RecruitmentDetailPostPage = () => {
   const router = useRouter();
   const { post } = router.query;
 
-  const data: RecruitmentTable = {
+  const data = {
     id: 'adasdf',
     novelTitle: '재벌집 막내아들',
     title: '같이 작성하실 분',
@@ -80,11 +80,13 @@ const RecruitmentDetailPostPage = () => {
       </main>
 
       <footer className={styles.footer}>
-        <button className={styles.button}>
+        <button type="button" className={styles.button}>
           <Image src={HeartRed} alt="HeartRed" />
           <span>{data.count}</span>
         </button>
-        <button className={styles.button}>참여 신청하기</button>
+        <button type="button" className={styles.button}>
+          참여 신청하기
+        </button>
       </footer>
     </div>
   );
