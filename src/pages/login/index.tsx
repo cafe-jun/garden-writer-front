@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { KeyboardEvent, ReactElement } from 'react';
 
 import LoginDataInput from '@/components/LoginDataInput';
-import loginApi from '@/fetch/post/loginApi';
+import { loginApi } from '@/fetch/post';
 import useLoginData from '@/zustand/stores/useLoginData.zst';
 
 import LoginLogo from '../../images/login-logo.svg';
@@ -19,7 +19,6 @@ export default function Login(): ReactElement {
     mutationFn: loginApi,
     onSuccess(data) {
       localStorage.setItem('access', `${data.data.accessToken}`);
-      console.log(data);
       if (data.data.hasRoom) {
         route.replace('/novel');
       } else {
@@ -83,10 +82,10 @@ export default function Login(): ReactElement {
         </button>
 
         <p className={`${st.text2} ${st.mt32}`}>
-          아직 계정이 없으신가요? <Link href="/">회원가입</Link>
+          아직 계정이 없으신가요? <Link href="/signUp">회원가입</Link>
         </p>
         <p className={`${st.text2} ${st.mt12}`}>
-          계정이 기억나지 않으시나요? <Link href="/">비밀번호 찾기</Link>
+          계정이 기억나지 않으시나요? <Link href="/user/passwd">비밀번호 찾기</Link>
         </p>
       </div>
       {/* 중앙에 배치되는 compoent container end */}
