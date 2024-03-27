@@ -1,27 +1,12 @@
-import React, { useEffect, useState } from 'react';
-
-import {
-  RecruitmentTable as RecruitmentTableType,
-  RecruitmentTableProps,
-} from '@/components/RecruitmentTable/type';
+import React from 'react';
 
 import styles from './RecruitmentTable.module.scss';
+import { Props } from './type';
 
-export const RecruitmentTable = ({ tableData, handleTableItem }: RecruitmentTableProps) => {
-  const [data, setData] = useState<RecruitmentTableType[]>();
-
-  const handleOnClick = (item: RecruitmentTableType): void => {
-    handleTableItem(item);
+export const RecruitmentTable = ({ data }: Props) => {
+  const handleOnClick = (): void => {
+    //
   };
-
-  useEffect(() => {
-    if (!tableData) {
-      // fetch
-      // setData
-    } else {
-      setData(tableData);
-    }
-  }, []);
 
   return (
     <table className={styles.table}>
@@ -38,17 +23,17 @@ export const RecruitmentTable = ({ tableData, handleTableItem }: RecruitmentTabl
         </tr>
       </thead>
       <tbody>
-        {tableData?.map((item, index) => (
-          <tr key={item.id} onClick={() => handleOnClick(item)}>
+        {data.map((item, index) => (
+          <tr key={item.roomTitle} onClick={() => handleOnClick()}>
             <td>{index + 1}</td>
-            <td>{item.novelTitle}</td>
-            <td>{item.title}</td>
-            <td>{item.admin}</td>
-            <td>{item.created}</td>
-            <td>{item.count}</td>
+            <td>{item.roomTitle}</td>
+            <td>{item.boardTitle}</td>
+            <td>??</td>
+            <td>{item.roomCreatedAt}</td>
+            <td>{item.viewCount}</td>
             <td>{item.like}</td>
             <td>
-              {item.attend_users_number}/{item.user_limit}
+              {item.currentWriterCnt}/{item.roomType}
             </td>
           </tr>
         ))}
