@@ -7,7 +7,6 @@ import tagDeleteBtn from '@/images/tag-delete-btn.svg';
 import st from './HashTagInput.module.scss';
 import { HashTagInputProps, makeTagArrReturn } from './type';
 
-const keyIndex = 1;
 /**
  * 소설공방 개설 페이지에서 해시 태그 입력 component
  * @param param0 HashTagInputProps
@@ -77,7 +76,7 @@ export default function HashTagInput({
         <div className={st.tagContainer}>
           {drowTag.map(
             (item: string, index: number): ReactElement => (
-              <div className={st.tagContainer_tag} key={keyIndex + 1}>
+              <div className={st.tagContainer_tag} key={item + index.toString()}>
                 <p>{item}</p>
                 <Image
                   onClick={() => {
