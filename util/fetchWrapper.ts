@@ -1,26 +1,30 @@
-export async function callApi(url: string, body?: any, method = 'GET'): Promise<any> {
+import { config } from '@/config/config';
+
+type apiMethod = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
+interface CallApi {
+  url: string;
+  body?: any;
+  method: apiMethod;
+}
+export default async function callApi<T>({ url, body, method }: CallApi): Promise<T> {
   const token = localStorage.getItem('access');
-  const headers: HeadersInit = {
-    Authorization: token ? `Bearer ${localStorage.getItem('access')}` : '',
-    'Content-Type': 'application/json',
-  };
-  const options: RequestInit = {
+  const init: RequestInit = {
     method,
-    headers,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Bearer ${token}` : '',
+    },
     body: body ? JSON.stringify(body) : undefined,
   };
-
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      throw new Error(((await response.json()) as Error).message);
-    }
-    return await response.json();
-  } catch (error) {
-    // 예외 처리
-    if (error instanceof Error) {
-      console.error('Error calling API:', error.message);
-    }
-    throw error;
+  const res = await fetch(config.apiLink + url, init);
+  // 에러면 에러 반환
+  if (!res.ok) {
+    throw new Error(res.status.toString());
   }
+  // 200이 아닌 성공은 boolean 반환
+  if (res.status !== 200) {
+    return res.ok as T;
+  }
+  // 200인 성공은 body반환
+  return res.json();
 }
