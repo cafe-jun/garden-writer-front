@@ -1,23 +1,25 @@
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { ReactElement, useState } from 'react';
 
 import MakeRoom from '@/components/modals/MakeRoom/MakeRoom';
 import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput';
 import OneLineInput from '@/components/OneLineInput/OneLineInput';
-import CreateRoom from '@/fetch/post/createRoom';
-import CreateWritePost from '@/fetch/post/createWriterPost';
+import { config } from '@/config/config';
+import { CreateRoom } from '@/fetch/post';
 import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
 
 import st from './post.module.scss';
 
 export default function CreatePost(): ReactElement {
+  const route = useRouter();
   const [isModal, setIsModal] = useState<boolean>(false);
   const {
     type,
     title,
     subTitle,
     category,
-    hasTag,
+    novelTag,
     actor,
     summary,
 
@@ -26,24 +28,13 @@ export default function CreatePost(): ReactElement {
     openLink,
     setPost,
   } = useCreateNovelPost();
-  const { mutate: createWrite } = useMutation({
-    mutationKey: ['api/createWritePost'],
-    mutationFn: CreateWritePost,
-    onSuccess(res) {
-      console.log('소설공방 모집글 생성 성공');
-      console.log(res);
-    },
-    onError(err) {
-      console.log('소설공방 작가 모집글 생성 실패');
-      console.log(err);
-    },
-  });
   const { mutate } = useMutation({
-    mutationKey: ['api/createRoom'],
+    mutationKey: [config.apiUrl.createNovelRoom],
     mutationFn: CreateRoom,
     onSuccess(res) {
       console.log('success');
       console.log(res);
+      route.replace('/novel');
       // createWrite({})
     },
     onError(res) {
@@ -61,7 +52,18 @@ export default function CreatePost(): ReactElement {
         <MakeRoom
           nextStep={() => {
             setIsModal(false);
-            mutate({ category, character: actor, subTitle, summary, title, type });
+            mutate({
+              category,
+              character: actor,
+              subTitle,
+              novelTags: novelTag,
+              summary,
+              title,
+              type,
+              attendContent: postContent,
+              attendOpenKakaoLink: openLink,
+              attendTitle: postTitle,
+            });
           }}
           cancel={() => {
             setIsModal(false);

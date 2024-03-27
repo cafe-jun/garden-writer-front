@@ -12,6 +12,10 @@ import WriteChat from '@/components/WriteChat/WirteChat';
 import WriteChatSendBox from '@/components/WriteChatSendBox/WriteChatSendBox';
 import WriterListOneRow from '@/components/WriterListOneRow/WriterListOneRow';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
+import { config } from '@/config/config';
+import { getNovelChapterList, getWriterListAdmin, novelRoomInfo } from '@/fetch/get';
+import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
+import { useUrlDatas } from '@/hooks/useUrlDatas';
 
 import st from './detail.module.scss';
 
@@ -21,6 +25,7 @@ const PAGE_3 = '소설정보';
 const PAGE_4 = '작가관리';
 export default function WriteDetail(): ReactElement {
   const [data, setData] = useState<string[]>(['1111111', '222222', '33333']);
+  const [page, setPage] = useState<number>(1);
   const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3, PAGE_4]);
 
   const [currentTap, setCurrentTap] = useState(tabList[0]);
@@ -28,6 +33,23 @@ export default function WriteDetail(): ReactElement {
   const [modityMode, setModifyMode] = useState<boolean>(false);
 
   const [selectListData, setSelectListData] = useState<string[]>(['첫화부터', '마지막화부터']);
+
+  const roomId = useUrlDatas();
+
+  const { data: novelInfo } = useQueryWrap({
+    queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
+    queryFn: () => novelRoomInfo(roomId),
+  });
+
+  const { data: chapterList } = useQueryWrap({
+    queryKey: [config.apiUrl.novelChapterList, page, roomId],
+    queryFn: () => getNovelChapterList({ novelRoomId: roomId, page }),
+  });
+
+  const { data: writerListForAdmin } = useQueryWrap({
+    queryKey: [config.apiUrl.getWriterListAdmin, roomId],
+    queryFn: () => getWriterListAdmin(roomId),
+  });
 
   // const docParser = new DOMParser();
   const htmlStr =
@@ -39,7 +61,7 @@ export default function WriteDetail(): ReactElement {
       {/* 참여작가 드래그 박스와 공장정보 박스를 row로 관리 */}
       <div className={st.mainBody_content}>
         {/* 참여작가 박스 */}
-        <WriterManagerBox handleDragEnd={handleDragEnd} data={data} />
+        <WriterManagerBox handleDragEnd={handleDragEnd} />
 
         {/* 소설공방 정보 박스 start */}
         <div className={st.mainBody_content_column}>
@@ -47,7 +69,7 @@ export default function WriteDetail(): ReactElement {
           <div className={`${st.mainBody_content_title} ${modityMode ? st.on : ''}`}>
             {/* 왼쪽 start */}
             <div className={st.content_row}>
-              <p className={st.content_text}>소설 제목</p>
+              <p className={st.content_text}>{novelInfo?.data.title}</p>
 
               <GenreBtn disabled={!modityMode} />
             </div>
@@ -75,35 +97,37 @@ export default function WriteDetail(): ReactElement {
                 <div className={st.main_textColumn}>
                   <ScrollTextBox
                     disabled={!modityMode}
-                    title="한줄소개"
-                    date="23.12.21"
+                    title={novelInfo?.data.subTitle ?? ''}
+                    date={novelInfo?.data.updatedAt ?? ''}
                     style={{ width: '718px', height: '138px', marginLeft: '8px' }}
                   />
 
                   <div className={`${st.main_tagBox} ${modityMode ? st.mdf : ''}`}>
                     <div className={st.main_tag_flexWrap}>
-                      {['aaa', 'ddd', 'cccc'].map(i => (
+                      {/* {['aaa', 'ddd', 'cccc'].map(i => (
                         <div key={i} className={st.main_tagBox_tag}>
                           #{i}
                         </div>
-                      ))}
+                      ))} */}
+                      <div className={st.main_tagBox_tag}>#{novelInfo?.data.category}</div>
                     </div>
                     <p className={st.main_tag_date}>시간</p>
                   </div>
                 </div>
               </div>
 
+              {/* 등장인물 */}
               <ScrollTextBox
                 disabled={!modityMode}
-                title="등장인물"
-                date="12.12.12"
+                title={novelInfo?.data.character ?? ''}
+                date={novelInfo?.data.updatedAt ?? ''}
                 style={{ width: '996px', height: '186px', marginTop: '8px' }}
               />
-
+              {/* 줄거리 */}
               <ScrollTextBox
                 disabled={!modityMode}
-                title="줄거리"
-                date="12.12.12"
+                title={novelInfo?.data.summary ?? ''}
+                date={novelInfo?.data.updatedAt ?? ''}
                 style={{ width: '996px', height: '186px', marginTop: '8px' }}
               />
 
@@ -136,12 +160,11 @@ export default function WriteDetail(): ReactElement {
                 {/* 회차정보 list column name bar end */}
 
                 {/* 회차정보 row start */}
-                {['1111', '2222', '333333'].map(i => (
-                  <EpisodeListOneRow key={i} />
+                {chapterList?.data.map(i => (
+                  <EpisodeListOneRow key={i.id} {...i} />
                 ))}
                 {/* 회차정보 row end */}
-
-                <PaginationBar />
+                {chapterList ? <PaginationBar type="white" {...chapterList?.meta} /> : null}
               </div>
             </div>
           ) : null}
@@ -196,12 +219,12 @@ export default function WriteDetail(): ReactElement {
                 {/* 작가관리 list column name bar end */}
 
                 {/* 작가관리 row start */}
-                {['1111', '2222', '333333', '44444', '55555', '66666'].map((item, index) => (
-                  <WriterListOneRow key={item} index_={index} />
+                {writerListForAdmin?.data.map((item, index) => (
+                  <WriterListOneRow key={item.id} {...item} />
                 ))}
                 {/* 작가관리 row end */}
 
-                <PaginationBar />
+                {/* <PaginationBar /> */}
               </div>
             </div>
           ) : null}

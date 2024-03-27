@@ -60,9 +60,9 @@ export default function WriteInfo(): ReactElement {
           onChange={value => {
             setPeople(value);
             if (value === 1) {
-              setNovel({ type: 'group2' });
+              setNovel({ type: 2 });
             } else {
-              setNovel({ type: 'solo' });
+              setNovel({ type: 1 });
             }
           }}
         />
@@ -73,16 +73,16 @@ export default function WriteInfo(): ReactElement {
               setPeopleCount(value);
               switch (value) {
                 case 2:
-                  setNovel({ type: 'group2' });
+                  setNovel({ type: 2 });
                   break;
                 case 3:
-                  setNovel({ type: 'group3' });
+                  setNovel({ type: 3 });
                   break;
                 case 4:
-                  setNovel({ type: 'group4' });
+                  setNovel({ type: 4 });
                   break;
                 case 5:
-                  setNovel({ type: 'group5' });
+                  setNovel({ type: 5 });
                   break;
                 default:
                   break;
@@ -131,7 +131,7 @@ export default function WriteInfo(): ReactElement {
 
         {/* 해시태그 입력 */}
         <HashTagInput
-          onChange={setHashTags}
+          onChange={tags => setNovel({ novelTag: tags })}
           categoryText="태그"
           compulsory
           errorText="태그 한가지 항목 이상 선택해주세요"
