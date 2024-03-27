@@ -1,18 +1,29 @@
 import { ReactElement } from 'react';
 
+import { NovelChapter } from '@/fetch/types';
+
 import st from './EpisodeListOneRow.module.scss';
 
-export default function EpisodeListOneRow(): ReactElement {
+export default function EpisodeListOneRow({
+  no,
+  title,
+  finalWriteredAt,
+  status,
+  approvalDate,
+  viewCount,
+  commentCnt,
+  like,
+}: NovelChapter): ReactElement {
   return (
     <button type="button" className={st.row}>
-      <p className={st.main_list_episode}>1</p>
-      <p className={st.main_list_title}>제목임둥</p>
-      <p className={st.main_list_finalRetouchDate}>12.2.2</p>
-      <p className={st.main_list_status}>작성중</p>
-      <p className={st.main_list_serialApprovalDate}>12.22.2</p>
-      <p className={st.main_list_views}>33</p>
-      <p className={st.main_list_commnents}>22</p>
-      <p className={st.main_list_likes}>111</p>
+      <p className={st.main_list_episode}>{no}</p>
+      <p className={st.main_list_title}>{title}</p>
+      <p className={st.main_list_finalRetouchDate}>{finalWriteredAt}</p>
+      <p className={st.main_list_status}>{status}</p>
+      <p className={st.main_list_serialApprovalDate}>{approvalDate}</p>
+      <p className={st.main_list_views}>{viewCount}</p>
+      <p className={st.main_list_commnents}>{commentCnt}</p>
+      <p className={st.main_list_likes}>{like}</p>
     </button>
   );
 }

@@ -35,6 +35,9 @@ export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
     </button>
   );
   function opener() {
+    if (!openPenel) {
+      return;
+    }
     setOpenPanel(p => !p);
   }
 }
