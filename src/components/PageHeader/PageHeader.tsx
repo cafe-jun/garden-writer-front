@@ -2,6 +2,7 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import React, { ChangeEvent, useMemo, useState } from 'react';
 
+import { config } from '@/config/config';
 import Logo from '@/images/login-logo.svg';
 import LogoWhite from '@/images/logo-white.svg';
 import SearchIconPrimary from '@/images/search-icon-primary.svg';
@@ -76,15 +77,20 @@ export const PageHeader = ({ background }: PageHeaderProps) => {
     <header
       className={`${styles.header} ${background === PageHeaderBackground.white && styles.white}`}
     >
-      <Image className={styles.headerLogo} src={LogoIcon} alt="logo" />
+      <Image
+        className={styles.headerLogo}
+        src={LogoIcon}
+        alt="logo"
+        style={{ width: 'auto', height: 'auto' }}
+      />
       <div className={styles.headerLeftContents}>
         <Link href="/" replace={false} prefetch={false}>
           웹소설
         </Link>
-        <Link href="/" replace={false} prefetch={false}>
+        <Link href={config.page.novel} replace={false} prefetch={false}>
           소설공방
         </Link>
-        <Link href="/" replace={false} prefetch={false}>
+        <Link href={config.page.recruitment} replace={false} prefetch={false}>
           작가참여
         </Link>
       </div>
