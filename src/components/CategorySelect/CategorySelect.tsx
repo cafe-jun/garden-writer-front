@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { config } from '@/config/config';
+import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
 
 import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
 import st from './CategorySelect.module.scss';
@@ -12,14 +13,15 @@ import { CategorySelectProps } from './type';
  * @returns component
  */
 export default function CategorySelect(props: CategorySelectProps): ReactElement {
+  const { setNovel } = useCreateNovelPost();
   return (
     <WriteRoomCategory style={props.style} compulsory categoryText="카테고리">
       <div>
         <div className={st.container}>
           {config.categorys.map(
-            (item: string): ReactElement => (
+            (item: string, index): ReactElement => (
               <label className={`${st.mt16} ${st.inputBox}`} key={item}>
-                <input type="checkbox" />
+                <input type="radio" name="category" onClick={() => setNovel({ category: index })} />
                 <p className={st.ml8}>{item}</p>
               </label>
             )
