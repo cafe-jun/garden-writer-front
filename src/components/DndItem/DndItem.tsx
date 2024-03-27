@@ -7,11 +7,16 @@ import userMoveIcon from '@/images/user-move-icon.svg';
 
 import UserIcon from '../../images/user-icon.svg';
 import st from './DndItem.module.scss';
-import { DndItem } from './type';
+import { DndItemProps } from './type';
 
-export default function DndItem({ id, disabled, overlayMode }: DndItem): ReactElement {
+export default function DndItem({
+  id,
+  disabled,
+  overlayMode,
+  nickname,
+}: DndItemProps): ReactElement {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id,
+    id: id ?? 1,
   });
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -22,7 +27,7 @@ export default function DndItem({ id, disabled, overlayMode }: DndItem): ReactEl
     return (
       <div className={st.item}>
         <Image src={UserIcon} alt="유저 아이콘" />
-        <h3 className={st.item_name}>{id}</h3>
+        <h3 className={st.item_name}>{nickname}</h3>
 
         {!disabled ? (
           <Image className={st.moveIcon} src={userMoveIcon} alt="그래그 가능 상태 아이콘" />
@@ -37,13 +42,17 @@ export default function DndItem({ id, disabled, overlayMode }: DndItem): ReactEl
       className={`${st.item} ${isDragging ? st.moving : ''}`}
       style={style}
       {...attributes}
-      {...listeners}
     >
       <Image src={UserIcon} alt="유저 아이콘" />
-      <h3 className={st.item_name}>{id}</h3>
+      <h3 className={st.item_name}>{nickname}</h3>
 
       {!disabled ? (
-        <Image className={st.moveIcon} src={userMoveIcon} alt="그래그 가능 상태 아이콘" />
+        <Image
+          {...listeners}
+          className={st.moveIcon}
+          src={userMoveIcon}
+          alt="그래그 가능 상태 아이콘"
+        />
       ) : null}
     </div>
   );
