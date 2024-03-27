@@ -14,11 +14,37 @@ export const config = {
     novelList: '/novel-room',
 
     // 소설공방 생성 api
-    createNovelRoom: '/novel-room/create-room',
+    createNovelRoom: '/novel-room',
 
     // 소설공방 작가 모집글 생성 api
-    createWriterPost: '/novel-room/create-room',
+    createWriterPost: '/novel-attend-board',
+
+    // 소설공방 기본정보
+    novelRoomInfo: (roomId: number) => `/novel-room/${roomId}`,
+
+    // 소설공방에 참여중인 작가 리스트
+    novelJoinWriterList: '/writer',
+
+    // 소설상세 페에지의 회차정보
+    novelChapterList: '/chapter',
+
+    // (공방주인용) 작가관리 리스트
+    getWriterListAdmin: '/writer/management',
+
+    // (공방주인용) 작가승인/반려
+    updateWriterState: (id: number) => `/writer/management/status/${id}`,
+
+    // 작가모집 리스트
+    getWriterWantedList: '/novel-attend-board',
   },
+  page: {
+    // 소설공방
+    novel: '/novel',
+
+    // 작가참여리스트
+    recruitment: '/recruitment',
+  },
+  pageSize: 5,
   categorys: [
     '일반소설',
     '로멘스/드라마',
