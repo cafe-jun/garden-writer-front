@@ -1,33 +1,34 @@
 import { create } from 'zustand';
 
-import { roomType } from '@/fetch/types';
+import { RoomType } from '@/fetch/types';
 
 interface Novel {
   // 소설정보
-  type: roomType;
+  type: RoomType;
   title: string;
   subTitle: string;
-  category: string;
-  hasTag: string[];
+  category: number;
+  novelTag: string[];
   actor: string;
   summary: string;
-  setNovel(data: Partial<Omit<Novel, 'setTitle'>>): void;
 }
 interface Post {
   // 작가모집글
   postTitle: string;
   postContent: string;
   openLink: string;
-  setPost(data: Partial<Omit<Post, 'setPost'>>): void;
 }
-interface initialzeApp extends Novel, Post {}
+interface Actions {
+  setNovel(data: Partial<Novel>): void;
+  setPost(data: Partial<Post>): void;
+}
 
-const useCreateNovelPost = create<initialzeApp>()((set, get) => ({
-  type: 'group2',
+const useCreateNovelPost = create<Novel & Post & Actions>()((set, get) => ({
+  type: 2,
   title: '',
   subTitle: '',
-  category: '카테고리',
-  hasTag: [],
+  category: 0,
+  novelTag: [],
   actor: '',
   summary: '',
 
