@@ -44,6 +44,7 @@ export function useQueryWrap<
   const querys = useQuery<TQueryFnData, TError, TData, TQueryKey>(options);
 
   useEffect(() => {
+    console.log('useQueryWrap');
     console.log(options.queryKey);
     if (!querys.isError) {
       return;

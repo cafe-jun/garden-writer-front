@@ -26,6 +26,7 @@ const PAGE_4 = '작가관리';
 export default function WriteDetail(): ReactElement {
   const [data, setData] = useState<string[]>(['1111111', '222222', '33333']);
   const [page, setPage] = useState<number>(1);
+  const [userPage, setUserPage] = useState<number>(1);
   const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3, PAGE_4]);
 
   const [currentTap, setCurrentTap] = useState(tabList[0]);
@@ -48,7 +49,7 @@ export default function WriteDetail(): ReactElement {
 
   const { data: writerListForAdmin } = useQueryWrap({
     queryKey: [config.apiUrl.getWriterListAdmin, roomId],
-    queryFn: () => getWriterListAdmin(roomId),
+    queryFn: () => getWriterListAdmin({ roomId, page: userPage }),
   });
 
   // const docParser = new DOMParser();
@@ -109,7 +110,7 @@ export default function WriteDetail(): ReactElement {
                           #{i}
                         </div>
                       ))} */}
-                      <div className={st.main_tagBox_tag}>#{novelInfo?.data.category}</div>
+                      <div className={st.main_tagBox_tag}>#{novelInfo?.data.category.name}</div>
                     </div>
                     <p className={st.main_tag_date}>시간</p>
                   </div>

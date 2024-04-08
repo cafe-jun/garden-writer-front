@@ -5,6 +5,7 @@ import { config } from '@/config/config';
 import {
   GetNovelChaterListRequest,
   GetNovelChaterListResponse,
+  GetWriterListAdminRequest,
   GetWriterListAdminResponse,
   GetWriterWantedListRequest,
   GetWriterWantedListResponse,
@@ -64,14 +65,15 @@ export function getNovelChapterList({ novelRoomId, page }: GetNovelChaterListReq
     method,
   });
 }
+
 /**
  * 소설공방에서 작가관리를 위한 작가 리스트(공장 주인용)
- * @param roomId 룸 아이디
+ * @param param0 GetWriterListAdminRequest
  * @returns GetWriterListAdminResponse
  */
-export function getWriterListAdmin(roomId: number) {
+export function getWriterListAdmin({ page, roomId }: GetWriterListAdminRequest) {
   return callApi<GetWriterListAdminResponse>({
-    url: `${config.apiUrl.getWriterListAdmin}?novelRoomId=${roomId}`,
+    url: `${config.apiUrl.getWriterListAdmin}?novelRoomId=${roomId}&pageNo=${page}&chunkSize=${config.pageSize}`,
     method,
   });
 }

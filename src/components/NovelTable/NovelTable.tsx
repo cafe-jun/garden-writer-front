@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
+import { dateChanger } from 'util/dateChange';
 
 import styles from './NovelTable.module.scss';
 import { NovelTableProps } from './type';
@@ -30,15 +31,13 @@ export const NovelTable = ({ tableData }: NovelTableProps): ReactElement => {
             }}
           >
             <td>{index + 1}</td>
-            <td>{item.category}</td>
+            <td>{item.category.name}</td>
             <td>{item.title}</td>
-            <td>{item.createdAt}</td>
-            <td>{item.completionAt}</td>
+            <td>{dateChanger(item.createdAt)}</td>
+            <td>{dateChanger(item.completedAt)}</td>
             <td>{item.writerStatus}</td>
-            <td>
-              {item.currentAttendCnt}/{item.currentWriterCnt}
-            </td>
-            <td>{item.id}</td>
+            <td>{item.currentAttendCnt}/5</td>
+            <td>{item.currentWriter}</td>
             <td>{item.status}</td>
           </tr>
         ))}

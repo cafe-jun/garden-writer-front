@@ -6,9 +6,9 @@ import { PaginationBarProps } from './type';
 
 export default function PaginationBar({
   type = 'white',
-  chunkSize,
-  totalCount,
-  totalPage,
+  chunkSize = 0,
+  totalCount = 0,
+  totalPage = 0,
 }: PaginationBarProps): ReactElement {
   const [page, setPage] = useState<number>(1);
   return (

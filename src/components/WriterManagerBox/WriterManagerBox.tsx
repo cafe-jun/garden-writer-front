@@ -71,22 +71,25 @@ export default function WriterManagerBox({ handleDragEnd }: WriterManagerBoxProp
       <div className={st.column}>
         <div className={st.box}>
           <div className={st.box_title}>참여작가({data.length}/5)</div>
-          <SortableContext
-            disabled={!modifyMode}
-            items={data ?? []}
-            strategy={verticalListSortingStrategy}
-          >
-            {data.map(item => (
-              // 마우스가 드래그를 하면 마우스를 따라오는 것이 아닌 드래그 아이템이 놓아질 위치에 그려지는 element
-              <DndItem
-                {...item}
-                overlayMode={false}
-                disabled={!modifyMode}
-                id={item.id}
-                key={item.id}
-              />
-            ))}
-          </SortableContext>
+
+          <div className={st.scrollBox}>
+            <SortableContext
+              disabled={!modifyMode}
+              items={data ?? []}
+              strategy={verticalListSortingStrategy}
+            >
+              {data.map(item => (
+                // 마우스가 드래그를 하면 마우스를 따라오는 것이 아닌 드래그 아이템이 놓아질 위치에 그려지는 element
+                <DndItem
+                  {...item}
+                  overlayMode={false}
+                  disabled={!modifyMode}
+                  id={item.id}
+                  key={item.id}
+                />
+              ))}
+            </SortableContext>
+          </div>
 
           {/* 마우스가 드래그를 시작하면 마우스를 따라오는 오버레이 element */}
           <DragOverlay dropAnimation={null}>

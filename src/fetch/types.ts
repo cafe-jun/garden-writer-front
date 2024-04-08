@@ -10,23 +10,24 @@ export interface Pagination {
   chunkSize: number;
   totalCount: number;
 }
-interface ApiResponse {
-  timestamp: string;
-  message: string;
+export interface Categorys {
+  id: number;
+  name: string;
 }
 export interface NovelPost {
   id: number;
   type: RoomType;
   title: string;
-  category: string;
+  category: Categorys;
   currentAttendCnt: number;
-  currentWriterCnt: string;
   writerStatus: WriterStatus;
   exitedAt: string | null; // ?
   createdAt: string; // ??
   notifiedAt: number; // ??
   completionAt: string | null;
   status: string; // ??
+  completedAt: string;
+  currentWriter: string;
 }
 export interface UserList {
   id: number;
@@ -58,8 +59,8 @@ export interface NovelChapter {
   no: number;
   status: NovelStatus;
   title: string;
-  approvalDate: string | null;
-  finalWriteredAt: string | null;
+  approvalAt: string | null;
+  finalAt: string | null;
   viewCount: number;
   commentCnt: number;
   like: number;
@@ -81,12 +82,12 @@ export interface GetWriterWantedList {
   viewCount: number;
   roomCreatedAt: string;
   like: number;
-  category: number;
+  category: Categorys;
   currentWriterCnt: number;
   roomType: RoomType;
 }
 // -------
-export interface LoginApiResonse extends ApiResponse {
+export interface LoginApiResonse {
   data: {
     accessToken: string;
     hasRoom: boolean;
@@ -96,7 +97,7 @@ export interface NovelListRequest {
   roomState: RoomStatus;
   page: number;
 }
-export interface NovelListResponse extends ApiResponse {
+export interface NovelListResponse {
   data: NovelPost[];
   meta: Pagination;
 }
@@ -115,7 +116,7 @@ export interface CreateRoomArg {
   attendContent: string;
 }
 
-export interface UserListResponse extends ApiResponse {
+export interface UserListResponse {
   data: UserList[];
 }
 
@@ -132,10 +133,10 @@ export interface CreateRoomResponse {
   attendContent: string;
 }
 
-export interface NovelRoomInfoResponse extends ApiResponse {
+export interface NovelRoomInfoResponse {
   data: {
     id: number;
-    category: number;
+    category: Categorys;
     character: string;
     summary: string;
     title: string;
@@ -145,7 +146,7 @@ export interface NovelRoomInfoResponse extends ApiResponse {
   };
 }
 
-export interface NovelJoinWriteListResponse extends ApiResponse {
+export interface NovelJoinWriteListResponse {
   data: NovelJoinWriteList[];
 }
 
@@ -154,12 +155,15 @@ export interface GetNovelChaterListRequest {
   novelRoomId: number;
 }
 
-export interface GetNovelChaterListResponse extends ApiResponse {
+export interface GetNovelChaterListResponse {
   meta: Pagination;
   data: NovelChapter[];
 }
-
-export interface GetWriterListAdminResponse extends ApiResponse {
+export interface GetWriterListAdminRequest {
+  roomId: number;
+  page: number;
+}
+export interface GetWriterListAdminResponse {
   data: GetWriterListAdmin[];
 }
 
@@ -168,8 +172,9 @@ export interface UpdateWriterStateRequest {
   status: WriterStatus;
 }
 
-export interface GetWriterWantedListResponse extends ApiResponse {
+export interface GetWriterWantedListResponse {
   data: GetWriterWantedList[];
+  meta: Pagination;
 }
 
 export interface GetWriterWantedListRequest {

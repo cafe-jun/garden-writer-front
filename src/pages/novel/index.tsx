@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Pagination from 'react-js-pagination';
@@ -13,6 +13,7 @@ import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { novelList } from '@/fetch/get';
 import { NovelListResponse, NovelPost, RoomStatus } from '@/fetch/types';
+import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.png';
 
 import styles from './novel.module.scss';
@@ -79,7 +80,7 @@ const NovelPage = () => {
   const [roomState, setRoomStatus] = useState<RoomStatus>('attending');
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, isError } = useQuery<NovelListResponse>({
+  const { data, isLoading, isError } = useQueryWrap<NovelListResponse>({
     queryKey: ['api/novelList', roomState, page],
     queryFn: () => novelList({ roomState, page }),
     placeholderData: keepPreviousData,

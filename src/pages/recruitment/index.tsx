@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
+import PaginationBar from '@/components/PaginationBar/PaginationBar';
 import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
 import { SearchInput } from '@/components/SearchInput/SearchInput';
 import { Select } from '@/components/Select/Select';
@@ -48,6 +49,10 @@ const RecruitmentPage = () => {
   const handleSubmitSearch = (): void => {
     console.log(search);
   };
+
+  useEffect(() => {
+    console.log(recruitment);
+  }, [recruitment]);
 
   // useEffect(() => {
   //   let filteredRecruitmentTableData = [];
@@ -96,7 +101,7 @@ const RecruitmentPage = () => {
           <Table data={recruitment?.data ?? []} />
         </div>
 
-        {/* <PaginationBar type="dark" /> */}
+        <PaginationBar type="dark" {...recruitment?.meta} />
       </main>
     </div>
   );
