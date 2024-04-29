@@ -1,89 +1,36 @@
-import { keepPreviousData } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
 
 import { InformationText } from '@/components/InformationText/InformationText';
 import { InformationTextType } from '@/components/InformationText/type';
 import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
-import { NovelTable, NovelTableStatus, NovelTableUserType } from '@/components/NovelTable/type';
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { novelList } from '@/fetch/get';
-import { NovelListResponse, NovelPost, RoomStatus } from '@/fetch/types';
+import { NovelListResponse, RoomStatus } from '@/fetch/types';
+import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
-import NovelPageHeaderBackground from '@/images/novel-page-header-background.png';
+import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
 
 import styles from './novel.module.scss';
 
-export const activeNovelTableData: NovelTable[] = [
-  {
-    id: 'haefasdfdf',
-    category: '일반소설',
-    title: '재벌집 막내아들',
-    created: '2023-05-02',
-    completed: '',
-    user_type: NovelTableUserType.main,
-    user_limit: 5,
-    attend_users_number: 3,
-    current_writer: '아얀',
-    status: NovelTableStatus.completed,
-  },
-  {
-    id: 'haedfsdffasdfdf',
-    category: '퓨전',
-    title: '배고파',
-    created: '2023-05-14',
-    completed: '',
-    user_type: NovelTableUserType.sub,
-    user_limit: 5,
-    attend_users_number: 1,
-    current_writer: '진식',
-    status: NovelTableStatus.active,
-  },
-];
+const novelTabs = ['참여중', '참여신청'];
 
-export const deactiveNovelTableData: NovelTable[] = [
-  {
-    id: 'shjrrw',
-    category: '퓨전',
-    title: '배불러',
-    created: '2023-05-14',
-    completed: '',
-    user_type: NovelTableUserType.sub,
-    user_limit: 5,
-    attend_users_number: 1,
-    current_writer: '진식',
-    status: NovelTableStatus.active,
-  },
-];
-
-export const novelTabs = ['참여중', '내 활동'];
-
-export const novelFilters = ['최신순', '오래된순'];
-
-const pageContentHeader = {
-  title: '소설공방',
-  description: '지금 바로 작가의 정원과 함께 소설을 연재해 보세요!',
-  buttonTitle: '소설공방 개설',
-  backgroundImage: NovelPageHeaderBackground,
-};
+const novelFilters = ['최신순', '오래된순'];
 
 const NovelPage = () => {
-  const route = useRouter();
   const [currentTab, setCurrentTab] = useState<string>(novelTabs[0]);
   const [filter, setFilter] = useState<string>(novelFilters[0]);
-  const [novelTable, setNovelTable] = useState<NovelPost[]>([]);
 
   const [roomState, setRoomStatus] = useState<RoomStatus>('attending');
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, isError } = useQueryWrap<NovelListResponse>({
+  const wheelEvent = useOnWheelHandle(300);
+  const { data } = useQueryWrap<NovelListResponse>({
     queryKey: ['api/novelList', roomState, page],
     queryFn: () => novelList({ roomState, page }),
-    placeholderData: keepPreviousData,
   });
 
   // 참여중, 미참여 탭 버튼을 클릭했을 때
@@ -100,40 +47,27 @@ const NovelPage = () => {
     }
   };
 
-  // 소설 공방 개설 버튼이 눌렸을 때
-  const handleCreateNovelButton = () => {
-    console.log('create novel');
-    route.push('/write/info');
-  };
-
   // 정렬 select box를 클릭했을 때
   const handleNovelFilter = (selectedItem: string) => {
     setFilter(selectedItem);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-  // if (isLoading) {
-  //   return <p>adsf</p>;
-  // }
-  // if (isError) {
-  //   return <p>adsf</p>;
-  // }
   return (
-    <div>
-      <PageContentHeader backgroundImage={pageContentHeader.backgroundImage}>
-        <>
-          <div className={styles.headerTextWrap}>
-            <h2 className={styles.headerTitle}>{pageContentHeader.title}</h2>
-            <p className={styles.headerDescription}>{pageContentHeader.description}</p>
-          </div>
-          <button type="button" className={styles.headerButton} onClick={handleCreateNovelButton}>
-            {pageContentHeader.buttonTitle}
+    <div onWheel={wheelEvent}>
+      <PageContentHeader
+        backgroundColor="#9CE1E6"
+        pageImage={NovelPageHeaderBackground}
+        pageName="소설공방"
+        summary1="동료 작가들과 함께 글을 써보세요"
+      />
+      <div className={styles.infoBar}>
+        <div className={styles.roomCreateBtnBar}>
+          <button type="button" className={`white-btn ${styles.createBtn}`}>
+            소설공방개설 +
           </button>
-        </>
-      </PageContentHeader>
-
+          <p>내가 대표 작가로 동료들을 모집하고 글을 쓸 수 있어요.</p>
+        </div>
+      </div>
       <main className={styles.main}>
         <div>
           <InformationText
@@ -154,7 +88,7 @@ const NovelPage = () => {
               />
             </div>
             {/* {isLoading ?  : null} */}
-            <Table tableData={data?.data ?? []} />
+            <Table tab={roomState} tableData={data?.data ?? []} />
           </div>
         </div>
 

@@ -1,4 +1,3 @@
-import { StaticImageData } from 'next/image';
 import { ChangeEvent } from 'react';
 
 export interface SearchInputProps {
@@ -6,5 +5,4 @@ export interface SearchInputProps {
   handleSubmitSearch: () => void;
   search: string;
   style?: string;
-  buttonIcon?: StaticImageData;
 }

@@ -1,21 +1,20 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { config } from '@/config/config';
 import Logo from '@/images/login-logo.svg';
-import LogoWhite from '@/images/logo-white.svg';
-import SearchIconPrimary from '@/images/search-icon-primary.svg';
-import SearchIconWhite from '@/images/search-icon-white.svg';
+import useWheelState from '@/zustand/stores/useWheelState';
 
 import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
-import { PageHeaderBackground, PageHeaderProps } from './type';
+import { PageHeaderProps } from './type';
 
 export const PageHeader = ({ background }: PageHeaderProps) => {
   const [search, setSearch] = useState<string>('');
   const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
+  const { isWheelTop } = useWheelState();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
@@ -40,76 +39,44 @@ export const PageHeader = ({ background }: PageHeaderProps) => {
     console.log('read api');
   };
 
-  const searchStyle = useMemo((): string => {
-    switch (background) {
-      // eslint-disable-next-line default-case-last
-      default:
-      case PageHeaderBackground.original:
-        return styles.recruitmentSearchWrapOriginal;
-      case PageHeaderBackground.white:
-        return styles.recruitmentSearchWrapWhite;
-    }
-  }, [background]);
-
-  const searchIcon = useMemo((): StaticImageData => {
-    switch (background) {
-      // eslint-disable-next-line default-case-last
-      default:
-      case PageHeaderBackground.original:
-        return SearchIconPrimary;
-      case PageHeaderBackground.white:
-        return SearchIconWhite;
-    }
-  }, [background]);
-
-  const LogoIcon = useMemo((): StaticImageData => {
-    switch (background) {
-      // eslint-disable-next-line default-case-last
-      default:
-      case PageHeaderBackground.original:
-        return Logo;
-      case PageHeaderBackground.white:
-        return LogoWhite;
-    }
-  }, [background]);
+  useEffect(() => {
+    console.log(isWheelTop);
+  }, [isWheelTop]);
 
   return (
     <header
-      className={`${styles.header} ${background === PageHeaderBackground.white && styles.white}`}
+      className={styles.header}
+      style={{ backgroundColor: isWheelTop ? '#ffffff00' : '#ffffff' }}
     >
-      <Image
-        className={styles.headerLogo}
-        src={LogoIcon}
-        alt="logo"
-        style={{ width: 'auto', height: 'auto' }}
-      />
-      <div className={styles.headerLeftContents}>
-        <Link href="/" replace={false} prefetch={false}>
-          웹소설
-        </Link>
-        <Link href={config.page.novel} replace={false} prefetch={false}>
-          소설공방
-        </Link>
-        <Link href={config.page.recruitment} replace={false} prefetch={false}>
-          작가참여
-        </Link>
-      </div>
-      <SearchInput
-        search={search}
-        handleSearch={handleSearch}
-        handleSubmitSearch={handleSubmitSearch}
-        style={searchStyle}
-        buttonIcon={searchIcon}
-      />
-      <div className={styles.headerRightContents}>
-        <Notice
-          visible={visibleAlarm}
-          handleVisible={handleVisibleAralm}
-          handleAlarmItem={handleAlarmItem}
+      <div className={styles.outline}>
+        <Image src={Logo} alt="작가의 정원 로고" />
+        <div className={styles.headerLeftContents}>
+          <Link href="/" replace={false} prefetch={false}>
+            웹소설
+          </Link>
+          <Link href={config.page.novel} replace={false} prefetch={false}>
+            소설공방
+          </Link>
+          <Link href={config.page.recruitment} replace={false} prefetch={false}>
+            작가참여
+          </Link>
+        </div>
+        <SearchInput
+          search={search}
+          handleSearch={handleSearch}
+          handleSubmitSearch={handleSubmitSearch}
+          style={styles.recruitmentSearchWrapOriginal}
         />
-        <Link href="/" replace={false} prefetch={false}>
-          내정보
-        </Link>
+        <div className={styles.headerRightContents}>
+          <Notice
+            visible={visibleAlarm}
+            handleVisible={handleVisibleAralm}
+            handleAlarmItem={handleAlarmItem}
+          />
+          <Link href="/" replace={false} prefetch={false}>
+            내정보
+          </Link>
+        </div>
       </div>
     </header>
   );

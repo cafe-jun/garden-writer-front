@@ -61,3 +61,48 @@ body {
     text-decoration: none;
     color: black;
 }
+
+.white-btn {
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 3.875rem;
+    border: 0.6px solid #059EAF;
+    background-color: #FFF;
+
+    color: #059EAF;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 0.875rem;
+    font-style: normal;
+
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+.white-btn:hover {
+    background-color: #E7F6F8;
+}
+
+
+.blue-btn {
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 3.875rem;
+    border: 0.6px solid #059EAF;
+    background-color: #059EAF;
+
+    color: #FFFFFF;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 0.875rem;
+    font-style: normal;
+
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+.blue-btn:hover {
+    background-color: #077D8A;
+}

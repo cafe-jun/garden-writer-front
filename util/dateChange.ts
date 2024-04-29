@@ -1,6 +1,6 @@
 export function dateChanger(dt: string | null) {
   if (!dt) {
-    return null;
+    return '-';
   }
   return dt.split(' ')[0];
 }

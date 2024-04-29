@@ -35,10 +35,10 @@ export default function Login(): ReactElement {
     }
   }
   return (
-    <div className={`${st.container} ${st.mt92}`}>
+    <div className={`${st.container}`}>
       {/* 중앙에 배치되는 compoent container start */}
       <div className={st.inputContainer}>
-        <Image className={st.mt8} src={LoginLogo} alt="main logo" />
+        <Image src={LoginLogo} alt="작가의 정원 메인 로고" />
         <p className={st.text1}>
           <span>이야기에 상상력을 더하고</span>
           <br />

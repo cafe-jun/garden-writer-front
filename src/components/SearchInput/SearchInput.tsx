@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { KeyboardEvent } from 'react';
 
-import SearchIcon from '@/images/search-icon.svg';
+import SearchIconPrimary from '@/images/search-icon-primary.svg';
 
 import styles from './SearchInput.module.scss';
 import { SearchInputProps } from './type';
@@ -11,7 +11,6 @@ export const SearchInput = ({
   handleSubmitSearch,
   search,
   style,
-  buttonIcon = SearchIcon,
 }: SearchInputProps) => {
   const handleEnterSearch = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
@@ -31,7 +30,7 @@ export const SearchInput = ({
         placeholder="검색어를 입력해주세요."
       />
       <button type="button" onClick={handleClickSearchButton}>
-        <Image src={buttonIcon} alt="search" />
+        <Image src={SearchIconPrimary} alt="작가의 정원 전체 검색" />
       </button>
     </div>
   );

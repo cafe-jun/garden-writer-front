@@ -14,6 +14,7 @@ import WriterListOneRow from '@/components/WriterListOneRow/WriterListOneRow';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
 import { config } from '@/config/config';
 import { getNovelChapterList, getWriterListAdmin, novelRoomInfo } from '@/fetch/get';
+import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
@@ -24,6 +25,7 @@ const PAGE_2 = '회차정보';
 const PAGE_3 = '소설정보';
 const PAGE_4 = '작가관리';
 export default function WriteDetail(): ReactElement {
+  const wheelEvent = useOnWheelHandle(300);
   const [data, setData] = useState<string[]>(['1111111', '222222', '33333']);
   const [page, setPage] = useState<number>(1);
   const [userPage, setUserPage] = useState<number>(1);
@@ -58,7 +60,7 @@ export default function WriteDetail(): ReactElement {
   // const doc = docParser.parseFromString(htmlStr, 'text/html');
 
   return (
-    <div className={st.mainBody}>
+    <div className={st.mainBody} onWheel={wheelEvent}>
       {/* 참여작가 드래그 박스와 공장정보 박스를 row로 관리 */}
       <div className={st.mainBody_content}>
         {/* 참여작가 박스 */}
@@ -131,10 +133,24 @@ export default function WriteDetail(): ReactElement {
                 date={novelInfo?.data.updatedAt ?? ''}
                 style={{ width: '996px', height: '186px', marginTop: '8px' }}
               />
-
-              <button type="button" className={st.main_infoModifyBtn} onClick={toggleModify}>
-                기본정보 수정
-              </button>
+              {!modityMode ? (
+                <button
+                  type="button"
+                  className={`white-btn ${st.main_infoModifyBtn}`}
+                  onClick={toggleModify}
+                >
+                  기본정보 수정
+                </button>
+              ) : (
+                <div className={st.infoChangeBtn}>
+                  <button className="blue-btn" type="button">
+                    수정완료
+                  </button>
+                  <button className="white-btn" type="button">
+                    취소
+                  </button>
+                </div>
+              )}
             </div>
           ) : null}
 

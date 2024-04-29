@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactElement, useState } from 'react';
 
-import bottomArrow from '@/images/bottom-arrow.svg';
+import BottomArrow from '@/images/bottom-arrow.svg';
 
 import st from './GenreBtn.module.scss';
 import { GenreBtnProps } from './type';
@@ -11,7 +11,7 @@ export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
   return (
     <button type="button" className={`${!disabled ? st.btn : st.disableBtn}`} onClick={opener}>
       장르이름
-      <Image src={bottomArrow} alt="소설 장르 선택 패널 열기 아이콘" />
+      <Image src={BottomArrow} alt="아래방향 화살표 버튼" />
       {openPenel ? (
         <div className={st.btn_panel}>
           {[
@@ -35,9 +35,6 @@ export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
     </button>
   );
   function opener() {
-    if (!openPenel) {
-      return;
-    }
     setOpenPanel(p => !p);
   }
 }

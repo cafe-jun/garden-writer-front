@@ -18,7 +18,7 @@ export const InformationText = ({ text, type }: InformationTextProps) => {
   return (
     <div className={styles.information}>
       <div className={`${styles.informationIcon} ${getInformationTextTypeClassName()}`}>
-        <Image src={InformationIcon} alt="정보 아이콘" />
+        <Image src={InformationIcon} alt="" />
       </div>
       <span className={styles.informationText}>{text}</span>
     </div>

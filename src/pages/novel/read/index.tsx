@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import throttle from 'lodash/throttle';
 import { ReactElement, useState, WheelEvent } from 'react';
 
 import CommentSend from '@/components/CommentSend/CommentSend';
@@ -63,7 +63,7 @@ export default function NovelRead(): ReactElement {
     }
   }
 
-  const wheelEvent = _.throttle(handleOnWheel, 1000);
+  const wheelEvent = throttle(handleOnWheel, 1000);
   return (
     <div className={st.main} onWheel={wheelEvent}>
       <div className={st.main_title}>

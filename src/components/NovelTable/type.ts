@@ -2,6 +2,7 @@ import { NovelPost } from '@/fetch/types';
 
 export interface NovelTableProps {
   tableData: NovelPost[];
+  tab: 'attending' | 'non_attending';
 }
 export interface NovelTable {
   id: string;

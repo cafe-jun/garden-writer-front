@@ -14,10 +14,13 @@
         background-color: $white-1;
         border: 1px solid $gray-1;
         border-radius: 20px 20px 0 0;
+
+
         cursor: pointer;
 
         &.active {
-            background-color: $gray-5;
+            background-color: $blue-1;
+            color: $white-1;
         }
     }
 }

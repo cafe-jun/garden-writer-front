@@ -9,18 +9,11 @@ import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { getWriterWantedList } from '@/fetch/get';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
-import RecruitmentPageHeaderBackground from '@/images/recruitment-page-header-background.png';
+import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
 
 import styles from './recruitment.module.scss';
 
 export const recruitmentFilters = ['전체', '모집중', '모집완료'];
-
-export const pageContentHeader = {
-  badge: '작가 참여',
-  title: '혼자 글을 쓰는게 힘드시진 않으신가요?',
-  description: '나와 같은 생각을 가진 작가분들과 함께 이야기를 만들어보세요.',
-  backgroundImage: RecruitmentPageHeaderBackground,
-};
 
 const RecruitmentPage = () => {
   const router = useRouter();
@@ -74,13 +67,12 @@ const RecruitmentPage = () => {
 
   return (
     <div>
-      <PageContentHeader backgroundImage={pageContentHeader.backgroundImage}>
-        <div className={styles.headerTextWrap}>
-          <p className={styles.headerBadge}>{pageContentHeader.badge}</p>
-          <h2 className={styles.headerTitle}>{pageContentHeader.title}</h2>
-          <p className={styles.headerDescription}>{pageContentHeader.description}</p>
-        </div>
-      </PageContentHeader>
+      <PageContentHeader
+        backgroundColor="#9CE1E6"
+        pageImage={NovelPageHeaderBackground}
+        pageName="소설공방"
+        summary1="동료 작가들과 함께 글을 써보세요"
+      />
 
       <main className={styles.main}>
         <div className={styles.recruitmentContainer}>

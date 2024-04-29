@@ -26,7 +26,7 @@ export default function DndItem({
   if (overlayMode) {
     return (
       <div className={st.item}>
-        <Image src={UserIcon} alt="유저 아이콘" />
+        <Image src={UserIcon} alt="유저 썸네일 아이콘" />
         <h3 className={st.item_name}>{nickname}</h3>
 
         {!disabled ? (
@@ -43,7 +43,7 @@ export default function DndItem({
       style={style}
       {...attributes}
     >
-      <Image src={UserIcon} alt="유저 아이콘" />
+      <Image src={UserIcon} alt="유저 썸네일 아이콘" />
       <h3 className={st.item_name}>{nickname}</h3>
 
       {!disabled ? (
