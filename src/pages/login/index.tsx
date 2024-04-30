@@ -40,7 +40,7 @@ export default function Login(): ReactElement {
       <div className={st.inputContainer}>
         <Image src={LoginLogo} alt="작가의 정원 메인 로고" />
         <p className={st.text1}>
-          <span>이야기에 상상력을 더하고1</span>
+          <span>이야기에 상상력을 더하고</span>
           <br />
           <span>더 높은 가치를 공유하세요</span>
         </p>
