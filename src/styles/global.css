@@ -31,16 +31,16 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: lightgray;
+    background-color: transparent;
     transition: all 0.3s;
     list-style-type: none;
 }
 
-.cus-pagination-li:hover,
-.cus-pagination-li:active,
-.cus-pagination-li.active {
-    background-color: gray;
-    color: white;
+.cus-pagination-li:hover>a,
+.cus-pagination-li:active>a,
+.cus-pagination-li.active>a {
+    /* background-color: gray; */
+    color: #000000;
 }
 
 .cus-pagination-li:nth-child(1)>a,
@@ -59,7 +59,7 @@ body {
     font-size: 12px;
 
     text-decoration: none;
-    color: black;
+    color: #C3C3C3;
 }
 
 .white-btn {

@@ -77,11 +77,12 @@ export interface GetWriterListAdmin {
   exitAt: null;
 }
 export interface GetWriterWantedList {
+  roomId: number;
   roomTitle: string;
   boardTitle: string;
   viewCount: number;
   roomCreatedAt: string;
-  like: number;
+  likeCount: number;
   category: Categorys;
   currentWriterCnt: number;
   roomType: RoomType;

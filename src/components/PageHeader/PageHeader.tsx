@@ -58,7 +58,7 @@ export const PageHeader = ({ background }: PageHeaderProps) => {
             소설공방
           </Link>
           <Link href={config.page.recruitment} replace={false} prefetch={false}>
-            작가참여
+            작가모집
           </Link>
         </div>
         <SearchInput

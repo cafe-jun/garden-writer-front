@@ -6,7 +6,6 @@ import CusSelectBox from '@/components/CusSelectBox/CusSelectBox';
 import EpisodeListOneRow from '@/components/EpisodeListOneRow/EpisodeListOneRow';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
-import PaginationBar from '@/components/PaginationBar/PaginationBar';
 import ScrollTextBox from '@/components/ScrollTextBox/ScrollTextBox';
 import WriteChat from '@/components/WriteChat/WirteChat';
 import WriteChatSendBox from '@/components/WriteChatSendBox/WriteChatSendBox';
@@ -143,7 +142,7 @@ export default function WriteDetail(): ReactElement {
                 </button>
               ) : (
                 <div className={st.infoChangeBtn}>
-                  <button className="blue-btn" type="button">
+                  <button onClick={toggleModify} className="blue-btn" type="button">
                     수정완료
                   </button>
                   <button className="white-btn" type="button">
@@ -181,7 +180,7 @@ export default function WriteDetail(): ReactElement {
                   <EpisodeListOneRow key={i.id} {...i} />
                 ))}
                 {/* 회차정보 row end */}
-                {chapterList ? <PaginationBar type="white" {...chapterList?.meta} /> : null}
+                {/* {chapterList ? <PaginationBar type="white" {...chapterList?.meta} /> : null} */}
               </div>
             </div>
           ) : null}

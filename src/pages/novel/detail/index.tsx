@@ -3,7 +3,6 @@ import { ReactElement } from 'react';
 
 import NovelEpisodeRow from '@/components/NovelEpisodeRow/NovelEpisodeRow';
 import NovelTabsGreenAndSelect from '@/components/NovelTabsGreenAndSelect/NovelTabsGreenAndSelect';
-import PaginationBar from '@/components/PaginationBar/PaginationBar';
 
 import novelLike from '../../../images/novel-like-icon.svg';
 import viewIcon from '../../../images/view-icon.svg';
@@ -118,9 +117,7 @@ export default function NovelDetail(): ReactElement {
           ))}
         </div>
 
-        <div>
-          <PaginationBar type="dark" />
-        </div>
+        <div>{/* <PaginationBar type="dark" /> */}</div>
       </div>
     </div>
   );

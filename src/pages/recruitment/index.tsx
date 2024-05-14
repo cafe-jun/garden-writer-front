@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import Pagination from 'react-js-pagination';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
-import PaginationBar from '@/components/PaginationBar/PaginationBar';
 import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
-import { SearchInput } from '@/components/SearchInput/SearchInput';
-import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { getWriterWantedList } from '@/fetch/get';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
@@ -18,15 +16,13 @@ export const recruitmentFilters = ['전체', '모집중', '모집완료'];
 const RecruitmentPage = () => {
   const router = useRouter();
   const [filter, setFilter] = useState<string>(recruitmentFilters[1]);
-  // const [recruitmentTableData, setRecruitmentTableData] = useState<RecruitmentTable[]>(recruitment);
   const [search, setSearch] = useState<string>('');
   const [page, setPage] = useState<number>(1);
 
-  const { data: recruitment } = useQueryWrap({
+  const { data: recruitment, isLoading } = useQueryWrap({
     queryKey: [config.apiUrl.getWriterWantedList, page],
     queryFn: () => getWriterWantedList({ page }),
   });
-
   const handleNovelFilter = (selectedItem: string): void => {
     setFilter(selectedItem);
   };
@@ -43,28 +39,6 @@ const RecruitmentPage = () => {
     console.log(search);
   };
 
-  useEffect(() => {
-    console.log(recruitment);
-  }, [recruitment]);
-
-  // useEffect(() => {
-  //   let filteredRecruitmentTableData = [];
-
-  //   if (filter === '전체') {
-  //     filteredRecruitmentTableData = recruitment;
-  //   } else if (filter === '모집중') {
-  //     filteredRecruitmentTableData = recruitment.filter(
-  //       recruitmentTableRow => recruitmentTableRow.status === RecruitmentTableStatus.active
-  //     );
-  //   } else {
-  //     filteredRecruitmentTableData = recruitment.filter(
-  //       recruitmentTableRow => recruitmentTableRow.status === RecruitmentTableStatus.completed
-  //     );
-  //   }
-
-  //   setRecruitmentTableData([...filteredRecruitmentTableData]);
-  // }, [filter]);
-
   return (
     <div>
       <PageContentHeader
@@ -77,23 +51,35 @@ const RecruitmentPage = () => {
       <main className={styles.main}>
         <div className={styles.recruitmentContainer}>
           <div className={styles.recruitmentSearchContainer}>
-            <SearchInput
+            {/* <SearchInput
               handleSearch={handleSearch}
               handleSubmitSearch={handleSubmitSearch}
               search={search}
-            />
+            /> */}
           </div>
-          <div className={styles.recruitmentHeader}>
+          {/* <div className={styles.recruitmentHeader}>
             <Select
               selectedItem={filter}
               options={recruitmentFilters}
               handleSelectedItem={handleNovelFilter}
             />
-          </div>
-          <Table data={recruitment?.data ?? []} />
+          </div> */}
+          <Table data={recruitment?.data ?? []} isLoading={isLoading} />
         </div>
 
-        <PaginationBar type="dark" {...recruitment?.meta} />
+        <Pagination
+          innerClass="cus-pagination"
+          itemClass="cus-pagination-li"
+          activePage={page}
+          itemsCountPerPage={config.pageSize}
+          totalItemsCount={recruitment?.meta?.totalCount ?? 0}
+          pageRangeDisplayed={6}
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={n => {
+            setPage(n);
+          }}
+        />
       </main>
     </div>
   );

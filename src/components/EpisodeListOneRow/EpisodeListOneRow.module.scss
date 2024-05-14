@@ -74,7 +74,7 @@
         width: $s60px;
     }
 
-    &:hover {
-        background-color: $white-1;
+    &:hover>p {
+        color: $blue-1;
     }
 }

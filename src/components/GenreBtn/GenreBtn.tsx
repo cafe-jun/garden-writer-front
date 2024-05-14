@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import BottomArrow from '@/images/bottom-arrow.svg';
 
@@ -8,6 +8,11 @@ import { GenreBtnProps } from './type';
 
 export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
   const [openPenel, setOpenPanel] = useState<boolean>(false);
+  useEffect(() => {
+    if (disabled) {
+      setOpenPanel(false);
+    }
+  }, [disabled]);
   return (
     <button type="button" className={`${!disabled ? st.btn : st.disableBtn}`} onClick={opener}>
       장르이름

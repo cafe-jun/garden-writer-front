@@ -6,4 +6,5 @@ export enum RecruitmentTableStatus {
 }
 export interface Props {
   data: GetWriterWantedList[];
+  isLoading: boolean;
 }

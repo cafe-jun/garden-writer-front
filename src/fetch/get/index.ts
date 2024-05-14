@@ -83,7 +83,7 @@ export function getWriterListAdmin({ page, roomId }: GetWriterListAdminRequest) 
  */
 export function getWriterWantedList({ page }: GetWriterWantedListRequest) {
   return callApi<GetWriterWantedListResponse>({
-    url: `${config.apiUrl.getWriterWantedList}?pageNo=${page}&chunkSize=${config.pageSize}`,
+    url: `${config.apiUrl.getWriterWantedList}?pageNo=${page}&chunkSize=${6}`,
     method,
   });
 }
