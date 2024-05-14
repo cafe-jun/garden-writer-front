@@ -1,4 +1,3 @@
-import Skeleton from '@mui/material/Skeleton';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
 
@@ -61,15 +60,15 @@ export const RecruitmentTable = ({ data, isLoading }: Props) => {
   }, [isLoading]);
   return (
     <div className={st.content}>
-      {new Array(6).fill(0).map(()=><Skeleton key={item} variant="rectangular" width="33.75px" height="11.125px" />)}
-      {data.map(item => {
-        if (isLoading) {
-          return (
-            
-          );
-        }
-        return <Card {...item} key={item.roomId} />;
-      })}
+      {/* {new Array(6).fill(0).map(()=><Skeleton key={item} variant="rectangular" width="33.75px" height="11.125px" />)} */}
+      {data.map(item => (
+        // if (isLoading) {
+        //   return (
+
+        //   );
+        // }
+        <Card {...item} key={item.roomId} />
+      ))}
     </div>
   );
 };
