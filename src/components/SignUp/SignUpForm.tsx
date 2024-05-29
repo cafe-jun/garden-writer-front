@@ -163,7 +163,7 @@ const SignUpForm = () => {
             regex={passwordRegex}
             valuePayload="password"
             requiredMessage="비밀번호를 입력해주세요."
-            validateErrorMessage="사용할 수 없는 비밀번호입니다."
+            validateErrorMessage="8자에서 16자 사이의 길이로, 최소 하나의 알파벳, 하나의 숫자, 하나의 특수 문자(!@#$%^&*)"
             validateSuccessMessage="사용 가능 한 비밀번호입니다."
             label="비밀번호"
             placeholder="비밀번호"
