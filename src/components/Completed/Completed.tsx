@@ -2,7 +2,8 @@ import React from 'react';
 
 import styles from './Completed.module.scss';
 import { CompletedProps } from './type';
-
+// 해당 페이지가 사라짐
+// 안쓰는 중임
 export const Completed = ({
   children,
   leftButtonLabel,
