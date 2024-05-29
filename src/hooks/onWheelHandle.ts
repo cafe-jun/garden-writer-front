@@ -19,7 +19,6 @@ export default function useOnWheelHandle(minScroll = 0) {
   };
 
   const wheelTopNow = () => {
-    console.log(window.scrollY);
     if (window.scrollY < minScroll) {
       wheelTopChange(true);
     } else {
