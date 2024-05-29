@@ -6,20 +6,17 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { PageHeader } from '@/components/PageHeader/PageHeader';
-import { PageHeaderBackground } from '@/components/PageHeader/type';
 
 const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
-  const [pageHeaderBackground, setPageHeaderBackground] = useState<PageHeaderBackground>(
-    PageHeaderBackground.original
-  );
+  const [isHeader, setIsHeader] = useState<boolean>(false);
   const { asPath } = useRouter();
-
+  const banPick = ['/', '/login', '/signUp', '/write/info'];
   useEffect(() => {
-    if ([''].includes(asPath)) {
-      setPageHeaderBackground(PageHeaderBackground.white);
+    if (banPick.includes(asPath)) {
+      setIsHeader(false);
     } else {
-      setPageHeaderBackground(PageHeaderBackground.original);
+      setIsHeader(true);
     }
   }, [asPath]);
 
@@ -27,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       {/* <RightMouseDisable /> */}
       {/* <F12Disabled /> */}
-      <PageHeader background={pageHeaderBackground} />
+      {isHeader && <PageHeader />}
       <Component {...pageProps} />
     </QueryClientProvider>
   );
