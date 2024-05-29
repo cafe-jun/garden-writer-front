@@ -6,15 +6,19 @@
     align-items: center;
     padding: 40px 0;
 
+    padding-top: 11.245rem;
+
     .header {
         display: flex;
         flex-direction: column;
         gap: 12px;
         margin-bottom: 32px;
         width: 558px;
+
         .headerTools {
             display: flex;
             gap: 10px;
+
             .headerTool {
                 display: flex;
                 justify-content: center;
@@ -30,16 +34,19 @@
         flex-direction: column;
         gap: 32px;
         width: 558px;
+
         .novelList {
             display: flex;
             flex-direction: column;
             gap: 20px;
             list-style: none;
+
             .novelItem {
                 span {
                     &:first-child {
                         font-weight: 500;
                     }
+
                     &:last-child {
                         margin-left: 16px;
                         color: $gray-2;
@@ -48,11 +55,13 @@
                 }
             }
         }
+
         .novelDescription {
             p {
                 &:first-child {
                     font-weight: 500;
                 }
+
                 &:last-child {
                     margin-top: 8px;
                     color: $gray-2;
@@ -60,11 +69,13 @@
                 }
             }
         }
+
         .novelOpenChat {
             p {
                 &:first-child {
                     font-weight: 500;
                 }
+
                 &:last-child {
                     margin-top: 8px;
                     color: $gray-2;
@@ -78,6 +89,7 @@
         display: flex;
         gap: 16px;
         margin-top: 60px;
+
         .button {
             display: flex;
             justify-content: center;
@@ -90,12 +102,15 @@
             border-radius: 62px;
             cursor: pointer;
             transition: .2s all ease-in-out;
+
             &:hover {
                 background-color: $blue-3;
             }
+
             &:first-child {
                 width: 70px;
             }
+
             &:last-child {
                 width: 200px;
             }

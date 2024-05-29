@@ -7,6 +7,7 @@ import {
   GetNovelChaterListResponse,
   GetWriterListAdminRequest,
   GetWriterListAdminResponse,
+  GetWriterPostDetailResponse,
   GetWriterWantedListRequest,
   GetWriterWantedListResponse,
   NovelJoinWriteListResponse,
@@ -84,6 +85,17 @@ export function getWriterListAdmin({ page, roomId }: GetWriterListAdminRequest) 
 export function getWriterWantedList({ page }: GetWriterWantedListRequest) {
   return callApi<GetWriterWantedListResponse>({
     url: `${config.apiUrl.getWriterWantedList}?pageNo=${page}&chunkSize=${6}`,
+    method,
+  });
+}
+/**
+ * 작가모집글 상세조회
+ * @param param0 roomId
+ * @returns
+ */
+export function getWriterPostDetail({ roomId }: { roomId: number }) {
+  return callApi<GetWriterPostDetailResponse>({
+    url: config.apiUrl.getWriterPostDetail(roomId),
     method,
   });
 }
