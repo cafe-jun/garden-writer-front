@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { KeyboardEvent, ReactElement } from 'react';
 
 import LoginDataInput from '@/components/LoginDataInput';
+import { config } from '@/config/config';
 import { loginApi } from '@/fetch/post';
 import useLoginData from '@/zustand/stores/useLoginData.zst';
 
@@ -18,12 +19,13 @@ export default function Login(): ReactElement {
     mutationKey: ['api/login'],
     mutationFn: loginApi,
     onSuccess(data) {
-      localStorage.setItem('access', `${data.data.accessToken}`);
-      if (data.data.hasRoom) {
-        route.replace('/novel');
-      } else {
-        route.replace('/novel/before');
-      }
+      localStorage.setItem(config.storageKey, `${data.data.accessToken}`);
+      route.replace('/novel');
+      // if (data.data.hasRoom) {
+      //   route.replace('/novel');
+      // } else {
+      //   route.replace('/novel/before');
+      // }
     },
     onError(err) {
       console.log(err);
