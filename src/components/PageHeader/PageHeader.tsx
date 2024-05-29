@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { config } from '@/config/config';
 import Logo from '@/images/login-logo.svg';
@@ -9,9 +9,8 @@ import useWheelState from '@/zustand/stores/useWheelState';
 import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
-import { PageHeaderProps } from './type';
 
-export const PageHeader = ({ background }: PageHeaderProps) => {
+export const PageHeader = () => {
   const [search, setSearch] = useState<string>('');
   const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
   const { isWheelTop } = useWheelState();
@@ -39,10 +38,6 @@ export const PageHeader = ({ background }: PageHeaderProps) => {
     console.log('read api');
   };
 
-  useEffect(() => {
-    console.log(isWheelTop);
-  }, [isWheelTop]);
-
   return (
     <header
       className={styles.header}
@@ -51,13 +46,13 @@ export const PageHeader = ({ background }: PageHeaderProps) => {
       <div className={styles.outline}>
         <Image src={Logo} alt="작가의 정원 로고" />
         <div className={styles.headerLeftContents}>
-          <Link href="/" replace={false} prefetch={false}>
+          <Link href="/" replace={false}>
             웹소설
           </Link>
-          <Link href={config.page.novel} replace={false} prefetch={false}>
+          <Link href={config.page.novel} replace={false}>
             소설공방
           </Link>
-          <Link href={config.page.recruitment} replace={false} prefetch={false}>
+          <Link href={config.page.recruitment} replace={false}>
             작가모집
           </Link>
         </div>
@@ -73,8 +68,14 @@ export const PageHeader = ({ background }: PageHeaderProps) => {
             handleVisible={handleVisibleAralm}
             handleAlarmItem={handleAlarmItem}
           />
-          <Link href="/" replace={false} prefetch={false}>
-            내정보
+          <Link
+            href="/"
+            replace={false}
+            onClick={() => {
+              localStorage.removeItem(config.storageKey);
+            }}
+          >
+            로그아웃
           </Link>
         </div>
       </div>
