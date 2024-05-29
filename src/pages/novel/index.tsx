@@ -1,3 +1,5 @@
+import Skeleton from '@mui/material/Skeleton';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
 
@@ -6,7 +8,7 @@ import { InformationTextType } from '@/components/InformationText/type';
 import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
 import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
-import { Select } from '@/components/Select/Select';
+// import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { novelList } from '@/fetch/get';
 import { NovelListResponse, RoomStatus } from '@/fetch/types';
@@ -28,7 +30,7 @@ const NovelPage = () => {
   const [page, setPage] = useState<number>(1);
 
   const wheelEvent = useOnWheelHandle(300);
-  const { data } = useQueryWrap<NovelListResponse>({
+  const { data, isSuccess } = useQueryWrap<NovelListResponse>({
     queryKey: ['api/novelList', roomState, page],
     queryFn: () => novelList({ roomState, page }),
   });
@@ -42,7 +44,7 @@ const NovelPage = () => {
       setRoomStatus('attending');
       setPage(1);
     } else {
-      setRoomStatus('non_attending');
+      setRoomStatus('apptendApply');
       setPage(1);
     }
   };
@@ -62,9 +64,9 @@ const NovelPage = () => {
       />
       <div className={styles.infoBar}>
         <div className={styles.roomCreateBtnBar}>
-          <button type="button" className={`white-btn ${styles.createBtn}`}>
+          <Link href="/write/info" className={`white-btn ${styles.createBtn}`}>
             소설공방개설 +
-          </button>
+          </Link>
           <p>내가 대표 작가로 동료들을 모집하고 글을 쓸 수 있어요.</p>
         </div>
       </div>
@@ -81,14 +83,30 @@ const NovelPage = () => {
                 currentTab={currentTab}
                 handleCurrentTab={handleCurrentTab}
               />
-              <Select
+              {/* <Select
                 selectedItem={filter}
                 options={novelFilters}
                 handleSelectedItem={handleNovelFilter}
-              />
+              /> */}
             </div>
             {/* {isLoading ?  : null} */}
-            <Table tab={roomState} tableData={data?.data ?? []} />
+            {!isSuccess &&
+              Array(6)
+                .fill(0)
+                .map((item, index) => (
+                  <Skeleton
+                    key={item + index.toString()}
+                    sx={{
+                      width: '1200px',
+                      height: '48px',
+                      padding: '0px',
+                      margin: '0px',
+                    }}
+                    animation="wave"
+                  />
+                ))}
+
+            {isSuccess && <Table tab={roomState} tableData={data?.data ?? []} />}
           </div>
         </div>
 
@@ -102,7 +120,6 @@ const NovelPage = () => {
           prevPageText="‹"
           nextPageText="›"
           onChange={n => {
-            console.log(n);
             setPage(n);
           }}
         />
