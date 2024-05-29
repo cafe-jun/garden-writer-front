@@ -1,5 +1,6 @@
 export const config = {
   apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
+  // apiLink: 'http://192.168.45.144:3001',
   apiUrl: {
     // 회원가입
     signUp: '/user/join',
@@ -36,6 +37,9 @@ export const config = {
 
     // 작가모집 리스트
     getWriterWantedList: '/novel-attend-board',
+
+    // 작가모집글 상세조회
+    getWriterPostDetail: (roomId: number) => `/novel-attend-board/${roomId}`,
   },
   page: {
     // 소설공방
@@ -56,4 +60,5 @@ export const config = {
     '스포츠/학원',
     '공포/추리',
   ],
+  storageKey: 'ac.a',
 };
