@@ -2,9 +2,11 @@
 type WriterStatus = 'attending' | 'attendingReject' | 'attendingReview' | 'exit';
 type WriterType = 'host' | 'attendee';
 type NovelStatus = 'writing';
+// series : 연재중, complete : 연재완료, remove : 삭제
+type NovelRoomStatus = 'series' | 'complete' | 'remove';
 // solo : 혼자 ___ group2 : 2명 ___ group3 : 3명
 export type RoomType = 1 | 2 | 3 | 4 | 5;
-export type RoomStatus = 'attending' | 'non_attending';
+export type RoomStatus = 'attending' | 'apptendApply';
 export interface Pagination {
   totalPage: number;
   chunkSize: number;
@@ -20,12 +22,12 @@ export interface NovelPost {
   title: string;
   category: Categorys;
   currentAttendCnt: number;
-  writerStatus: WriterStatus;
+  writerStatus: WriterType;
   exitedAt: string | null; // ?
   createdAt: string; // ??
   notifiedAt: number; // ??
   completionAt: string | null;
-  status: string; // ??
+  status: NovelRoomStatus; // ??
   completedAt: string;
   currentWriter: string;
 }
@@ -86,6 +88,16 @@ export interface GetWriterWantedList {
   category: Categorys;
   currentWriterCnt: number;
   roomType: RoomType;
+}
+
+export interface GetWriterPostDetail {
+  roomId: number;
+  boardTitle: string;
+  boardContent: string;
+  viewCount: number;
+  boardOpenKakaoLink: string;
+  likeCount: number;
+  hasLike: boolean;
 }
 // -------
 export interface LoginApiResonse {
@@ -180,4 +192,9 @@ export interface GetWriterWantedListResponse {
 
 export interface GetWriterWantedListRequest {
   page: number;
+}
+
+export interface GetWriterPostDetailResponse {
+  data: GetWriterPostDetail;
+  meta: Pagination;
 }
