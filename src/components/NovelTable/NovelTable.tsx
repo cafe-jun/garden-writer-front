@@ -7,6 +7,15 @@ import { NovelPost } from '@/fetch/types';
 import styles from './NovelTable.module.scss';
 import { NovelTableProps } from './type';
 
+const writerType = {
+  host: '대표작가',
+  attendee: '참여작가',
+};
+const roomStatus = {
+  series: '연재중',
+  complete: '연재완료',
+  remove: '삭제',
+};
 function AttendingHead(): ReactElement {
   return (
     <tr>
@@ -33,10 +42,10 @@ function AttendingTr({ item }: { item: NovelPost }): ReactElement {
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dateChanger(item.createdAt)}</td>
       <td style={{ width: '9.25rem' }}>{dateChanger(item.completedAt)}</td>
-      <td style={{ width: '9rem' }}>{item.writerStatus}</td>
+      <td style={{ width: '9rem' }}>{writerType[item.writerStatus]}</td>
       <td style={{ width: '6rem' }}>{item.currentAttendCnt}/5</td>
       <td style={{ width: '9rem' }}>{item.currentWriter}</td>
-      <td style={{ width: '6rem' }}>{item.status}</td>
+      <td style={{ width: '6rem' }}>{roomStatus[item.status]}</td>
     </tr>
   );
 }
@@ -60,14 +69,15 @@ function NotAttendingTr({ item }: { item: NovelPost }): ReactElement {
   };
   return (
     <tr key={item.id} onClick={() => onClick(item.id)}>
-      <td style={{ width: '11.75rem' }}>{item.category.name}</td>
+      {/* <td style={{ width: '11.75rem' }}>{item.category.name}</td> */}
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dateChanger(item.createdAt)}</td>
       <td style={{ width: '9.25rem' }}>{dateChanger(item.completedAt)}</td>
-      <td style={{ width: '9rem' }}>{item.writerStatus}</td>
-      <td style={{ width: '6rem' }}>{item.currentAttendCnt}/5</td>
+      <td style={{ width: '11.75rem' }}>{dateChanger(item.exitedAt)}</td>
+      <td style={{ width: '9rem' }}>승인대기</td>
+      {/* <td style={{ width: '6rem' }}>{item.currentAttendCnt}/5</td>
       <td style={{ width: '9rem' }}>{item.currentWriter}</td>
-      <td style={{ width: '6rem' }}>{item.status}</td>
+      <td style={{ width: '6rem' }}>{item.status}</td> */}
     </tr>
   );
 }
@@ -75,9 +85,12 @@ export const NovelTable = ({ tableData, tab }: NovelTableProps): ReactElement =>
   <table className={styles.table}>
     <thead>{tab === 'attending' ? <AttendingHead /> : <NotAttendingHead />}</thead>
     <tbody>
-      {tableData.map((item, index) => (
-        <AttendingTr key={item.id} item={item} />
-      ))}
+      {tableData.map((item, index) => {
+        if (tab === 'attending') {
+          return <AttendingTr key={item.id} item={item} />;
+        }
+        return <NotAttendingTr key={item.id} item={item} />;
+      })}
     </tbody>
   </table>
 );

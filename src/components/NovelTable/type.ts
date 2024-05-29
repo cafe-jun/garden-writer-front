@@ -1,8 +1,8 @@
-import { NovelPost } from '@/fetch/types';
+import { NovelPost, RoomStatus } from '@/fetch/types';
 
 export interface NovelTableProps {
   tableData: NovelPost[];
-  tab: 'attending' | 'non_attending';
+  tab: RoomStatus;
 }
 export interface NovelTable {
   id: string;
