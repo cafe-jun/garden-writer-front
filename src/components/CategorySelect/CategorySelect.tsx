@@ -21,7 +21,11 @@ export default function CategorySelect(props: CategorySelectProps): ReactElement
           {config.categorys.map(
             (item: string, index): ReactElement => (
               <label className={`${st.mt16} ${st.inputBox}`} key={item}>
-                <input type="radio" name="category" onClick={() => setNovel({ category: index })} />
+                <input
+                  type="radio"
+                  name="category"
+                  onClick={() => setNovel({ category: index + 1 })}
+                />
                 <p className={st.ml8}>{item}</p>
               </label>
             )
