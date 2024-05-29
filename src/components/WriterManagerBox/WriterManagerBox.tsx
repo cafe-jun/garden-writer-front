@@ -34,7 +34,7 @@ export default function WriterManagerBox({ handleDragEnd }: WriterManagerBoxProp
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-  const roomId = useUrlDatas();
+  const roomId = useUrlDatas<number>('room');
   const [modifyMode, setModifyMode] = useState<boolean>(false);
   const id: string = useId();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
