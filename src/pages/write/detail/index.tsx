@@ -36,7 +36,7 @@ export default function WriteDetail(): ReactElement {
 
   const [selectListData, setSelectListData] = useState<string[]>(['첫화부터', '마지막화부터']);
 
-  const roomId = useUrlDatas();
+  const roomId = useUrlDatas<number>('room');
 
   const { data: novelInfo } = useQueryWrap({
     queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
