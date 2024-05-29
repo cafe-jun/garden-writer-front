@@ -145,7 +145,7 @@ export default function WriteInfo(): ReactElement {
             setNovel({ actor: value });
           }}
           style={{ marginTop: '55px' }}
-          compulsory={false}
+          compulsory
           categoryText="등장인물"
           speechBubbleText="소설의 등장인물에 대한 설명을 입력해주세요"
           placeholder="(예시) 로미오 : 아름다운 줄리엣을 만나 첫눈에 사랑에 빠진다."
@@ -174,7 +174,7 @@ export default function WriteInfo(): ReactElement {
 
         <button
           type="button"
-          className={`${st.nextBtn} ${st.mt32}`}
+          className={`${st.nextBtn} blue-btn ${st.mt32}`}
           onClick={() => {
             setPage(true);
             console.log(props);

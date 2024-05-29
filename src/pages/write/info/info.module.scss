@@ -4,7 +4,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    padding-bottom: 50px;
     align-items: center;
 
     &>p {
@@ -49,11 +50,8 @@
             font-size: $s14px;
             font-style: normal;
             font-weight: 500;
-            line-height: normal;
 
-            background-color: $blue-1;
-            border-radius: 62px;
-            border: none;
+            cursor: pointer;
         }
     }
 
