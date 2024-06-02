@@ -160,7 +160,10 @@ export interface NovelRoomInfoResponse {
 }
 
 export interface NovelJoinWriteListResponse {
-  data: NovelJoinWriteList[];
+  data: {
+    writers: NovelJoinWriteList[];
+    nextWriter: string;
+  };
 }
 
 export interface GetNovelChaterListRequest {
