@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
+
 /**
  * url에서 데이터를 가져올 때 사용함
  * @code  useUrlDatas<number>("roomid")
@@ -8,9 +9,8 @@ import { useMemo } from 'react';
  */
 export function useUrlDatas<T>(dataName: string) {
   const router = useRouter();
-  const roomId = useMemo(() => {
+  return useMemo(() => {
     const data = router.query[dataName];
     return data as T;
   }, [router.isReady]);
-  return roomId;
 }
