@@ -16,7 +16,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { ReactElement, useId, useMemo, useState } from 'react';
+import { ReactElement, useId, useState } from 'react';
 
 import { config } from '@/config/config';
 import { novelJoinWriteList } from '@/fetch/get';
@@ -35,6 +35,7 @@ export default function WriterManagerBox({ handleDragEnd }: WriterManagerBoxProp
     })
   );
   const roomId = useUrlDatas<number>('room');
+  // const roomId = 27;
   const [modifyMode, setModifyMode] = useState<boolean>(false);
   const id: string = useId();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -42,7 +43,7 @@ export default function WriterManagerBox({ handleDragEnd }: WriterManagerBoxProp
     queryKey: [config.apiUrl.novelJoinWriterList, roomId],
     queryFn: () => novelJoinWriteList(roomId),
   });
-  const data = useMemo(() => writerList?.data ?? [], [writerList]);
+  const data = writerList?.data ? writerList?.data.writers : [];
 
   const modifyCancel = (): void => {
     setModifyMode(false);
@@ -78,7 +79,7 @@ export default function WriterManagerBox({ handleDragEnd }: WriterManagerBoxProp
               items={data ?? []}
               strategy={verticalListSortingStrategy}
             >
-              {data.map(item => (
+              {data?.map(item => (
                 // 마우스가 드래그를 하면 마우스를 따라오는 것이 아닌 드래그 아이템이 놓아질 위치에 그려지는 element
                 <DndItem
                   {...item}
