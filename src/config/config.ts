@@ -1,6 +1,10 @@
 export const config = {
-  apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
-  // apiLink: 'http://192.168.45.144:3001',
+  // apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
+  // wsLink: 'ws://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
+  wsLink: 'http://localhost:3001',
+
+  apiLink: 'http://localhost:3001',
+
   apiUrl: {
     // 회원가입
     signUp: '/user/join',
@@ -61,4 +65,10 @@ export const config = {
     '공포/추리',
   ],
   storageKey: 'ac.a',
+  socketEventNM: {
+    newChat: 'enter/text',
+    updateChat: 'update/text',
+    changeWriterSeq: 'change/writer-sequence',
+    exitWriter: 'exit/writer',
+  },
 };
