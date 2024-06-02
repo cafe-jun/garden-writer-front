@@ -15,6 +15,7 @@ import { config } from '@/config/config';
 import { getNovelChapterList, getWriterListAdmin, novelRoomInfo } from '@/fetch/get';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
+import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
 import st from './detail.module.scss';
@@ -38,6 +39,22 @@ export default function WriteDetail(): ReactElement {
 
   const roomId = useUrlDatas<number>('room');
 
+  useSocketIO({
+    url: `${config.wsLink}/room-${roomId}`,
+    onChangeWriterSeq() {
+      console.log(1);
+    },
+    onKickUser() {
+      console.log(2);
+    },
+    onNewChat(res) {
+      console.log(3);
+    },
+    onUpdateChat() {
+      console.log(4);
+    },
+  });
+
   const { data: novelInfo } = useQueryWrap({
     queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
     queryFn: () => novelRoomInfo(roomId),
@@ -52,11 +69,6 @@ export default function WriteDetail(): ReactElement {
     queryKey: [config.apiUrl.getWriterListAdmin, roomId],
     queryFn: () => getWriterListAdmin({ roomId, page: userPage }),
   });
-
-  // const docParser = new DOMParser();
-  const htmlStr =
-    '<p style="font-size:20px; color: red;">이름</p><p style="font-size:10px; color: blue;">시간</p><button>테스트 버튼</button>';
-  // const doc = docParser.parseFromString(htmlStr, 'text/html');
 
   return (
     <div className={st.mainBody} onWheel={wheelEvent}>
