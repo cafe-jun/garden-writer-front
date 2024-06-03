@@ -1,9 +1,9 @@
 export const config = {
-  // apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
-  // wsLink: 'ws://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
-  wsLink: 'http://localhost:3001',
+  apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
+  wsLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
+  // wsLink: 'http://localhost:3001',
 
-  apiLink: 'http://localhost:3001',
+  // apiLink: 'http://localhost:3001',
 
   apiUrl: {
     // 회원가입
