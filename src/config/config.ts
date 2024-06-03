@@ -44,6 +44,12 @@ export const config = {
 
     // 작가모집글 상세조회
     getWriterPostDetail: (roomId: number) => `/novel-attend-board/${roomId}`,
+
+    // 소설 글쓰기 / 소설 채팅 보내기
+    newNovelText: '/novel-text',
+
+    // 특정 소설 채팅의 상세정보
+    getOneNovelText: (novelId: number) => `/novel-text/${novelId}`,
   },
   page: {
     // 소설공방
