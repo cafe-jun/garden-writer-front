@@ -1,6 +1,7 @@
 import { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { ReactElement, useState } from 'react';
+import readJsonData from 'util/readJsonData';
 
 import CusSelectBox from '@/components/CusSelectBox/CusSelectBox';
 import EpisodeListOneRow from '@/components/EpisodeListOneRow/EpisodeListOneRow';
@@ -12,9 +13,15 @@ import WriteChatSendBox from '@/components/WriteChatSendBox/WriteChatSendBox';
 import WriterListOneRow from '@/components/WriterListOneRow/WriterListOneRow';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
 import { config } from '@/config/config';
-import { getNovelChapterList, getWriterListAdmin, novelRoomInfo } from '@/fetch/get';
+import {
+  getNovelChapterList,
+  getOneNovelText,
+  getWriterListAdmin,
+  novelRoomInfo,
+} from '@/fetch/get';
+import { GetOneNovelText } from '@/fetch/types';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
-import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
+import { useMutationWrap, useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
@@ -39,19 +46,27 @@ export default function WriteDetail(): ReactElement {
 
   const roomId = useUrlDatas<number>('room');
 
+  const [allText, setAllText] = useState<GetOneNovelText[]>([]);
+
   useSocketIO({
     url: `${config.wsLink}/room-${roomId}`,
-    onChangeWriterSeq() {
-      console.log(1);
+    onChangeWriterSeq(res) {
+      console.log(res);
     },
-    onKickUser() {
-      console.log(2);
+    onKickUser(res) {
+      console.log(res);
     },
-    onNewChat(res) {
-      console.log(3);
+    async onNewChat(res) {
+      getNewChatDetail(readJsonData(res).textId);
     },
-    onUpdateChat() {
-      console.log(4);
+    onUpdateChat(res) {
+      console.log(res);
+    },
+  });
+  const { mutate: getNewChatDetail } = useMutationWrap({
+    mutationFn: getOneNovelText,
+    onSuccess(res) {
+      setAllText(prevState => [...prevState, res.data]);
     },
   });
 
@@ -212,12 +227,12 @@ export default function WriteDetail(): ReactElement {
               {/* 소설쓰기 탭의 제목 bar end */}
 
               <div className={st.writingNovel_textarea}>
-                {['1111111', '2222222', '333333333'].map(i => (
-                  <WriteChat key={i} />
+                {allText.map(i => (
+                  <WriteChat {...i} key={i.id} />
                 ))}
               </div>
 
-              <WriteChatSendBox />
+              <WriteChatSendBox lastNovelNo={chapterList?.data[0].id ?? 0} />
             </div>
           ) : null}
 
