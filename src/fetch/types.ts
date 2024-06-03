@@ -99,6 +99,14 @@ export interface GetWriterPostDetail {
   likeCount: number;
   hasLike: boolean;
 }
+export interface GetOneNovelText {
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  status: string;
+  content: string;
+  chapterId: number;
+}
 // -------
 export interface LoginApiResonse {
   data: {
@@ -200,4 +208,13 @@ export interface GetWriterWantedListRequest {
 export interface GetWriterPostDetailResponse {
   data: GetWriterPostDetail;
   meta: Pagination;
+}
+
+export interface NewNovelTextRequest {
+  content: string;
+  chapterId: number;
+}
+
+export interface GetOneNovelTextResponse {
+  data: GetOneNovelText;
 }

@@ -7,6 +7,7 @@ import {
   CreateRoomResponse,
   LoginApiArg,
   LoginApiResonse,
+  NewNovelTextRequest,
   SignUpRequestModel,
 } from '../types';
 
@@ -22,6 +23,18 @@ export function signUp({ email, password, nickname }: SignUpRequestModel) {
   return callApi<boolean>({
     url: config.apiUrl.signUp,
     body: { email, password, nickname },
+    method,
+  });
+}
+/**
+ * 현재 작성중인 챕터에 글쓰기 api
+ * @param body NewNovelTextRequest
+ * @returns boolean
+ */
+export function newNovelText(body: NewNovelTextRequest) {
+  return callApi<boolean>({
+    url: config.apiUrl.newNovelText,
+    body,
     method,
   });
 }

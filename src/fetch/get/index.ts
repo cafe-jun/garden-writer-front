@@ -5,6 +5,7 @@ import { config } from '@/config/config';
 import {
   GetNovelChaterListRequest,
   GetNovelChaterListResponse,
+  GetOneNovelTextResponse,
   GetWriterListAdminRequest,
   GetWriterListAdminResponse,
   GetWriterPostDetailResponse,
@@ -96,6 +97,17 @@ export function getWriterWantedList({ page }: GetWriterWantedListRequest) {
 export function getWriterPostDetail({ roomId }: { roomId: number }) {
   return callApi<GetWriterPostDetailResponse>({
     url: config.apiUrl.getWriterPostDetail(roomId),
+    method,
+  });
+}
+/**
+ * 소설 쓰기에서 socket io로 돌아온 id로 특정 소설 채팅 상세조회
+ * @param textId 특정 소설(채팅)의 id
+ * @returns
+ */
+export function getOneNovelText(textId: number) {
+  return callApi<GetOneNovelTextResponse>({
+    url: config.apiUrl.getOneNovelText(textId),
     method,
   });
 }
