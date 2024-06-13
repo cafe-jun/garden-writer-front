@@ -22,11 +22,16 @@ export default function CreatePost(): ReactElement {
     novelTag,
     actor,
     summary,
+    bookCover,
 
     postTitle,
     postContent,
     openLink,
     setPost,
+
+    postChecking,
+
+    ...props
   } = useCreateNovelPost();
   const { mutate } = useMutation({
     mutationKey: [config.apiUrl.createNovelRoom],
@@ -43,9 +48,11 @@ export default function CreatePost(): ReactElement {
     },
   });
 
-  function showModal(): void {
-    setIsModal(true);
-  }
+  const showModal = (): void => {
+    if (!postChecking()) {
+      setIsModal(true);
+    }
+  };
   return (
     <div className={st.content}>
       {isModal ? (
@@ -53,16 +60,18 @@ export default function CreatePost(): ReactElement {
           nextStep={() => {
             setIsModal(false);
             mutate({
-              category,
-              character: actor,
-              subTitle,
-              novelTags: novelTag,
-              summary,
-              title,
+              title: props.titleCheck.essential ? title : undefined,
               type,
-              attendContent: postContent,
-              attendOpenKakaoLink: openLink,
-              attendTitle: postTitle,
+              category: props.categoryCheck.essential ? category : undefined,
+              character: props.actorCheck.essential ? actor : undefined,
+              subTitle: props.subTitleCheck.essential ? subTitle : undefined,
+              novelTags: props.novelTagCheck.essential ? novelTag : undefined,
+              summary: props.novelTagCheck.essential ? summary : undefined,
+              bookCover,
+
+              attendContent: props.postContentCheck.essential ? postContent : undefined,
+              attendOpenKakaoLink: props.openLinkCheck.essential ? openLink : undefined,
+              attendTitle: props.postTitleCheck.essential ? postTitle : undefined,
             });
           }}
           cancel={() => {
@@ -80,11 +89,11 @@ export default function CreatePost(): ReactElement {
             setPost({ postTitle: value });
           }}
           style={{ marginTop: '84px' }}
-          compulsory
+          compulsory={props.postTitleCheck.essential}
           categoryText="제목"
           placeholder="(예시) 12월 목료로 판타지 소설 작서해 보실분 구해요"
-          errorText="제목을 입력해주세요"
-          isError={false}
+          errorText={props.postTitleCheck.errorMsg}
+          isError={props.postTitleCheck.isError}
           speechBubbleText="소설을 함께 작성하실 작가를 모집하는 게시물의 제목입니다"
         />
 
@@ -95,12 +104,12 @@ export default function CreatePost(): ReactElement {
             });
           }}
           style={{ marginTop: '31px' }}
-          compulsory
+          compulsory={props.postContentCheck.essential}
           categoryText="작가 모집 내용"
           speechBubbleText="함께 소설을 작성하실 작가를 모집하는 게시글의 내용입니다."
           placeholder="(예시) 제목은 'OOO'이구요. 평일 모두 시간되시는 분 선호하고 잠수 시 강제 퇴장합니다. 오픈 채팅으로 연락 주세요."
-          errorText=""
-          isError={false}
+          errorText={props.postContentCheck.errorMsg}
+          isError={props.postContentCheck.isError}
         />
 
         <OneLineInput
@@ -110,11 +119,11 @@ export default function CreatePost(): ReactElement {
             });
           }}
           style={{ marginTop: '41px' }}
-          compulsory
+          compulsory={props.openLinkCheck.essential}
           categoryText="오픈채팅 링크"
           placeholder="(예시) https://open.kakao.com/xxxxxxxxxxx"
-          errorText="링크를 입력해주세요"
-          isError={false}
+          errorText={props.openLinkCheck.errorMsg}
+          isError={props.openLinkCheck.isError}
           speechBubbleText="“작가모집 게시글을 보고 작가 분들이 해당 링크로 연락을 할 수 있습니다. 카카오톡 오픈채팅방 (1:1 채팅방) 생성 후 링크를 기입해 주세요.”"
         />
         <button onClick={showModal} type="button" className={st.nextBtn}>

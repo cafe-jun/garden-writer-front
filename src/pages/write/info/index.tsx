@@ -42,7 +42,7 @@ export default function WriteInfo(): ReactElement {
   // 북커버 리스트에서 이미지를 선택시 해당 변수에 이미지가 저장됨
   const [bookSrc, setBookScr] = useState<StaticImageData>();
 
-  const { setNovel, ...props } = useCreateNovelPost();
+  const { setNovel, novelChecking, ...props } = useCreateNovelPost();
 
   const [page, setPage] = useState<boolean>(false);
   if (page) {
@@ -99,12 +99,12 @@ export default function WriteInfo(): ReactElement {
             });
           }}
           style={{ marginTop: '60px' }}
-          compulsory
+          compulsory={props.titleCheck.essential}
           categoryText="제목"
           speechBubbleText="소설의 제목을 정해주세요"
           placeholder="소설의 제목을 작성해주세요"
-          errorText="제목을 입력해주세요"
-          isError={false}
+          errorText={props.titleCheck.errorMsg}
+          isError={props.titleCheck.isError}
         />
 
         {/* 한줄 소개 */}
@@ -115,17 +115,18 @@ export default function WriteInfo(): ReactElement {
             });
           }}
           style={{ marginTop: '31px' }}
-          compulsory
+          compulsory={props.subTitleCheck.essential}
           categoryText="한줄 소개"
           placeholder="소설의 내용을 요약해주세요"
-          errorText="한줄 소개를 입력해주세요"
-          isError={false}
+          errorText={props.subTitleCheck.errorMsg}
+          isError={props.subTitleCheck.isError}
         />
 
         {/* 카테고리 */}
         <CategorySelect
-          isError={false}
-          errorText="한 가지 이상의 카테고리를 선택해주세요"
+          compulsory={props.categoryCheck.essential}
+          isError={props.categoryCheck.isError}
+          errorText={props.categoryCheck.errorMsg}
           style={{ marginTop: '31px' }}
         />
 
@@ -133,9 +134,9 @@ export default function WriteInfo(): ReactElement {
         <HashTagInput
           onChange={tags => setNovel({ novelTag: tags })}
           categoryText="태그"
-          compulsory
-          errorText="태그 한가지 항목 이상 선택해주세요"
-          isError={false}
+          compulsory={props.novelTagCheck.essential}
+          errorText={props.novelTagCheck.errorMsg}
+          isError={props.novelTagCheck.isError}
           style={{ marginTop: '31px' }}
         />
 
@@ -145,12 +146,12 @@ export default function WriteInfo(): ReactElement {
             setNovel({ actor: value });
           }}
           style={{ marginTop: '55px' }}
-          compulsory
+          compulsory={props.actorCheck.essential}
           categoryText="등장인물"
           speechBubbleText="소설의 등장인물에 대한 설명을 입력해주세요"
           placeholder="(예시) 로미오 : 아름다운 줄리엣을 만나 첫눈에 사랑에 빠진다."
-          errorText=""
-          isError={false}
+          errorText={props.actorCheck.errorMsg}
+          isError={props.actorCheck.isError}
         />
 
         {/* 줄거리 */}
@@ -159,12 +160,12 @@ export default function WriteInfo(): ReactElement {
             setNovel({ summary: value });
           }}
           style={{ marginTop: '20px' }}
-          compulsory={false}
+          compulsory={props.summaryCheck.essential}
           categoryText="줄거리"
           speechBubbleText="소설의 줄거리를 기승전결에 따라 입력해주세요."
           placeholder="줄거리에 대해 작성해주세요."
-          errorText=""
-          isError={false}
+          errorText={props.summaryCheck.errorMsg}
+          isError={props.summaryCheck.isError}
         />
 
         {/* 선택된 북커버 */}
@@ -176,8 +177,11 @@ export default function WriteInfo(): ReactElement {
           type="button"
           className={`${st.nextBtn} blue-btn ${st.mt32}`}
           onClick={() => {
-            setPage(true);
-            console.log(props);
+            if (!novelChecking()) {
+              setPage(true);
+            }
+            // setPage(true);
+            // console.log(props);
           }}
         >
           다음

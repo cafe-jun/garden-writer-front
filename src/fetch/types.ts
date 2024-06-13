@@ -7,6 +7,12 @@ type NovelRoomStatus = 'series' | 'complete' | 'remove';
 // solo : 혼자 ___ group2 : 2명 ___ group3 : 3명
 export type RoomType = 1 | 2 | 3 | 4 | 5;
 export type RoomStatus = 'attending' | 'apptendApply';
+export type BookCover =
+  | '/images/book-cover-1.png'
+  | '/images/book-cover-2.png'
+  | '/images/book-cover-3.png'
+  | '/images/book-cover-4.png'
+  | '/images/book-cover-5.png';
 export interface Pagination {
   totalPage: number;
   chunkSize: number;
@@ -124,17 +130,18 @@ export interface NovelListResponse {
 }
 
 export interface CreateRoomArg {
-  title: string;
-  subTitle: string;
-  category: number;
-  novelTags: string[];
-  type: RoomType;
-  character: string;
-  summary: string;
+  title?: string;
+  subTitle?: string;
+  category?: number;
+  novelTags?: string[];
+  type?: RoomType;
+  character?: string;
+  summary?: string;
+  bookCover?: BookCover;
 
-  attendTitle: string;
-  attendOpenKakaoLink: string;
-  attendContent: string;
+  attendTitle?: string;
+  attendOpenKakaoLink?: string;
+  attendContent?: string;
 }
 
 export interface UserListResponse {
@@ -164,6 +171,7 @@ export interface NovelRoomInfoResponse {
     subTitle: string;
     createdAt: string;
     updatedAt: string;
+    bookCover: string;
   };
 }
 
