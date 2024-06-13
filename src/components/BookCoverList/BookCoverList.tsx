@@ -15,14 +15,14 @@ import { BookCoverListProps } from './type';
  * @param props BookCoverListProps
  * @returns component
  */
-export default function BookCoverList(props: BookCoverListProps): ReactElement {
+export default function BookCoverList({ style, selectImage }: BookCoverListProps): ReactElement {
   return (
-    <div className={st.container} style={props.style}>
-      <Image onClick={() => props.selectImage(BCimg1)} src={BCimg1} alt="북커버 이미지 1번" />
-      <Image onClick={() => props.selectImage(BCimg2)} src={BCimg2} alt="북커버 이미지 2번" />
-      <Image onClick={() => props.selectImage(BCimg3)} src={BCimg3} alt="북커버 이미지 3번" />
-      <Image onClick={() => props.selectImage(BCimg4)} src={BCimg4} alt="북커버 이미지 4번" />
-      <Image onClick={() => props.selectImage(BCimg5)} src={BCimg5} alt="북커버 이미지 5번" />
+    <div className={st.container} style={style}>
+      <Image onClick={() => selectImage(BCimg1)} src={BCimg1} alt="북커버 이미지 1번" />
+      <Image onClick={() => selectImage(BCimg2)} src={BCimg2} alt="북커버 이미지 2번" />
+      <Image onClick={() => selectImage(BCimg3)} src={BCimg3} alt="북커버 이미지 3번" />
+      <Image onClick={() => selectImage(BCimg4)} src={BCimg4} alt="북커버 이미지 4번" />
+      <Image onClick={() => selectImage(BCimg5)} src={BCimg5} alt="북커버 이미지 5번" />
     </div>
   );
 }
