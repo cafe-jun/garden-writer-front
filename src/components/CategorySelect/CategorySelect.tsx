@@ -15,7 +15,7 @@ import { CategorySelectProps } from './type';
 export default function CategorySelect(props: CategorySelectProps): ReactElement {
   const { setNovel } = useCreateNovelPost();
   return (
-    <WriteRoomCategory style={props.style} compulsory categoryText="카테고리">
+    <WriteRoomCategory style={props.style} compulsory={props.compulsory} categoryText="카테고리">
       <div>
         <div className={st.container}>
           {config.categorys.map(

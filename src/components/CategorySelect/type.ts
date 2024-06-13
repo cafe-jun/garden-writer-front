@@ -5,4 +5,5 @@ export interface CategorySelectProps {
 
   isError: boolean;
   errorText: string;
+  compulsory: boolean;
 }
