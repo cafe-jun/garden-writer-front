@@ -60,18 +60,18 @@ export default function CreatePost(): ReactElement {
           nextStep={() => {
             setIsModal(false);
             mutate({
-              title: props.titleCheck.essential ? title : undefined,
+              title: title || undefined,
               type,
-              category: props.categoryCheck.essential ? category : undefined,
-              character: props.actorCheck.essential ? actor : undefined,
-              subTitle: props.subTitleCheck.essential ? subTitle : undefined,
-              novelTags: props.novelTagCheck.essential ? novelTag : undefined,
-              summary: props.novelTagCheck.essential ? summary : undefined,
+              category: category || undefined,
+              character: actor || undefined,
+              subTitle: subTitle || undefined,
+              novelTags: novelTag,
+              summary: summary || undefined,
               bookCover,
 
-              attendContent: props.postContentCheck.essential ? postContent : undefined,
-              attendOpenKakaoLink: props.openLinkCheck.essential ? openLink : undefined,
-              attendTitle: props.postTitleCheck.essential ? postTitle : undefined,
+              attendContent: postContent || undefined,
+              attendOpenKakaoLink: openLink || undefined,
+              attendTitle: postTitle || undefined,
             });
           }}
           cancel={() => {

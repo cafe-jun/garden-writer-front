@@ -177,11 +177,11 @@ export default function WriteInfo(): ReactElement {
           type="button"
           className={`${st.nextBtn} blue-btn ${st.mt32}`}
           onClick={() => {
+            console.log(props);
             if (!novelChecking()) {
               setPage(true);
             }
             // setPage(true);
-            // console.log(props);
           }}
         >
           다음
