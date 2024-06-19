@@ -1,6 +1,5 @@
 export interface ScrollTextBoxProps {
   title: string;
-  date: string;
   disabled: boolean;
   style?: {
     marginLeft?: string;
