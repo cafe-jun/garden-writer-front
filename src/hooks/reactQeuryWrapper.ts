@@ -52,7 +52,6 @@ export function useQueryWrap<
     }
     console.log('query err');
     console.log(querys.error);
-    console.log(querys.error === 500);
   }, [querys.isError]);
 
   return querys;
