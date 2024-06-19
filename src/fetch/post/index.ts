@@ -9,6 +9,7 @@ import {
   LoginApiResonse,
   NewNovelTextRequest,
   SignUpRequestModel,
+  WriterJoinReqest,
 } from '../types';
 
 const method = 'POST';
@@ -34,6 +35,18 @@ export function signUp({ email, password, nickname }: SignUpRequestModel) {
 export function newNovelText(body: NewNovelTextRequest) {
   return callApi<boolean>({
     url: config.apiUrl.newNovelText,
+    body,
+    method,
+  });
+}
+/**
+ * 참여작가로 신청
+ * @param body WriterJoinReqest
+ * @returns number
+ */
+export function writerJoinReqest(body: WriterJoinReqest) {
+  return callApi<number>({
+    url: config.apiUrl.writerJoinRequest,
     body,
     method,
   });

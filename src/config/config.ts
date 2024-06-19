@@ -50,6 +50,12 @@ export const config = {
 
     // 특정 소설 채팅의 상세정보
     getOneNovelText: (novelId: number) => `/novel-text/${novelId}`,
+
+    // 작가로 참여신청
+    writerJoinRequest: '/writer/novel-room/approval',
+
+    // 임시저정 -> 완료로 변경
+    chatComplete: (chatId: number) => `/novel-text/complete/${chatId}`,
   },
   page: {
     // 소설공방

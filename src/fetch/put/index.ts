@@ -2,7 +2,7 @@ import callApi from 'util/fetchWrapper';
 
 import { config } from '@/config/config';
 
-import { UpdateWriterStateRequest } from '../types';
+import { ChatComplete, UpdateWriterStateRequest } from '../types';
 
 const method = 'PUT';
 /**
@@ -17,5 +17,17 @@ export function updateWriterState({ status, userId }: UpdateWriterStateRequest) 
     body: {
       status,
     },
+  });
+}
+/**
+ * 채팅으로 보낸 문단을 임시저장에서 완료로 상태변경
+ * @param param0 chatId
+ * @returns
+ */
+export function chatComplete({ chatId }: ChatComplete) {
+  return callApi<boolean>({
+    url: config.apiUrl.chatComplete(chatId),
+    method,
+    body: { id: chatId },
   });
 }
