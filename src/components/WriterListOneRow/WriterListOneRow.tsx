@@ -1,21 +1,26 @@
 import { ReactElement } from 'react';
 
 import { config } from '@/config/config';
-import { updateWriterState } from '@/fetch/fetch';
+import { updateWriterState } from '@/fetch/put';
 import { GetWriterListAdmin } from '@/fetch/types';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 
 import st from './WriterListOneRow.module.scss';
 
+const joninStatus = {
+  attending: '참여중',
+  reject: '참여 반려',
+  review: '참여 검토',
+  exit: '퇴장',
+} as const;
 export default function WriterListOneRow({
   category,
   createdAt,
   exitAt,
   id,
-  nickname,
   notifiedAt,
   status,
-  userId,
+  user,
 }: GetWriterListAdmin): ReactElement {
   const { mutate: writerStateUpdate } = useMutationWrap({
     mutationKey: [config.apiUrl.updateWriterState(id)],
@@ -25,7 +30,7 @@ export default function WriterListOneRow({
     writerStateUpdate({ userId: id, status: 'attending' });
   };
   const reject = () => {
-    writerStateUpdate({ userId: id, status: 'attendingReject' });
+    writerStateUpdate({ userId: id, status: 'reject' });
   };
   const kick = () => {
     writerStateUpdate({ userId: id, status: 'exit' });
@@ -33,12 +38,12 @@ export default function WriterListOneRow({
   return (
     <div className={st.writerRow}>
       <p className={st.main_writerlist_Number}>{id}</p>
-      <p className={st.main_writerlist_nickName}>{nickname}</p>
+      <p className={st.main_writerlist_nickName}>{user.nickname}</p>
       <p className={st.main_writerlist_textAmount}>??</p>
       <p className={st.main_writerlist_dateForParticipation}>??</p>
       <p className={st.main_writerlist_approvalStatus}>??/??</p>
       <p className={st.main_writerlist_exitDate}>{exitAt}</p>
-      <p className={st.main_writerlist_participationStatus}>{status}</p>
+      <p className={st.main_writerlist_participationStatus}>{joninStatus[status]}</p>
 
       <div className={st.row_btns}>
         {category === 'attendee' &&
