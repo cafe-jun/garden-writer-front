@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+import { enqueueSnackbar } from 'notistack';
+import React, { useState } from 'react';
 
+import WriteJoin from '@/components/modals/WriteJoin/WriteJoin';
 import { config } from '@/config/config';
 import { getWriterPostDetail } from '@/fetch/get';
-import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
+import { writerJoinReqest } from '@/fetch/post';
+import { useMutationWrap, useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 import EyeIcon from '@/images/eye.svg';
 import HeartRed from '@/images/heart-red.svg';
@@ -15,14 +18,39 @@ const RecruitmentDetailPostPage = () => {
   const router = useRouter();
   const { post } = router.query;
   const roomId = useUrlDatas<number>('roomId');
+  const [isModal, setIsModal] = useState<boolean>(false);
 
   const { data, isSuccess } = useQueryWrap({
     queryKey: [config.apiUrl.getWriterPostDetail(roomId)],
     queryFn: () => getWriterPostDetail({ roomId }),
   });
 
+  const novelJoin = useMutationWrap({
+    mutationKey: [config.apiUrl.writerJoinRequest],
+    mutationFn: writerJoinReqest,
+    onSuccess() {
+      enqueueSnackbar('참여신청을 완료했습니다');
+    },
+    onError(err: number) {
+      console.log(err);
+      if (err === 409) {
+        enqueueSnackbar('이미 신청한 소설공방입니다', { variant: 'error' });
+      }
+    },
+  });
+
   return (
     <div className={styles.container}>
+      {isModal ? (
+        <WriteJoin
+          cancel={() => {
+            setIsModal(false);
+          }}
+          nextStep={() => {
+            novelJoin.mutate({ novelRoomId: roomId });
+          }}
+        />
+      ) : null}
       <header className={styles.header}>
         <div className={styles.headerTools}>
           <div className={styles.headerTool}>
@@ -74,7 +102,7 @@ const RecruitmentDetailPostPage = () => {
           <Image src={HeartRed} alt="HeartRed" />
           <span>??</span>
         </button>
-        <button type="button" className={styles.button}>
+        <button type="button" className={styles.button} onClick={() => setIsModal(true)}>
           참여 신청하기
         </button>
       </footer>
