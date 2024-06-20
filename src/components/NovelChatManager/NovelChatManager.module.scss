@@ -1,0 +1,94 @@
+@import '../../styles/value.scss';
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    margin-top: $s8px;
+
+    .writingNovel_textarea {
+        display: flex;
+        flex-direction: column;
+        border-radius: $s10px;
+        background: $white-1;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+        width: 100%;
+        height: $s500px;
+
+        margin-top: $s16px;
+
+        padding-top: $s16px;
+        padding-bottom: $s16px;
+
+        overflow-y: scroll;
+
+    }
+
+    .writingNovel_topBar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+
+        border-radius: $s10px;
+        background: $white-1;
+        box-shadow: 0px $s4px $s4px 0px rgba(0, 0, 0, 0.25);
+        padding: $s18px $s32px $s18px $s32px;
+
+        .writingNovel_row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .writingNovel_Title {
+                color: $back-1;
+                font-size: $s16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                border: none;
+                outline: none;
+                width: fit-content;
+            }
+
+            .writingNovel_modify {
+                display: flex;
+                width: $s52px;
+                height: $s16px;
+                border-radius: $s100px;
+                background-color: $blue-3;
+                border: none;
+
+                color: $white-1;
+                text-align: center;
+                font-size: $s8px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+
+                align-items: center;
+                justify-content: center;
+
+                cursor: pointer;
+            }
+
+
+
+        }
+
+        .writingNovel_status {
+            display: flex;
+            color: $back-1;
+            height: fit-content;
+            text-align: center;
+            font-size: $s16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+}
