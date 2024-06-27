@@ -18,6 +18,10 @@ export default function WriteChatSendBox({ lastNovelNo }: WriteChatSendBoxProps)
   });
   const [text, setText] = useState<string>('');
   const sendText = () => {
+    if (lastNovelNo === 0) {
+      return;
+    }
+    console.log(lastNovelNo);
     sendNewChat({ content: text, chapterId: lastNovelNo });
     setText('');
   };

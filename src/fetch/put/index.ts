@@ -2,7 +2,12 @@ import callApi from 'util/fetchWrapper';
 
 import { config } from '@/config/config';
 
-import { ChatComplete, UpdateWriterStateRequest } from '../types';
+import {
+  ChatComplete,
+  NovelPublishRequest,
+  NovelWriterSequenceRequest,
+  UpdateWriterStateRequest,
+} from '../types';
 
 const method = 'PUT';
 /**
@@ -29,5 +34,28 @@ export function chatComplete({ chatId }: ChatComplete) {
     url: config.apiUrl.chatComplete(chatId),
     method,
     body: { id: chatId },
+  });
+}
+/**
+ * 연재하기. 독자에게 공개
+ * @param param0 NovelPublishRequest
+ * @returns boolean
+ */
+export function novelPublish({ chapterId }: NovelPublishRequest) {
+  return callApi<boolean>({
+    url: config.apiUrl.novelPublish(chapterId),
+    method,
+  });
+}
+/**
+ * 소설공방에서 작가의 순서변경
+ * @param body NovelWriterSequenceRequest
+ * @returns boolean
+ */
+export function novelWriterSequence(body: NovelWriterSequenceRequest) {
+  return callApi<boolean>({
+    url: config.apiUrl.novelWriterSequence,
+    method,
+    body,
   });
 }

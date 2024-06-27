@@ -1,3 +1,5 @@
+import { GetChatHistoryRequest } from '@/fetch/types';
+
 export const config = {
   // apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
   // wsLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
@@ -56,6 +58,16 @@ export const config = {
 
     // 임시저정 -> 완료로 변경
     chatComplete: (chatId: number) => `/novel-text/complete/${chatId}`,
+
+    // 소설 연재. 독자에게 공개
+    novelPublish: (chapterId: number) => `/chapter/approval/${chapterId}`,
+
+    // 작가의 순서번경
+    novelWriterSequence: `/writer/sequence`,
+
+    // 이전 채탱 불러오기
+    getChatHistory: ({ chunkSize, pageNo, chapterId }: GetChatHistoryRequest) =>
+      `/novel-text?chunkSize=${chunkSize}&pageNo=${pageNo}&chapterId=${chapterId}`,
   },
   page: {
     // 소설공방

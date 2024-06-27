@@ -1,15 +1,16 @@
 import { useEffect, useMemo } from 'react';
 import { io } from 'socket.io-client';
+import eventBus from 'util/eventBus';
 import LocalStorage from 'util/LocalStorage';
 
 import { config } from '@/config/config';
 
 interface useSocketIOOption {
   url: string;
-  onNewChat(data: any): void;
-  onUpdateChat(data: any): void;
-  onChangeWriterSeq(data: any): void;
-  onKickUser(data: any): void;
+  onNewChat?(data: any): void;
+  onUpdateChat?(data: any): void;
+  onChangeWriterSeq?(data: any): void;
+  onKickUser?(data: any): void;
 }
 export default function useSocketIO({
   url,
@@ -18,6 +19,7 @@ export default function useSocketIO({
   onNewChat,
   onUpdateChat,
 }: useSocketIOOption) {
+  // const [sock, setSock] = useState<Socket | null>(null);
   const sock = useMemo(
     () =>
       io(url, {
@@ -31,26 +33,57 @@ export default function useSocketIO({
       }),
     [url]
   );
+
   const newChat = (res: any) => {
     console.log(config.socketEventNM.newChat);
+    eventBus.emit(config.socketEventNM.newChat, res);
+    if (!onNewChat) {
+      return;
+    }
     onNewChat(res);
   };
   const updateChat = (res: any) => {
-    console.log('update/text = ');
+    console.log(config.socketEventNM.updateChat);
+    eventBus.emit(config.socketEventNM.updateChat, res);
+    if (!onUpdateChat) {
+      return;
+    }
     onUpdateChat(res);
   };
   const changeWriterSeq = (res: any) => {
-    console.log('change/writer-sequence = ');
+    console.log(config.socketEventNM.changeWriterSeq);
+    eventBus.emit(config.socketEventNM.changeWriterSeq, res);
+    if (!onChangeWriterSeq) {
+      return;
+    }
     onChangeWriterSeq(res);
   };
   const exitWriter = (res: any) => {
-    console.log('exit/writer = ');
+    console.log(config.socketEventNM.exitWriter);
+    eventBus.emit(config.socketEventNM.exitWriter, res);
+    if (!onKickUser) {
+      return;
+    }
     onKickUser(res);
   };
-
+  // useEffect(() => {
+  //   setSock(
+  //     io(url, {
+  //       autoConnect: false,
+  //       auth: {
+  //         accessToken: `${LocalStorage.getItem(config.storageKey)}`,
+  //       },
+  //       transports: ['websocket'],
+  //       reconnection: false,
+  //       port: 3000,
+  //     })
+  //   );
+  // }, [url]);
   const connect = () => {
     console.log('connect');
-
+    if (!sock) {
+      return;
+    }
     sock.on(config.socketEventNM.newChat, newChat);
 
     sock.on(config.socketEventNM.updateChat, updateChat);
@@ -59,22 +92,33 @@ export default function useSocketIO({
 
     sock.on(config.socketEventNM.exitWriter, exitWriter);
   };
+  const disconnect = () => {
+    console.log('out');
+    if (!sock) {
+      return;
+    }
+    sock.removeAllListeners();
+    sock.disconnect();
+    console.log(sock);
+  };
   useEffect(() => {
+    if (!sock) {
+      return;
+    }
     sock.connect();
     sock.on('connect', () => connect());
-  }, []);
+  }, [sock]);
   useEffect(
     () => () => {
       if (!sock) {
+        console.log('socket null!!');
         return;
       }
       if (!sock.connected) {
+        console.log('not connect!!');
         return;
       }
-      console.log('out');
-      console.log(sock);
-      sock.removeAllListeners();
-      sock.disconnect();
+      disconnect();
     },
     []
   );

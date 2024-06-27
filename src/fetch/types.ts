@@ -1,7 +1,7 @@
 // attending : 참여중, attendingReject : 참여 반려, attendingReview : 참여 검토, exit : 퇴장
 type WriterStatus = 'attending' | 'reject' | 'review' | 'exit';
 type WriterType = 'host' | 'attendee';
-type NovelStatus = 'writing';
+type NovelStatus = 'writing' | 'review' | 'approve' | 'reject';
 // series : 연재중, complete : 연재완료, remove : 삭제
 type NovelRoomStatus = 'series' | 'complete' | 'remove';
 // solo : 혼자 ___ group2 : 2명 ___ group3 : 3명
@@ -71,8 +71,8 @@ export interface NovelChapter {
   approvalAt: string | null;
   finalAt: string | null;
   viewCount: number;
-  commentCnt: number;
-  like: number;
+  commentCount: number;
+  likeCount: number;
 }
 
 export interface GetWriterListAdmin {
@@ -112,6 +112,9 @@ export interface GetOneNovelText {
   status: ChatStatus;
   content: string;
   chapterId: number;
+}
+export interface ChatHistory extends GetOneNovelText {
+  createdBy: Pick<UserList, 'id' | 'nickname'>;
 }
 // -------
 export interface LoginApiResonse {
@@ -232,4 +235,28 @@ export interface WriterJoinReqest {
 }
 export interface ChatComplete {
   chatId: number;
+}
+
+export interface NovelPublishRequest {
+  chapterId: number;
+}
+
+export interface NovelWriterSequenceRequest {
+  novelRoomId: number;
+  writerIdSeq: number[];
+}
+
+export interface GetChatHistoryRequest {
+  chunkSize: number;
+  pageNo: number;
+  chapterId: number;
+}
+
+export interface GetChatHistoryResponse {
+  data: {
+    texts: ChatHistory[];
+    isNextEnable: boolean;
+  };
+
+  meta: Pagination;
 }

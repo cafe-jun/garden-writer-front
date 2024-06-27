@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { ReactElement, useState } from 'react';
 
 import { config } from '@/config/config';
@@ -9,16 +10,23 @@ import CusSelectBox from '../CusSelectBox/CusSelectBox';
 import EpisodeListOneRow from '../EpisodeListOneRow/EpisodeListOneRow';
 import st from './ChaterInfo.module.scss';
 
-export default function ChaterInfo(): ReactElement {
+export default function ChaterInfo({ isShow = false }: { isShow: boolean }): ReactElement {
   const roomId = useUrlDatas<number>('room');
+  const queryClient = useQueryClient();
   const [page, setPage] = useState<number>(1);
   const [selectListData, setSelectListData] = useState<string[]>(['첫화부터', '마지막화부터']);
+
   const { data: chapterList } = useQueryWrap({
     queryKey: [config.apiUrl.novelChapterList, page, roomId],
     queryFn: () => getNovelChapterList({ novelRoomId: roomId, page }),
   });
+  // const chapterList = queryClient.getQueryData<GetNovelChaterListResponse>([
+  //   config.apiUrl.novelChapterList,
+  //   page,
+  //   roomId,
+  // ]);
   return (
-    <div className={st.main}>
+    <div className={st.main} style={{ display: isShow ? 'flex' : 'none' }} aria-hidden={isShow}>
       <div className={st.main_list}>
         {/* select bar가 있는 영역 start */}
         <div className={st.main_list_selectBar}>

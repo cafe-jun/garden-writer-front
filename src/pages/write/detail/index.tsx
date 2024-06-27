@@ -1,6 +1,4 @@
-import { DragEndEvent } from '@dnd-kit/core';
-import { arrayMove } from '@dnd-kit/sortable';
-import { ReactElement, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import ChaterInfo from '@/components/ChaterInfo/ChaterInfo';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
@@ -10,59 +8,82 @@ import NovelJoinUserManager from '@/components/NovelJoinUserManager/NovelJoinUse
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
 import { config } from '@/config/config';
-import { getWriterListAdmin, novelRoomInfo } from '@/fetch/get';
+import { getNovelChapterList, novelRoomInfo } from '@/fetch/get';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
+import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
+import useNovelRoom from '@/zustand/stores/useNovelRoom';
 
+import NovelPublish from '../../../components/modals/NovelPublish/NovelPublish';
 import st from './detail.module.scss';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';
 const PAGE_3 = '소설정보';
 const PAGE_4 = '작가관리';
+
+const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
+  const novelRoom = useNovelRoom();
+  const { isSuccess, data } = useQueryWrap({
+    queryKey: [config.apiUrl.novelChapterList, page, roomId],
+    queryFn: () => getNovelChapterList({ novelRoomId: roomId, page }),
+  });
+  useEffect(() => {
+    if (!isSuccess) {
+      return;
+    }
+    // on mount refetch를 막지 않았음
+    // 챕터를 다시 불러오는 걸 허용했다는 의미임
+    // if (novelRoom.lastChapterId !== 0) {
+    //   return;
+    // }
+    novelRoom.setLastChapterId(data.data[0].id);
+  }, [isSuccess]);
+};
 export default function WriteDetail(): ReactElement {
   const wheelEvent = useOnWheelHandle(300);
-  const [data, setData] = useState<string[]>(['1111111', '222222', '33333']);
   const [page, setPage] = useState<number>(1);
-  const [userPage, setUserPage] = useState<number>(1);
-
+  const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3, PAGE_4]);
+  const [currentTap, setCurrentTap] = useState(tabList[0]);
   const [modityMode, setModifyMode] = useState<boolean>(false);
 
-  const [selectListData, setSelectListData] = useState<string[]>(['첫화부터', '마지막화부터']);
-
   const roomId = useUrlDatas<number>('room');
-
+  useChaterList({ page, roomId });
   const { data: novelInfo } = useQueryWrap({
     queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
     queryFn: () => novelRoomInfo(roomId),
   });
 
-  const {
-    data: writerListForAdmin,
-    isSuccess,
-    isError,
-    isLoading,
-  } = useQueryWrap({
-    queryKey: [config.apiUrl.getWriterListAdmin, roomId],
-    queryFn: () => getWriterListAdmin({ roomId, page: userPage }),
-    retry: 1,
-  });
-  // const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3, PAGE_4]);
-  const tabList = useMemo(() => {
-    if (isError) {
-      return [PAGE_1, PAGE_2, PAGE_3];
-    }
-    return [PAGE_1, PAGE_2, PAGE_3, PAGE_4];
-  }, [isError]);
+  const handleCurrentTab = (tab: string): void => {
+    setCurrentTap(tab);
+    setModifyMode(false);
+  };
 
-  const [currentTap, setCurrentTap] = useState(tabList[0]);
+  useSocketIO({
+    url: `${config.wsLink}/room-${roomId}`,
+    onChangeWriterSeq(res) {
+      console.log(res);
+    },
+    onKickUser(res) {
+      console.log(res);
+    },
+    onNewChat(res) {
+      console.log(res);
+      // getNewChatDetail(readJsonData(res).textId);
+    },
+    onUpdateChat(res) {
+      console.log(res);
+    },
+  });
+
   return (
     <div className={st.mainBody} onWheel={wheelEvent}>
+      <NovelPublish />
       {/* 참여작가 드래그 박스와 공장정보 박스를 row로 관리 */}
       <div className={st.mainBody_content}>
         {/* 참여작가 박스 */}
-        <WriterManagerBox handleDragEnd={handleDragEnd} />
+        <WriterManagerBox />
 
         {/* 소설공방 정보 박스 start */}
         <div className={st.mainBody_content_column}>
@@ -91,13 +112,14 @@ export default function WriteDetail(): ReactElement {
 
           {/* 흠........어렵네 */}
           {/* 탭 아래 컨텐트 start */}
-          {currentTap === PAGE_1 ? <NovelDefaultInfo /> : null}
+          <NovelDefaultInfo isShow={currentTap === PAGE_1} />
 
-          {currentTap === PAGE_2 ? <ChaterInfo /> : null}
+          <ChaterInfo isShow={currentTap === PAGE_2} />
 
-          {currentTap === PAGE_3 && <NovelChatManager />}
+          {/* {currentTap === PAGE_3 && <NovelChatManager />} */}
+          <NovelChatManager isShow={currentTap === PAGE_3} />
 
-          {currentTap === PAGE_4 ? <NovelJoinUserManager /> : null}
+          <NovelJoinUserManager isShow={currentTap === PAGE_4} />
 
           {/* 탭 아래 컨텐트 end */}
         </div>
@@ -105,30 +127,4 @@ export default function WriteDetail(): ReactElement {
       </div>
     </div>
   );
-
-  function handleCurrentTab(tab: string): void {
-    setCurrentTap(tab);
-    setModifyMode(false);
-  }
-
-  function handleDragEnd(event: DragEndEvent): void {
-    const { active, over } = event;
-    if (over === null) {
-      return;
-    }
-    // console.log('active', active);
-    // console.log('over', over);
-    if (active.id !== over.id) {
-      data.indexOf(active.id.toString());
-      setData((p: string[]) => {
-        const old = p.indexOf(active.id.toString());
-        const newA = p.indexOf(over.id.toString());
-
-        return arrayMove(p, old, newA);
-      });
-    }
-  }
-  function toggleModify() {
-    setModifyMode(p => !p);
-  }
 }

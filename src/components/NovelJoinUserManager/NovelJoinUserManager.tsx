@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useMemo, useState } from 'react';
 
 import { config } from '@/config/config';
 import { getWriterListAdmin } from '@/fetch/get';
@@ -9,7 +9,15 @@ import CusSelectBox from '../CusSelectBox/CusSelectBox';
 import WriterListOneRow from '../WriterListOneRow/WriterListOneRow';
 import st from './NovelJoinUserManager.module.scss';
 
-export default function NovelJoinUserManager(): ReactElement {
+const PAGE_1 = '기본정보';
+const PAGE_2 = '회차정보';
+const PAGE_3 = '소설정보';
+const PAGE_4 = '작가관리';
+export default function NovelJoinUserManager({
+  isShow = false,
+}: {
+  isShow: boolean;
+}): ReactElement {
   const [selectListData, setSelectListData] = useState<string[]>(['첫화부터', '마지막화부터']);
   const [userPage, setUserPage] = useState<number>(1);
   const roomId = useUrlDatas<number>('room');
@@ -23,8 +31,14 @@ export default function NovelJoinUserManager(): ReactElement {
     queryFn: () => getWriterListAdmin({ roomId, page: userPage }),
     retry: 1,
   });
+  const tabList = useMemo(() => {
+    if (isError) {
+      return [PAGE_1, PAGE_2, PAGE_3];
+    }
+    return [PAGE_1, PAGE_2, PAGE_3, PAGE_4];
+  }, [isError]);
   return (
-    <div className={st.main}>
+    <div className={st.main} style={{ display: isShow ? 'flex' : 'none' }} aria-hidden={isShow}>
       <div className={st.main_list}>
         {/* select bar가 있는 영역 start */}
         <div className={st.main_list_selectBar}>

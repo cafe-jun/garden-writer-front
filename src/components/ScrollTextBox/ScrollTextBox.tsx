@@ -7,6 +7,7 @@ export default function ScrollTextBox({
   style,
   title,
   disabled,
+  content,
 }: ScrollTextBoxProps): ReactElement {
   return (
     <div style={style} className={`${st.container} ${disabled ? '' : st.on}`}>
@@ -14,7 +15,7 @@ export default function ScrollTextBox({
         <p className={st.container_title}>{title}</p>
         {/* <p className={st.container_date}>{date}</p> */}
       </div>
-      <textarea disabled={disabled} className={st.container_textarea} />
+      <textarea disabled={disabled} className={st.container_textarea} defaultValue={content} />
     </div>
   );
 }

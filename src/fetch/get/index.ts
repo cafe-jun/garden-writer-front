@@ -3,6 +3,8 @@ import callApi from 'util/fetchWrapper';
 import { config } from '@/config/config';
 
 import {
+  GetChatHistoryRequest,
+  GetChatHistoryResponse,
   GetNovelChaterListRequest,
   GetNovelChaterListResponse,
   GetOneNovelTextResponse,
@@ -108,6 +110,17 @@ export function getWriterPostDetail({ roomId }: { roomId: number }) {
 export function getOneNovelText(textId: number) {
   return callApi<GetOneNovelTextResponse>({
     url: config.apiUrl.getOneNovelText(textId),
+    method,
+  });
+}
+/**
+ * 이전 채팅 리스트
+ * @param params GetChatHistoryRequest
+ * @returns GetChatHistoryResponse
+ */
+export function getChatHistory(params: GetChatHistoryRequest) {
+  return callApi<GetChatHistoryResponse>({
+    url: config.apiUrl.getChatHistory(params),
     method,
   });
 }

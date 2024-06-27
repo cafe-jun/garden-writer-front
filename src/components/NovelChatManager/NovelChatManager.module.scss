@@ -1,7 +1,7 @@
 @import '../../styles/value.scss';
 
 .main {
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 100%;
 
@@ -89,6 +89,21 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
+        }
+    }
+
+    .completeBtns {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+
+        gap: 46px;
+        padding: 32px 0px;
+
+        .completeBtn {
+            width: 200px;
+            height: 48px;
         }
     }
 }
