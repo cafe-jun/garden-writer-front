@@ -1,11 +1,12 @@
 import { GetChatHistoryRequest } from '@/fetch/types';
+import { envApiConfig } from 'util/envConfig';
 
 export const config = {
   // apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
   // wsLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
-  wsLink: 'http://localhost:3001',
+  wsLink: envApiConfig(),
 
-  apiLink: 'http://localhost:3001',
+  apiLink: envApiConfig(),
 
   apiUrl: {
     // 회원가입

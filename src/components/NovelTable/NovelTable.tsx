@@ -42,8 +42,10 @@ function AttendingTr({ item }: { item: NovelPost }): ReactElement {
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dateChanger(item.createdAt)}</td>
       <td style={{ width: '9.25rem' }}>{dateChanger(item.completedAt)}</td>
-      <td style={{ width: '9rem' }}>{writerType[item.writerStatus]}</td>
-      <td style={{ width: '6rem' }}>{item.currentAttendCnt}/5</td>
+      <td style={{ width: '9rem' }}>{writerType[item.writerCategory]}</td>
+      <td style={{ width: '6rem' }}>
+        {item.currentAttendCnt}/{item.type}
+      </td>
       <td style={{ width: '9rem' }}>{item.currentWriter}</td>
       <td style={{ width: '6rem' }}>{roomStatus[item.status]}</td>
     </tr>

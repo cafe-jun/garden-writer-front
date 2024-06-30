@@ -29,7 +29,7 @@ export interface NovelPost {
   title: string;
   category: Categorys;
   currentAttendCnt: number;
-  writerStatus: WriterType;
+  writerCategory: WriterType;
   exitedAt: string | null; // ?
   createdAt: string; // ??
   notifiedAt: number; // ??

@@ -6,6 +6,7 @@ import { GetWriterListAdmin } from '@/fetch/types';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 
 import st from './WriterListOneRow.module.scss';
+import { dateChanger } from '../../../util/dateChange';
 
 const joninStatus = {
   attending: '참여중',
@@ -40,9 +41,9 @@ export default function WriterListOneRow({
       <p className={st.main_writerlist_Number}>{id}</p>
       <p className={st.main_writerlist_nickName}>{user.nickname}</p>
       <p className={st.main_writerlist_textAmount}>??</p>
-      <p className={st.main_writerlist_dateForParticipation}>??</p>
-      <p className={st.main_writerlist_approvalStatus}>??/??</p>
-      <p className={st.main_writerlist_exitDate}>{exitAt}</p>
+      <p className={st.main_writerlist_dateForParticipation}>{dateChanger(createdAt)}</p>
+      <p className={st.main_writerlist_approvalStatus}>{dateChanger(notifiedAt) ?? '-'}</p>
+      <p className={st.main_writerlist_exitDate}>{exitAt ?? '-'}</p>
       <p className={st.main_writerlist_participationStatus}>{joninStatus[status]}</p>
 
       <div className={st.row_btns}>
