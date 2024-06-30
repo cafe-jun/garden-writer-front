@@ -18,19 +18,20 @@ jobs:
         uses: cloudtype-github-actions/deploy@v1
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
-          project: jins.one/front
+          project: cafejun17/gow
           stage: main
           yaml: |
-            name: front
-            app: node@20
+            name: garden-of-writer-front
+            app: node@18
             options:
               env:
                 - name: NODE_ENV
                   value: production
               ports: 3000
-              build: yarn run build
               install: yarn install
-              start: yarn run start
+              build: npm run build
+              start: "npm run dev "
+              buildenv: []
             context:
               git:
                 url: git@github.com:${{ github.repository }}.git
