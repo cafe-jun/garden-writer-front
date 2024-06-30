@@ -1,9 +1,8 @@
-import { GetChatHistoryRequest } from '@/fetch/types';
 import { envApiConfig } from 'util/envConfig';
 
+import { GetChatHistoryRequest } from '@/fetch/types';
+
 export const config = {
-  // apiLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
-  // wsLink: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
   wsLink: envApiConfig(),
 
   apiLink: envApiConfig(),

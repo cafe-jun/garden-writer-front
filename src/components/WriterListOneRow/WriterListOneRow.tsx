@@ -5,8 +5,8 @@ import { updateWriterState } from '@/fetch/put';
 import { GetWriterListAdmin } from '@/fetch/types';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 
-import st from './WriterListOneRow.module.scss';
 import { dateChanger } from '../../../util/dateChange';
+import st from './WriterListOneRow.module.scss';
 
 const joninStatus = {
   attending: '참여중',
