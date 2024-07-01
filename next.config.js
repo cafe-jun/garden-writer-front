@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         // matching all API routes
-        source: '/api/(.*)',
+        source: '/(.*)',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
@@ -17,6 +17,15 @@ const nextConfig = {
               'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
           },
         ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/(.*)',
+        destination:
+          'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app/(.*)',
       },
     ];
   },

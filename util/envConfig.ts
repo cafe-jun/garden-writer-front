@@ -3,5 +3,5 @@ export const envApiConfig = () => {
   //   if (envConfig === 'development') {
   //     return 'http://localhost:3001';
   //   }
-  return `https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app/api`;
+  return `https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app`;
 };
