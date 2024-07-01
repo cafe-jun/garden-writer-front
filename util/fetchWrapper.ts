@@ -12,7 +12,7 @@ export default async function callApi<T>({ url, body, method }: CallApi): Promis
     credentials: 'include',
     method,
     headers: {
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
       Authorization: token ? `Bearer ${token}` : '',
     },
     body: body ? JSON.stringify(body) : undefined,
