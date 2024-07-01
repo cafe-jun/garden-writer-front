@@ -20,14 +20,15 @@ const nextConfig = {
       },
     ];
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/(.*)',
-        destination: 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app',
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/(.*)',
+  //       destination:
+  //         'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app/(.*)',
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;
