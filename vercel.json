@@ -1,7 +1,7 @@
 {
     "headers": [
       {
-        "source": "/*",
+        "source": "https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app/*",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "*" },
