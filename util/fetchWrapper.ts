@@ -9,7 +9,7 @@ interface CallApi {
 export default async function callApi<T>({ url, body, method }: CallApi): Promise<T> {
   const token = localStorage.getItem(config.storageKey);
   const init: RequestInit = {
-    // credentials: 'include',
+    credentials: 'include',
     method,
     headers: {
       'Content-Type': 'application/json',
