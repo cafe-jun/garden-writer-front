@@ -9,6 +9,7 @@ interface CallApi {
 export default async function callApi<T>({ url, body, method }: CallApi): Promise<T> {
   const token = localStorage.getItem(config.storageKey);
   const init: RequestInit = {
+    mode: 'cors',
     credentials: 'include',
     method,
     headers: {
