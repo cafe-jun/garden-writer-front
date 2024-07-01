@@ -23,9 +23,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/(.*)',
+        source: '/api/:path*',
         destination:
-          'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app/(.*)',
+          'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app/:path*', // 실제 백엔드 API URL
       },
     ];
   },
