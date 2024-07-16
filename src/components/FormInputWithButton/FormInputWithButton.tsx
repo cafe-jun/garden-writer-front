@@ -17,11 +17,11 @@ const FormInputWithButton = <T extends FieldValues>({
   buttonDisabled = false,
   placeholder,
   buttonLabel,
-  validate = (value: string) => {
+  validate = (value: string): boolean => {
     if (regex !== undefined) return regex.test(value);
-    return true;
+    return false;
   },
-  handleClickButton = (): void => {
+  handleClickButton = () => {
     console.log('click button');
   },
 }: FormInputWithButtonProps<T>) => {

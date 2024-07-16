@@ -29,6 +29,7 @@ const FormInput = <T extends FieldValues>({
   } = useFormContext<T>();
 
   const inputValidate = useCallback(validate, []);
+  const buttonValidate = useCallback(validate, []);
 
   const inputFieldValue = useMemo(() => getValues(valuePayload), [getValues(valuePayload)]);
 
@@ -37,12 +38,12 @@ const FormInput = <T extends FieldValues>({
       validate: (value: string) => {
         if (isRequired(value)) return true;
         if (inputValidate(value)) return true;
+        if (buttonValidate(value)) return true;
         return validateErrorMessage;
       },
     }),
     []
   );
-
   const isValidSuccess =
     errors[valuePayload] === undefined &&
     validateSuccessMessage !== '' &&
@@ -69,7 +70,7 @@ const FormInput = <T extends FieldValues>({
     },
     []
   );
-
+  console.log(errors);
   return (
     <div className={styles.formItemContainer}>
       <p className={styles.formLabel}>{label}</p>

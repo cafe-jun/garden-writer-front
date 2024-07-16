@@ -1,11 +1,11 @@
-import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex } from '@/constants/regex';
-import { userList } from '@/fetch/get';
-import { signUp } from '@/fetch/post';
+
+import { checkUserEmail, checkUserNickname, signUp } from '@/fetch/post';
 import { useTimer } from '@/hooks/useTimer';
 
 import FormInput from '../FormInput/FormInput';
@@ -14,42 +14,35 @@ import styles from './SignUp.module.scss';
 import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
-  const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<boolean>(true);
-  const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<boolean>(true);
-  const [isClickedEmailDuplicateButton, setIsClickedEmailDuplicateButton] =
-    useState<boolean>(false);
-  const [isClickedNicknameDuplicateButton, setIsClickedNicknameDuplicateButton] =
-    useState<boolean>(false);
+  const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<boolean>(false);
+  const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<boolean>(false);
+  // const [isClickedEmailDuplicateButton, setIsClickedEmailDuplicateButton] =
+  //   useState<boolean>(false);
+  // const [isClickedNicknameDuplicateButton, setIsClickedNicknameDuplicateButton] =
+  // useState<boolean>(false);
   const [isPushEmail, setIsPushEmail] = useState<boolean>(false);
 
-  const isValidEmail = isClickedEmailDuplicateButton && !isDuplicatedEmail;
-  const isValidNickname = isClickedNicknameDuplicateButton && !isDuplicatedNickname;
-  // const emailButtonLabel = isClickedEmailDuplicateButton ? '인증 메일 발송' : '중복 확인';
-  const emailButtonLabel = '중복 확인';
-  const emailValidateSuccessMessage = isValidEmail ? '사용 가능한 이메일입니다.' : '';
-  const nicknameValidateSuccessMessage = isValidNickname ? '사용 가능 한 닉네임입니다.' : '';
+  const isValidEmail = isDuplicatedEmail;
+  const isValidNickname = isDuplicatedNickname;
 
   const route = useRouter();
   const { time, isActive, startTimer, resetTimer } = useTimer({
     initialTime: 600,
     onTimerComplete: handleTimerComplete,
   });
-  const { formState, handleSubmit, getValues } = useFormContext<SignUpFormValues>();
+  const { formState, handleSubmit, getValues, trigger, setError } =
+    useFormContext<SignUpFormValues>();
   const { isDirty, isValid } = formState;
-  const { data: userListData } = useQuery({
-    queryKey: ['api/userList'],
-    queryFn: () => userList(),
-    placeholderData: keepPreviousData,
-  });
+  // const { data: userListData } = useQuery({
+  //   queryKey: ['api/userList'],
+  //   queryFn: () => userList(),
+  //   placeholderData: keepPreviousData,
+  // });
   const { mutate, status, isError } = useMutation({
     mutationKey: ['api/signUp'],
     mutationFn: signUp,
   });
-
-  useEffect(() => {
-    console.log(userListData);
-  }, [userListData]);
-
+  console.log(isDuplicatedEmail);
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
     try {
       if (isValidEmail && isValidNickname) {
@@ -69,50 +62,32 @@ const SignUpForm = () => {
     setIsPushEmail(false);
   }
 
-  const handleEmailButton = (): void => {
-    if (isClickedEmailDuplicateButton) {
-      // handlePushEmailButton();
-    } else {
-      handleEmailDuplicatedButton();
-    }
-  };
-
-  function handleCertificationNumberButton(): void {
-    console.log(true);
-  }
-
-  const handleEmailDuplicatedButton = (): void => {
-    const isDuplicated = userListData?.data.some((data: any) => data.email === getValues('email'));
-
-    if (isDuplicated) {
-      setIsClickedEmailDuplicateButton(false);
+  const handleEmailDuplicatedButton = async (): Promise<void> => {
+    const email = getValues('email');
+    const isDuplicatEmail = (await checkUserEmail(email)).data;
+    const { result } = isDuplicatEmail;
+    if (result) {
       setIsDuplicatedEmail(true);
     } else {
-      setIsClickedEmailDuplicateButton(true);
+      console.log('test');
       setIsDuplicatedEmail(false);
+      setError('email', { type: 'custom', message: '중복된 이메일이 있습니다.' });
     }
   };
 
-  const handleNicknameButton = (): void => {
-    const isDuplicated = userListData?.data.some(
-      (data: any) => data.nickname === getValues('nickname')
-    );
-
-    if (isDuplicated) {
-      setIsClickedNicknameDuplicateButton(false);
+  const handleNicknameButton = async (): Promise<void> => {
+    const nickname = getValues('nickname');
+    const isDuplicatedNickname = (await checkUserNickname(nickname)).data;
+    const { result } = isDuplicatedNickname;
+    if (result) {
+      // setIsClickedNicknameDuplicateButton(true);
       setIsDuplicatedNickname(true);
-      console.log('중복');
     } else {
-      setIsClickedNicknameDuplicateButton(true);
+      // setIsClickedNicknameDuplicateButton(false);
       setIsDuplicatedNickname(false);
-      console.log('중복x');
+      setError('nickname', { type: 'custom', message: '중복된 닉네임 있습니다.' });
     }
   };
-
-  function handlePushEmailButton(): void {
-    setIsPushEmail(true);
-    startTimer();
-  }
 
   function passwordConfirmValidate() {
     return getValues('password') !== '' && getValues('password') === getValues('passwordConfirm');
@@ -131,33 +106,16 @@ const SignUpForm = () => {
             regex={emailRegex}
             valuePayload="email"
             requiredMessage="이메일을 입력해주세요."
-            validateErrorMessage="이메일 형식을 지켜주세요."
-            validateSuccessMessage={emailValidateSuccessMessage}
+            validateErrorMessage={'이메일 형식에 맞지 않습니다.'}
+            validateSuccessMessage={isValidEmail ? '사용할 수 있는 이메일입니다.' : ''}
             label="이메일"
-            disabled={isValidEmail}
+            // disabled={isValidEmail}
             buttonDisabled={!isDuplicatedEmail && isPushEmail}
             placeholder="이메일"
-            buttonLabel={emailButtonLabel}
-            handleClickButton={handleEmailButton}
+            validateButtonResult={isDuplicatedEmail}
+            buttonLabel={'중복 확인'}
+            handleClickButton={handleEmailDuplicatedButton}
           />
-          {/* <div className={styles.certificationNumberWrap}>
-            <FormInputWithButton<SignUpFormValues>
-              valuePayload="certificationNumber"
-              requiredMessage="인증번호를 입력해주세요."
-              validateErrorMessage="인증번호가 일치하지 않습니다."
-              validateSuccessMessage="인증번호가 일치합니다."
-              label="인증번호"
-              placeholder="인증번호를 입력해주세요."
-              buttonLabel="확인하기"
-              handleClickButton={handleCertificationNumberButton}
-              buttonDisabled={!isActive}
-            />
-            {isActive && (
-              <p className={styles.certificationNumberTimer}>
-                {Math.floor(time / 60)}:{time % 60}
-              </p>
-            )}
-          </div> */}
           <FormInput<SignUpFormValues>
             type="password"
             regex={passwordRegex}
@@ -183,31 +141,17 @@ const SignUpForm = () => {
             valuePayload="nickname"
             requiredMessage="닉네임을 입력해주세요."
             validateErrorMessage="닉네임 형식을 지켜주세요."
-            validateSuccessMessage={nicknameValidateSuccessMessage}
+            validateSuccessMessage={isValidNickname ? '사용할 수 있는 닉네임입니다.' : ''}
             label="닉네임"
             placeholder="닉네임"
-            buttonLabel="중복확인"
-            disabled={isValidNickname}
+            buttonLabel={'중복 확인'}
+            validateButtonResult={isValidNickname}
+            // disabled={isValidNickname}
             buttonDisabled={isValidNickname}
             handleClickButton={handleNicknameButton}
+            // validate={() => handleDuplicateValidateNickname()}
           />
         </div>
-        {/* <article className={styles.formContentsMore}>
-          <h3 className={styles.subTitle}>추가정보(선택)</h3>
-          <FormInputWithButton<SignUpFormValues>
-            regex={phoneNumberRegex}
-            valuePayload="phoneNumber"
-            validateErrorMessage="- 제외한 숫자만 입력해주세요."
-            label="휴대번호"
-            placeholder="- 제외한 숫자만 입력 가능"
-            buttonLabel="중복확인"
-          />
-          <IncreaseInput<SignUpFormValues>
-            valuePayload="portfolios"
-            label="작가 포트폴리오"
-            placeholder="나를 소개할 수 있는 링크 (SNS, 블로그, 웹소설 등)"
-          />
-        </article> */}
         <button className={styles.submitButton} type="submit" disabled={!isDirty || !isValid}>
           시작하기
         </button>

@@ -14,6 +14,22 @@ import {
 
 const method = 'POST';
 
+export function checkUserEmail(email: string) {
+  return callApi<{ data: { result: boolean } }>({
+    url: `${config.apiUrl.user}/check-email`,
+    method,
+    body: { email },
+  });
+}
+
+export function checkUserNickname(nickname: string) {
+  return callApi<{ data: { result: boolean } }>({
+    url: `${config.apiUrl.user}/check-nickname`,
+    method,
+    body: { nickname },
+  });
+}
+
 export function CreateRoom(body: CreateRoomArg) {
   return callApi<CreateRoomResponse>({ url: config.apiUrl.createNovelRoom, body, method });
 }

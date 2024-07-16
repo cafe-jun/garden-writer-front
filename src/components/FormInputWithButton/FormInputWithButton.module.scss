@@ -1,6 +1,7 @@
 $colorPrimary: #059EAF;
 $colorRed: #EE3C3C;
 $colorWhite: #ffffff;
+$colorGray: #4c4949;
 $f12: 12px;
 $f14: 14px;
 
@@ -16,8 +17,10 @@ $f14: 14px;
   border-radius: 10px;
   border: unset;
   cursor: pointer;
-  &.disabled {
-    opacity: .5;
+  &:disabled {
+    opacity: .3;
     cursor: not-allowed;
+    background-color: $colorGray;
   }
 }
+
