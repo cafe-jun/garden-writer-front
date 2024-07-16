@@ -1,17 +1,17 @@
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex } from '@/constants/regex';
 
 import { checkUserEmail, checkUserNickname, signUp } from '@/fetch/post';
 import { useTimer } from '@/hooks/useTimer';
+import { SignUpFormValues } from './type';
 
 import FormInput from '../FormInput/FormInput';
 import FormInputWithButton from '../FormInputWithButton/FormInputWithButton';
 import styles from './SignUp.module.scss';
-import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
   const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<boolean>(false);
@@ -42,7 +42,7 @@ const SignUpForm = () => {
     mutationKey: ['api/signUp'],
     mutationFn: signUp,
   });
-  console.log(isDuplicatedEmail);
+
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
     try {
       if (isValidEmail && isValidNickname) {
@@ -106,14 +106,14 @@ const SignUpForm = () => {
             regex={emailRegex}
             valuePayload="email"
             requiredMessage="이메일을 입력해주세요."
-            validateErrorMessage={'이메일 형식에 맞지 않습니다.'}
+            validateErrorMessage="이메일 형식에 맞지 않습니다."
             validateSuccessMessage={isValidEmail ? '사용할 수 있는 이메일입니다.' : ''}
             label="이메일"
             // disabled={isValidEmail}
             buttonDisabled={!isDuplicatedEmail && isPushEmail}
             placeholder="이메일"
             validateButtonResult={isDuplicatedEmail}
-            buttonLabel={'중복 확인'}
+            buttonLabel="중복 확인"
             handleClickButton={handleEmailDuplicatedButton}
           />
           <FormInput<SignUpFormValues>
@@ -144,7 +144,7 @@ const SignUpForm = () => {
             validateSuccessMessage={isValidNickname ? '사용할 수 있는 닉네임입니다.' : ''}
             label="닉네임"
             placeholder="닉네임"
-            buttonLabel={'중복 확인'}
+            buttonLabel="중복 확인"
             validateButtonResult={isValidNickname}
             // disabled={isValidNickname}
             buttonDisabled={isValidNickname}

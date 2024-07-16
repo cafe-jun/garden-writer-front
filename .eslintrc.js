@@ -18,7 +18,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     'next/core-web-vitals',
-    'prettier'
+    'prettier',
   ],
   plugins: [
     'react',
@@ -27,7 +27,7 @@ module.exports = {
     '@typescript-eslint',
     'simple-import-sort',
     'unused-imports',
-    'prettier'
+    'prettier',
   ],
   ignorePatterns: ['*rc.js', '**/*.config.js', '**/*.setup.js'],
   globals: {},
@@ -57,7 +57,8 @@ module.exports = {
     camelcase: 'off',
     'consistent-return': 'off',
     'no-console': ['warn', { allow: ['error', 'warn'] }],
-
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     // v4 changes
     'no-use-before-define': 'off',
     'no-shadow': 'off',
@@ -65,15 +66,15 @@ module.exports = {
     // jsx-a11y
     'jsx-a11y/click-events-have-key-events': 'warn',
     'jsx-a11y/no-noninteractive-element-interactions': 'warn',
-    "jsx-a11y/label-has-associated-control": [
+    'jsx-a11y/label-has-associated-control': [
       2,
       {
-        "labelAttributes": ["htmlFor"]
-      }
+        labelAttributes: ['htmlFor'],
+      },
     ],
 
     // React
-    "react/destructuring-assignment": "off",
+    'react/destructuring-assignment': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'react/prop-types': 'off',
     'react-hooks/exhaustive-deps': 'off',
@@ -129,6 +130,8 @@ module.exports = {
       files: ['**/*.ts?(x)'],
       parserOptions: {
         project: ['./tsconfig.json'],
+        sourceType: 'module',
+        ecmaVersion: 'latest',
       },
     },
   ],

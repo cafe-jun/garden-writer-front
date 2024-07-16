@@ -19,7 +19,6 @@ import {
   NovelRoomInfoResponse,
   UserListResponse,
 } from '../types';
-import { error } from 'console';
 
 const method = 'GET';
 
@@ -34,7 +33,6 @@ export function novelList({ page, roomState }: NovelListRequest) {
     method,
   });
 }
-
 
 export function userList() {
   return callApi<UserListResponse>({ url: config.apiUrl.user, method });
