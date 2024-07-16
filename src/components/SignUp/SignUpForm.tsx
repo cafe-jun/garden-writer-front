@@ -1,17 +1,16 @@
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { emailRegex, nicknameRegex, passwordRegex } from '@/constants/regex';
-
 import { checkUserEmail, checkUserNickname, signUp } from '@/fetch/post';
 import { useTimer } from '@/hooks/useTimer';
-import { SignUpFormValues } from './type';
 
 import FormInput from '../FormInput/FormInput';
 import FormInputWithButton from '../FormInputWithButton/FormInputWithButton';
 import styles from './SignUp.module.scss';
+import { SignUpFormValues } from './type';
 
 const SignUpForm = () => {
   const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<boolean>(false);
