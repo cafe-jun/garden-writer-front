@@ -62,6 +62,8 @@ export const config = {
     // 소설 연재. 독자에게 공개
     novelPublish: (chapterId: number) => `/chapter/approval/${chapterId}`,
 
+    //소설 제목 수정하기
+    novelChapterTitle: (chapterId: number) => `/chapter/title/${chapterId}`,
     // 작가의 순서번경
     novelWriterSequence: `/writer/sequence`,
 

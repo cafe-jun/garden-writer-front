@@ -46,9 +46,9 @@ export const PageHeader = () => {
       <div className={styles.outline}>
         <Image src={Logo} alt="작가의 정원 로고" />
         <div className={styles.headerLeftContents}>
-          <Link href="/" replace={false}>
-            웹소설
-          </Link>
+          {/* <Link href="/" replace={false}> */}
+          웹소설
+          {/* </Link> */}
           <Link href={config.page.novel} replace={false}>
             소설공방
           </Link>

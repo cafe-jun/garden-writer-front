@@ -4,6 +4,7 @@ import { config } from '@/config/config';
 
 import {
   ChatComplete,
+  NovelChapterTitleRequest,
   NovelPublishRequest,
   NovelWriterSequenceRequest,
   UpdateWriterStateRequest,
@@ -57,5 +58,13 @@ export function novelWriterSequence(body: NovelWriterSequenceRequest) {
     url: config.apiUrl.novelWriterSequence,
     method,
     body,
+  });
+}
+
+export function novelChapterTitle({ chapterId, title }: NovelChapterTitleRequest) {
+  return callApi<boolean>({
+    url: config.apiUrl.novelChapterTitle(chapterId),
+    method,
+    body: { title },
   });
 }

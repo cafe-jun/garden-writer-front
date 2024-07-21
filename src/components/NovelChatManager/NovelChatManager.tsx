@@ -15,6 +15,8 @@ import Skel from '../Skel/Skel';
 import WriteChat from '../WriteChat/WirteChat';
 import WriteChatSendBox from '../WriteChatSendBox/WriteChatSendBox';
 import st from './NovelChatManager.module.scss';
+import useNovelTitleModal from '@/zustand/stores/useNovelTitleModel';
+import useNovelChapter from '@/zustand/stores/useChapter';
 
 export default function NovelChatManager({ isShow = false }: { isShow: boolean }): ReactElement {
   const [page, setPage] = useState<number>(1);
@@ -22,7 +24,9 @@ export default function NovelChatManager({ isShow = false }: { isShow: boolean }
   const roomId = useUrlDatas<number>('room');
   const messageEndRef = useRef<HTMLDivElement>(null);
   const novelPublishModal = useNovelPublishModal();
+  const novelTitleModel = useNovelTitleModal();
   const novelRoom = useNovelRoom();
+  const novelChapter = useNovelChapter();
   const { data, isSuccess, fetchNextPage } = useInfiniteQuery({
     queryKey: [
       config.apiUrl.getChatHistory({
@@ -41,6 +45,7 @@ export default function NovelChatManager({ isShow = false }: { isShow: boolean }
     getNextPageParam: (lastPage, allPages, lastPageParam) =>
       lastPage.data?.texts?.length > 0 ? lastPageParam + 1 : null,
   });
+
   const { mutate: getNewChatDetail } = useMutationWrap({
     mutationFn: getOneNovelText,
     onSuccess(res) {
@@ -79,24 +84,26 @@ export default function NovelChatManager({ isShow = false }: { isShow: boolean }
     chats.forEach(i => {
       chatList = [...chatList, ...i];
     });
-    console.log(chats);
+
     setAllText(chatList);
-    // setInterval(() => {
-    // fetchNextPage();
-    // }, 1000);
-    // [
-    //   [{},{}],
-    //   [{},{}],
-    //   [{},{}]
-    // ]
   }, [data]);
   return (
     <div className={st.main} style={{ display: isShow ? 'flex' : 'none' }} aria-hidden={isShow}>
       {/* 소설쓰기 탭의 제목 bar start */}
       <div className={st.writingNovel_topBar}>
         <div className={st.writingNovel_row}>
-          <input className={st.writingNovel_Title} defaultValue="임시이무니다" />
-          <button className={st.writingNovel_modify} type="button">
+          <input
+            className={st.writingNovel_Title}
+            defaultValue="임시화"
+            value={novelChapter.title}
+          />
+          <button
+            className={st.writingNovel_modify}
+            type="button"
+            onClick={() => {
+              novelTitleModel.show();
+            }}
+          >
             수정하기
           </button>
         </div>

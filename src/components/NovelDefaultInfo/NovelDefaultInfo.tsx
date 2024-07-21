@@ -90,7 +90,7 @@ export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }
           <button onClick={toggleModify} className="blue-btn" type="button">
             수정완료
           </button>
-          <button className="white-btn" type="button">
+          <button className="white-btn" type="button" onClick={() => setModifyMode(false)}>
             취소
           </button>
         </div>

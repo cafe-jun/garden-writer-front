@@ -241,6 +241,11 @@ export interface NovelPublishRequest {
   chapterId: number;
 }
 
+export interface NovelChapterTitleRequest {
+  title: string;
+  chapterId: number;
+}
+
 export interface NovelWriterSequenceRequest {
   novelRoomId: number;
   writerIdSeq: number[];

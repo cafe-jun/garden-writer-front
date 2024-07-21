@@ -14,9 +14,10 @@ import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 import useNovelRoom from '@/zustand/stores/useNovelRoom';
-
 import NovelPublish from '../../../components/modals/NovelPublish/NovelPublish';
 import st from './detail.module.scss';
+import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
+import useNovelChapter from '@/zustand/stores/useChapter';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';
@@ -25,6 +26,7 @@ const PAGE_4 = '작가관리';
 
 const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
   const novelRoom = useNovelRoom();
+  const novelChapter = useNovelChapter();
   const { isSuccess, data } = useQueryWrap({
     queryKey: [config.apiUrl.novelChapterList, page, roomId],
     queryFn: () => getNovelChapterList({ novelRoomId: roomId, page }),
@@ -38,6 +40,7 @@ const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
     // if (novelRoom.lastChapterId !== 0) {
     //   return;
     // }
+    novelChapter.setChapterTitle(data.data[0].title);
     novelRoom.setLastChapterId(data.data[0].id);
   }, [isSuccess]);
 };
@@ -80,6 +83,7 @@ export default function WriteDetail(): ReactElement {
   return (
     <div className={st.mainBody} onWheel={wheelEvent}>
       <NovelPublish />
+      <NovelChapterTitle />
       {/* 참여작가 드래그 박스와 공장정보 박스를 row로 관리 */}
       <div className={st.mainBody_content}>
         {/* 참여작가 박스 */}
