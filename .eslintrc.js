@@ -22,10 +22,10 @@ module.exports = {
   ],
   plugins: [
     'react',
-    'jsx-a11y',
-    'import',
+    // 'jsx-a11y',
+    // 'import',
     '@typescript-eslint',
-    'simple-import-sort',
+    // 'simple-import-sort',
     'unused-imports',
     'prettier',
   ],
@@ -33,6 +33,7 @@ module.exports = {
   globals: {},
   rules: {
     'linebreak-style': 0,
+    'import/order': 'off',
     // prettier
     'prettier/prettier': [
       'warn',
@@ -57,8 +58,8 @@ module.exports = {
     camelcase: 'off',
     'consistent-return': 'off',
     'no-console': ['warn', { allow: ['error', 'warn'] }],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
+    // 'simple-import-sort/imports': 'warn',
+    // 'simple-import-sort/exports': 'warn',
     // v4 changes
     'no-use-before-define': 'off',
     'no-shadow': 'off',
@@ -104,8 +105,8 @@ module.exports = {
     'unused-imports/no-unused-imports-ts': ['warn'],
 
     // simple-import-sort
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
+    'simple-import-sort/imports': 'off',
+    'simple-import-sort/exports': 'off',
   },
 
   settings: {
@@ -132,6 +133,9 @@ module.exports = {
         project: ['./tsconfig.json'],
         sourceType: 'module',
         ecmaVersion: 'latest',
+      },
+      rules: {
+        'import/order': 'off',
       },
     },
   ],

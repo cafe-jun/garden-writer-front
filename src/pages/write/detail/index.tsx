@@ -14,8 +14,8 @@ import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 import useNovelRoom from '@/zustand/stores/useNovelRoom';
-import NovelPublish from '../../../components/modals/NovelPublish/NovelPublish';
-import st from './detail.module.scss';
+import NovelPublish from '@/components/modals/NovelPublish/NovelPublish';
+import st from '@/pages/write/detail/detail.module.scss';
 import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
 import useNovelChapter from '@/zustand/stores/useChapter';
 
