@@ -92,11 +92,7 @@ export default function NovelChatManager({ isShow = false }: { isShow: boolean }
       {/* 소설쓰기 탭의 제목 bar start */}
       <div className={st.writingNovel_topBar}>
         <div className={st.writingNovel_row}>
-          <input
-            className={st.writingNovel_Title}
-            defaultValue="임시화"
-            value={novelChapter.title}
-          />
+          <input className={st.writingNovel_Title} defaultValue="" value={novelChapter.title} />
           <button
             className={st.writingNovel_modify}
             type="button"

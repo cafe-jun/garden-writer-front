@@ -13,6 +13,7 @@ import EyeIcon from '@/images/eye.svg';
 import HeartRed from '@/images/heart-red.svg';
 
 import styles from './recruitmentDetailPost.module.scss';
+import { dateChanger } from '../../../../util/dateChange';
 
 const RecruitmentDetailPostPage = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const RecruitmentDetailPostPage = () => {
     queryKey: [config.apiUrl.getWriterPostDetail(roomId)],
     queryFn: () => getWriterPostDetail({ roomId }),
   });
+  console.log('data :: ', data);
 
   const novelJoin = useMutationWrap({
     mutationKey: [config.apiUrl.writerJoinRequest],
@@ -78,11 +80,13 @@ const RecruitmentDetailPostPage = () => {
           </li>
           <li className={styles.novelItem}>
             <span>작가 정원</span>
-            <span>??/5</span>
+            <span>
+              {data?.data.currentAttendCnt}/{data?.data.type}
+            </span>
           </li>
           <li className={styles.novelItem}>
             <span>소설공방 개설일</span>
-            <span>개설이 없음</span>
+            <span>{dateChanger(data?.data.createdAt as string | null)}</span>
           </li>
         </ul>
 
@@ -98,12 +102,17 @@ const RecruitmentDetailPostPage = () => {
       </main>
 
       <footer className={styles.footer}>
-        <button type="button" className={styles.button}>
+        <button type="button" className={styles.button} disabled={data?.data.hasLike}>
           <Image src={HeartRed} alt="HeartRed" />
-          <span>??</span>
+          <span>{data?.data.likeCount}</span>
         </button>
-        <button type="button" className={styles.button} onClick={() => setIsModal(true)}>
-          참여 신청하기
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => setIsModal(true)}
+          disabled={data?.data.isAttend}
+        >
+          {data?.data.isAttend ? '참석한 모임입니다.' : '참여 신청하기'}
         </button>
       </footer>
     </div>

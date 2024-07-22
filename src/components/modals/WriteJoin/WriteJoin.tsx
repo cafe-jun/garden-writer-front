@@ -15,7 +15,7 @@ export default function WriteJoin({ nextStep, cancel }: WriteJoinProps): ReactEl
         {/* bottom button start */}
         <div className={st.contents_btnBox}>
           <button onClick={nextStep} type="button">
-            개설하기
+            참여 신청하기
           </button>
           <button onClick={cancel} type="button">
             취소

@@ -104,6 +104,11 @@ export interface GetWriterPostDetail {
   boardOpenKakaoLink: string;
   likeCount: number;
   hasLike: boolean;
+  type: number;
+  roomTitle: string;
+  isAttend: boolean;
+  currentAttendCnt: number;
+  createdAt: string | null | undefined;
 }
 export interface GetOneNovelText {
   createdAt: string;
