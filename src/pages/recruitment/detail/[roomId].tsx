@@ -142,7 +142,7 @@ const RecruitmentDetailPostPage = () => {
           type="button"
           className={styles.button}
           onClick={() => setIsModal(true)}
-          disabled={handleJoinMessage(data?.data) || isJoinDisabled}
+          disabled={handleJoinMessage(data?.data).isEnable || isJoinDisabled}
         >
           {handleJoinMessage(data?.data).message}
         </button>
