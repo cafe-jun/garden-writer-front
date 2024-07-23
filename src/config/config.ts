@@ -47,6 +47,8 @@ export const config = {
     // 작가모집글 상세조회
     getWriterPostDetail: (roomId: number) => `/novel-attend-board/${roomId}`,
 
+    setboardLike: '/novel-attend-board/like',
+
     // 소설 글쓰기 / 소설 채팅 보내기
     newNovelText: '/novel-text',
 

@@ -97,14 +97,17 @@
             gap: 6px;
             height: 46px;
             color: $white-1;
-            background-color: $gray-8;
+            background-color: $blue-3;
             border: none;
             border-radius: 62px;
             cursor: pointer;
             transition: .2s all ease-in-out;
 
-            &:hover {
-                background-color: $blue-3;
+            &:disabled {
+                background-color: $gray-1;
+            }
+            &:enabled:hover {
+                background-color: $blue-2;
             }
 
             &:first-child {

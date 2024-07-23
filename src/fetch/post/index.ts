@@ -55,6 +55,15 @@ export function newNovelText(body: NewNovelTextRequest) {
     method,
   });
 }
+
+export function setBoardLike(body: { novelRoomId: number }) {
+  console.log('body', body);
+  return callApi<boolean>({
+    url: config.apiUrl.setboardLike,
+    body,
+    method,
+  });
+}
 /**
  * 참여작가로 신청
  * @param body WriterJoinReqest

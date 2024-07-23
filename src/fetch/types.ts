@@ -109,6 +109,7 @@ export interface GetWriterPostDetail {
   isAttend: boolean;
   currentAttendCnt: number;
   createdAt: string | null | undefined;
+  host: { id: number; nickname: string };
 }
 export interface GetOneNovelText {
   createdAt: string;
