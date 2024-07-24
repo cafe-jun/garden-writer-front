@@ -14,7 +14,7 @@ import { Props } from './type';
 const Card = ({
   boardTitle,
   category,
-  currentWriterCnt,
+  currentAttendCnt,
   likeCount,
   roomCreatedAt,
   roomTitle,
@@ -32,7 +32,7 @@ const Card = ({
       }}
     >
       <div>
-        <div className={st.status}>{roomType === currentWriterCnt ? '모집완료' : '모집중'}</div>
+        <div className={st.status}>{roomType === currentAttendCnt ? '모집완료' : '모집중'}</div>
         <p>개설일 {roomCreatedAt}</p>
       </div>
 
@@ -43,7 +43,7 @@ const Card = ({
           제목<span>{boardTitle}</span>
           작가 인원
           <span>
-            {currentWriterCnt}/{roomType}
+            {currentAttendCnt}/{roomType}
           </span>
         </p>
       </div>

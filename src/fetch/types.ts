@@ -92,7 +92,7 @@ export interface GetWriterWantedList {
   roomCreatedAt: string;
   likeCount: number;
   category: Categorys;
-  currentWriterCnt: number;
+  currentAttendCnt: number;
   roomType: RoomType;
 }
 
