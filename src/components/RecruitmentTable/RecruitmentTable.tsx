@@ -32,7 +32,7 @@ const Card = ({
       }}
     >
       <div>
-        <div className={st.status}>모집중</div>
+        <div className={st.status}>{roomType === currentWriterCnt ? '모집완료' : '모집중'}</div>
         <p>개설일 {roomCreatedAt}</p>
       </div>
 
@@ -42,7 +42,9 @@ const Card = ({
         <p className={st.titleAndText}>
           제목<span>{boardTitle}</span>
           작가 인원
-          <span>{currentWriterCnt}/5</span>
+          <span>
+            {currentWriterCnt}/{roomType}
+          </span>
         </p>
       </div>
 

@@ -105,6 +105,7 @@
 
             &:disabled {
                 background-color: $gray-1;
+                cursor: not-allowed;
             }
             &:enabled:hover {
                 background-color: $blue-2;

@@ -55,15 +55,18 @@ const RecruitmentDetailPostPage = () => {
   });
   const handleJoinMessage = (
     data: GetWriterPostDetail | undefined
-  ): { isEnable: boolean; message: string } => {
-    if (data === undefined) return { isEnable: false, message: '' };
+  ): { isDisable: boolean; message: string } => {
+    console.log('data ', data);
+    if (data === undefined) return { isDisable: true, message: '' };
     if (data.isAttend) {
-      return { isEnable: false, message: '참여 신청한 공방입니다.' };
+      return { isDisable: true, message: '참여 신청한 공방입니다.' };
     }
-    if (data.currentAttendCnt / data.type === 0) {
-      return { isEnable: false, message: '정원이 마감된 공방입니다.' };
+    console.log(data.currentAttendCnt / data.type);
+    if (data.currentAttendCnt === data.type) {
+      console.log('둘째');
+      return { isDisable: true, message: '정원이 마감된 공방입니다.' };
     }
-    return { isEnable: true, message: '참여하기' };
+    return { isDisable: false, message: '참여하기' };
   };
 
   return (
@@ -142,7 +145,7 @@ const RecruitmentDetailPostPage = () => {
           type="button"
           className={styles.button}
           onClick={() => setIsModal(true)}
-          disabled={handleJoinMessage(data?.data).isEnable || isJoinDisabled}
+          disabled={handleJoinMessage(data?.data).isDisable || isJoinDisabled}
         >
           {handleJoinMessage(data?.data).message}
         </button>
