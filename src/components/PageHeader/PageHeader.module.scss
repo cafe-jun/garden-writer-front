@@ -32,11 +32,12 @@
 
         a {
             text-decoration: none;
+            color: $blue-1;
 
-            &:visited,
-            &:active {
-                color: $blue-1;
-            }
+            // &:visited,
+            // &:active {
+            //     color: $blue-1;
+            // }
         }
 
         .headerLeftContents {
