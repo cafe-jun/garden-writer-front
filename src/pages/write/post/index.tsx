@@ -91,7 +91,7 @@ export default function CreatePost(): ReactElement {
           style={{ marginTop: '84px' }}
           compulsory={props.postTitleCheck.essential}
           categoryText="제목"
-          placeholder="(예시) 12월 목료로 판타지 소설 작서해 보실분 구해요"
+          placeholder="(예시) 12월 목표로 판타지 소설 작성해 보실 분 모집합니다."
           errorText={props.postTitleCheck.errorMsg}
           isError={props.postTitleCheck.isError}
           speechBubbleText="소설을 함께 작성하실 작가를 모집하는 게시물의 제목입니다"
@@ -107,7 +107,8 @@ export default function CreatePost(): ReactElement {
           compulsory={props.postContentCheck.essential}
           categoryText="작가 모집 내용"
           speechBubbleText="함께 소설을 작성하실 작가를 모집하는 게시글의 내용입니다."
-          placeholder="(예시) 제목은 'OOO'이구요. 평일 모두 시간되시는 분 선호하고 잠수 시 강제 퇴장합니다. 오픈 채팅으로 연락 주세요."
+          placeholder={`(예시) 제목은 'OOO’ 입니다. 
+평소에 판타지 소설 즐겨보시는 아이디어 뱅크 분을 찾고 있습니다. 평일 저녁 8시 이후로 시간 되시는 분 선호하고 잠수는 강퇴합니다. 궁금하신 점은 오픈 채팅으로 연락해 주세요.`}
           errorText={props.postContentCheck.errorMsg}
           isError={props.postContentCheck.isError}
         />
