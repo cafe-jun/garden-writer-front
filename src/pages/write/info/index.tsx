@@ -1,43 +1,43 @@
 import { StaticImageData } from 'next/image';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 import BookCover from '@/components/BookCover/BookCover';
 import BookCoverList from '@/components/BookCoverList/BookCoverList';
 import CategorySelect from '@/components/CategorySelect/CategorySelect';
 import HashTagInput from '@/components/HashTagInput/HashTagInput';
 import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput';
-import OneLineInput from '@/components/OneLineInput/OneLineInput';
 import PeopleCount from '@/components/PeopleCount/PeopleCount';
-import WriterPeople from '@/components/WriterPeople/WrtierPeople';
+import { WritingModeSelector, OneLineInput } from '@/components';
 import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
 
 import CreatePost from '../post';
 import st from './info.module.scss';
 
-export default function WriteInfo(): ReactElement {
-  // 여러명이 하는지 아님 개인이 하는지
-  const [people, setPeople] = useState<number>(1);
+export type WritingModeType = 'solo' | 'collaborate';
+
+export default function WriteInfo() {
+  const [writingMode, setWritingMode] = useState<WritingModeType>('collaborate');
 
   // 같이 글쓰기 일 경우 선택한 인원수
   const [peopleCount, setPeopleCount] = useState<number | null>(null);
 
-  // 제목
-  const [title, setTitle] = useState<string>('');
+  // // 제목
+  // const [title, setTitle] = useState<string>('');
 
-  // 한줄 소개
-  const [oneLine, setOneLine] = useState<string>('');
+  // // 한줄 소개
+  // const [oneLine, setOneLine] = useState<string>('');
 
-  // api가 어떤 형태로 저장하는지 몰라서 작업 못함
-  const [cagegory, setCategory] = useState();
+  // // api가 어떤 형태로 저장하는지 몰라서 작업 못함
+  // const [cagegory, setCategory] = useState();
 
-  // 해시태그 #이름 형태의 array
-  const [hashTags, setHashTags] = useState<string[]>([]);
+  // // 해시태그 #이름 형태의 array
+  // const [hashTags, setHashTags] = useState<string[]>([]);
 
-  // 등장인물 소개
-  const [actor, setActor] = useState<string>('');
+  // // 등장인물 소개
+  // const [actor, setActor] = useState<string>('');
 
-  // 줄거리
-  const [summary, setSummary] = useState<string>('');
+  // // 줄거리
+  // const [summary, setSummary] = useState<string>('');
 
   // 북커버 리스트에서 이미지를 선택시 해당 변수에 이미지가 저장됨
   const [bookSrc, setBookScr] = useState<StaticImageData>();
@@ -45,59 +45,51 @@ export default function WriteInfo(): ReactElement {
   const { setNovel, novelChecking, ...props } = useCreateNovelPost();
 
   const [page, setPage] = useState<boolean>(false);
+
   if (page) {
     return <CreatePost />;
   }
+
+  const handleChangeWritingMode = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputValue = e.currentTarget.value as WritingModeType;
+    setWritingMode(inputValue);
+
+    if (inputValue === 'solo') {
+      setNovel({ type: 1 });
+    } else {
+      setNovel({ type: 2 });
+    }
+  };
+
+  const handleChangePeopleCount = (value: number) => {
+    setPeopleCount(value);
+    if (value === 2 || value === 3 || value === 4 || value === 5) {
+      setNovel({ type: value });
+    }
+  };
+
+  const handleChangeTitle = (title: string) => {
+    setNovel({
+      title,
+    });
+  };
+
+  const handleChangeDescription = (subTitle: string) => {
+    setNovel({
+      subTitle,
+    });
+  };
+
   return (
     <div className={st.container}>
       {/* 중앙 content box start */}
       <div className={`${st.contentContainer} ${st.mt44}`}>
-        <p className={st.text1}>01.소설공방 개설</p>
+        <p className={st.text1}>01. 소설공방 개설</p>
         <p className={st.text2}>작가들을 모집하고 새로운 세계관을 만들어보세요</p>
-
-        {/* 여러명이 하는지 아님 개인이 하는지 */}
-        <WriterPeople
-          onChange={value => {
-            setPeople(value);
-            if (value === 1) {
-              setNovel({ type: 2 });
-            } else {
-              setNovel({ type: 1 });
-            }
-          }}
-        />
-        {/* 여러명일 경우 인원선택 */}
-        {people === 1 ? (
-          <PeopleCount
-            onChange={value => {
-              setPeopleCount(value);
-              switch (value) {
-                case 2:
-                  setNovel({ type: 2 });
-                  break;
-                case 3:
-                  setNovel({ type: 3 });
-                  break;
-                case 4:
-                  setNovel({ type: 4 });
-                  break;
-                case 5:
-                  setNovel({ type: 5 });
-                  break;
-                default:
-                  break;
-              }
-            }}
-          />
-        ) : null}
-
-        {/* 제목 */}
+        <WritingModeSelector onChange={handleChangeWritingMode} writingMode={writingMode} />
+        {writingMode === 'collaborate' && <PeopleCount onChange={handleChangePeopleCount} />}
         <OneLineInput
-          onChange={value => {
-            setNovel({
-              title: value,
-            });
-          }}
+          onChange={handleChangeTitle}
           style={{ marginTop: '60px' }}
           compulsory={props.titleCheck.essential}
           categoryText="제목"
@@ -106,14 +98,8 @@ export default function WriteInfo(): ReactElement {
           errorText={props.titleCheck.errorMsg}
           isError={props.titleCheck.isError}
         />
-
-        {/* 한줄 소개 */}
         <OneLineInput
-          onChange={value => {
-            setNovel({
-              subTitle: value,
-            });
-          }}
+          onChange={handleChangeDescription}
           style={{ marginTop: '31px' }}
           compulsory={props.subTitleCheck.essential}
           categoryText="한줄 소개"
@@ -121,16 +107,12 @@ export default function WriteInfo(): ReactElement {
           errorText={props.subTitleCheck.errorMsg}
           isError={props.subTitleCheck.isError}
         />
-
-        {/* 카테고리 */}
         <CategorySelect
           compulsory={props.categoryCheck.essential}
           isError={props.categoryCheck.isError}
           errorText={props.categoryCheck.errorMsg}
           style={{ marginTop: '31px' }}
         />
-
-        {/* 해시태그 입력 */}
         <HashTagInput
           onChange={tags => setNovel({ novelTag: tags })}
           categoryText="태그"
@@ -177,7 +159,6 @@ export default function WriteInfo(): ReactElement {
           type="button"
           className={`${st.nextBtn} blue-btn ${st.mt32}`}
           onClick={() => {
-            console.log(props);
             if (!novelChecking()) {
               setPage(true);
             }

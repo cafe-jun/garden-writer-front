@@ -4,7 +4,7 @@ import { ReactElement, useState } from 'react';
 
 import MakeRoom from '@/components/modals/MakeRoom/MakeRoom';
 import MultipleLineInput from '@/components/MultipleLineInput/MultipleLineInput';
-import OneLineInput from '@/components/OneLineInput/OneLineInput';
+import { OneLineInput } from '@/components';
 import { config } from '@/config/config';
 import { CreateRoom } from '@/fetch/post';
 import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
