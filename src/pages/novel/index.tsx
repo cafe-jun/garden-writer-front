@@ -6,7 +6,7 @@ import Pagination from 'react-js-pagination';
 import { InformationText } from '@/components/InformationText/InformationText';
 import { InformationTextType } from '@/components/InformationText/type';
 import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
-import { NovelTabs } from '@/components/NovelTabs/NovelTabs';
+import { NovelTabs } from '@/components';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 // import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
@@ -18,40 +18,36 @@ import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg
 
 import styles from './novel.module.scss';
 
-const novelTabs = ['참여중', '참여신청'];
-
-const novelFilters = ['최신순', '오래된순'];
+const TAB_NAMES = ['참여중', '참여신청'];
+const FILTER_OPTIONS = ['최신순', '오래된순'];
 
 const NovelPage = () => {
-  const [currentTab, setCurrentTab] = useState<string>(novelTabs[0]);
-  const [filter, setFilter] = useState<string>(novelFilters[0]);
-
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState(FILTER_OPTIONS[0]);
+  const [currentTab, setCurrentTab] = useState(TAB_NAMES[0]);
   const [roomState, setRoomStatus] = useState<RoomStatus>('attending');
-  const [page, setPage] = useState<number>(1);
 
   const wheelEvent = useOnWheelHandle(300);
+
   const { data, isSuccess } = useQueryWrap<NovelListResponse>({
     queryKey: ['api/novelList', roomState, page],
     queryFn: () => novelList({ roomState, page }),
   });
 
-  // 참여중, 미참여 탭 버튼을 클릭했을 때
-  const handleCurrentTab = (tab: string) => {
+  const handleClickTab = (tab: string) => {
     if (currentTab === tab) return;
 
     setCurrentTab(tab);
-    if (tab === '참여중') {
-      setRoomStatus('attending');
-      setPage(1);
-    } else {
-      setRoomStatus('apptendApply');
-      setPage(1);
-    }
+    setRoomStatus(tab === TAB_NAMES[0] ? 'attending' : 'apptendApply');
+    setPage(1);
   };
 
-  // 정렬 select box를 클릭했을 때
-  const handleNovelFilter = (selectedItem: string) => {
+  const handleChangeFilterOption = (selectedItem: string) => {
     setFilter(selectedItem);
+  };
+
+  const handleClickPagination = (page: number) => {
+    setPage(page);
   };
 
   return (
@@ -64,7 +60,7 @@ const NovelPage = () => {
       />
       <div className={styles.infoBar}>
         <div className={styles.roomCreateBtnBar}>
-          <Link href="/write/info" className={`white-btn ${styles.createBtn}`}>
+          <Link href="/write/create" className={`white-btn ${styles.createBtn}`}>
             소설공방개설 +
           </Link>
           <p>내가 대표 작가로 동료들을 모집하고 글을 쓸 수 있어요.</p>
@@ -79,13 +75,13 @@ const NovelPage = () => {
           <div className={styles.novelContainer}>
             <div className={styles.novelHeader}>
               <NovelTabs
-                tabs={novelTabs}
+                tabs={TAB_NAMES}
                 currentTab={currentTab}
-                handleCurrentTab={handleCurrentTab}
+                handleCurrentTab={handleClickTab}
               />
               {/* <Select
                 selectedItem={filter}
-                options={novelFilters}
+                options={FILTER_OPTIONS}
                 handleSelectedItem={handleNovelFilter}
               /> */}
             </div>
@@ -119,9 +115,7 @@ const NovelPage = () => {
           pageRangeDisplayed={5}
           prevPageText="‹"
           nextPageText="›"
-          onChange={n => {
-            setPage(n);
-          }}
+          onChange={pageNumber => handleClickPagination(pageNumber)}
         />
       </main>
     </div>

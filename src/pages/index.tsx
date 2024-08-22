@@ -25,7 +25,7 @@ http://localhost:3000/recruitment/detail/1
 http://localhost:3000/signUp
 http://localhost:3000/user/passwd
 http://localhost:3000/write/detail
-http://localhost:3000/write/info
+http://localhost:3000/write/create
 http://localhost:3000/write/post
 http://localhost:3000/
 
@@ -44,7 +44,7 @@ http://34.83.68.228/recruitment/detail/1
 http://34.83.68.228/signUp
 http://34.83.68.228/user/passwd
 http://34.83.68.228/write/detail
-http://34.83.68.228/write/info
+http://34.83.68.228/write/create
 http://34.83.68.228/write/post
 http://34.83.68.228/
 */

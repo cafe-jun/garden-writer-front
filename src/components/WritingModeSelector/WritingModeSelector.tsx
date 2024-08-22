@@ -1,4 +1,4 @@
-import { WritingModeType } from '@/pages/write/info';
+import { WritingModeType } from '@/pages/write/create/workSpace';
 import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
 import st from './WritingModeSelector.module.scss';
 

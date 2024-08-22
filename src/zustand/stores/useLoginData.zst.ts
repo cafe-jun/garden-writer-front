@@ -4,7 +4,7 @@ interface initialzeApp {
   email: string;
   password: string;
   setEmail(data: string): void;
-  setPasswd(value: string): void;
+  setPassword(value: string): void;
 }
 
 const useLoginData = create<initialzeApp>()((set, get) => ({
@@ -15,7 +15,7 @@ const useLoginData = create<initialzeApp>()((set, get) => ({
       email: data,
     });
   },
-  setPasswd(data: string) {
+  setPassword(data: string) {
     set({
       password: data,
     });

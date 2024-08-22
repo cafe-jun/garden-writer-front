@@ -1,4 +1,5 @@
 import { config } from '@/config/config';
+import { storageKey } from '@/constants';
 
 type apiMethod = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
 interface CallApi {
@@ -7,7 +8,7 @@ interface CallApi {
   method: apiMethod;
 }
 export default async function callApi<T>({ url, body, method }: CallApi): Promise<T> {
-  const token = localStorage.getItem(config.storageKey);
+  const token = localStorage.getItem(storageKey);
   const init: RequestInit = {
     credentials: 'include',
     method,

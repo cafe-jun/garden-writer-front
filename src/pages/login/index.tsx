@@ -1,44 +1,51 @@
-import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { KeyboardEvent, ReactElement } from 'react';
+import { useMutation } from '@tanstack/react-query';
 
-import LoginDataInput from '@/components/LoginDataInput';
-import { config } from '@/config/config';
+import { LoginDataInput } from '@/components';
 import { loginApi } from '@/fetch/post';
 import useLoginData from '@/zustand/stores/useLoginData.zst';
 
 import LoginLogo from '../../images/login-logo.svg';
 import st from './login.module.scss';
+import { storageKey } from '@/constants';
 
-export default function Login(): ReactElement {
-  const { email, setEmail, password, setPasswd } = useLoginData();
+export default function Login() {
   const route = useRouter();
+  const { email, setEmail, password, setPassword } = useLoginData();
   const { mutate, status, isError } = useMutation({
     mutationKey: ['api/login'],
     mutationFn: loginApi,
     onSuccess(data) {
-      localStorage.setItem(config.storageKey, `${data.data.accessToken}`);
+      localStorage.setItem(storageKey, `${data.data.accessToken}`);
       route.replace('/novel');
-      // if (data.data.hasRoom) {
-      //   route.replace('/novel');
-      // } else {
-      //   route.replace('/novel/before');
-      // }
     },
     onError(err) {
       console.log(err);
     },
   });
-  function keyDown(e: KeyboardEvent<HTMLInputElement>) {
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       mutate({ email, password });
     }
-  }
+  };
+
+  const handleChangeIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleClickButton = () => {
+    mutate({ email, password });
+  };
+
   return (
     <div className={`${st.container}`}>
-      {/* 중앙에 배치되는 compoent container start */}
       <div className={st.inputContainer}>
         <Image src={LoginLogo} alt="작가의 정원 메인 로고" />
         <p className={st.text1}>
@@ -47,42 +54,30 @@ export default function Login(): ReactElement {
           <span>더 높은 가치를 공유하세요</span>
         </p>
         <LoginDataInput
-          onKeyDown={e => {
-            keyDown(e);
-          }}
+          onKeyDown={handleKeyDown}
           value={email}
-          onChange={e => {
-            setEmail(e.target.value);
-          }}
+          onChange={handleChangeIdInput}
           placeholder="이메일을 입력해주세요"
           isError={isError}
           disabled={status === 'pending'}
         />
         <LoginDataInput
-          onKeyDown={e => {
-            keyDown(e);
-          }}
+          onKeyDown={handleKeyDown}
           type="password"
           value={password}
-          onChange={e => {
-            setPasswd(e.target.value);
-          }}
+          onChange={handleChangePasswordInput}
           placeholder="비밀번호를 입력해주세요"
           isError={isError}
           disabled={status === 'pending'}
         />
-
         <button
           disabled={status === 'pending'}
           type="button"
           className={`${st.loginBtn} ${st.mt21}`}
-          onClick={() => {
-            mutate({ email, password });
-          }}
+          onClick={handleClickButton}
         >
           로그인
         </button>
-
         <p className={`${st.text2} ${st.mt32}`}>
           아직 계정이 없으신가요? <Link href="/signUp">회원가입</Link>
         </p>
@@ -90,7 +85,6 @@ export default function Login(): ReactElement {
           계정이 기억나지 않으시나요? <Link href="/user/passwd">비밀번호 찾기</Link>
         </p>
       </div>
-      {/* 중앙에 배치되는 compoent container end */}
     </div>
   );
 }

@@ -23,19 +23,20 @@ const RecruitmentPage = () => {
     queryKey: [config.apiUrl.getWriterWantedList, page],
     queryFn: () => getWriterWantedList({ page }),
   });
-  const handleNovelFilter = (selectedItem: string): void => {
+
+  const handleNovelFilter = (selectedItem: string) => {
     setFilter(selectedItem);
   };
 
-  const handleTableItem = (): void => {
+  const handleTableItem = () => {
     // router.push(`/recruitment/detail/${tableItem.id}`);
   };
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const handleSubmitSearch = (): void => {
+  const handleSubmitSearch = () => {
     console.log(search);
   };
 

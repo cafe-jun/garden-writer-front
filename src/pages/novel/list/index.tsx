@@ -115,9 +115,9 @@ const allL = [
     title: '재벌집 아이들10',
   },
 ];
-export default function NovelList(): ReactElement {
+export default function NovelList() {
   const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3]);
-  const [currentTab, setCurrentTab] = useState<string>(tabList[0]);
+  const [currentTab, setCurrentTab] = useState(tabList[0]);
 
   const [top5, setTop5] = useState<TopFiveCardProp[]>(topL);
   const [allList, setAllList] = useState<TopFiveCardProp[]>(allL);
@@ -132,6 +132,7 @@ export default function NovelList(): ReactElement {
     CATE_8,
     CATE_9,
   ]);
+
   return (
     <div className={st.main}>
       <div className={st.main_center}>

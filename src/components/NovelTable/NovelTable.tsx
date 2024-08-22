@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { dateChanger } from 'util/dateChange';
 
 import { NovelPost } from '@/fetch/types';
@@ -16,28 +16,28 @@ const roomStatus = {
   complete: '연재완료',
   remove: '삭제',
 };
-function AttendingHead(): ReactElement {
-  return (
-    <tr>
-      <th>카테고리</th>
-      <th>제목</th>
-      <th>개설일</th>
-      <th>완결일</th>
-      <th>작가 구분</th>
-      <th>정원</th>
-      <th>현 작성자</th>
-      <th>현황</th>
-    </tr>
-  );
-}
 
-function AttendingTr({ item }: { item: NovelPost }): ReactElement {
+const activeTabHeaderNames = [
+  '카테고리',
+  '제목',
+  '개설일',
+  '완결일',
+  '작가 구분',
+  '정원',
+  '현 작성자',
+  '현황',
+];
+const pendingTabHeaderNames = ['제목', '참여신청일', '참여일', '퇴장일', '작가 참여상태'];
+
+const ActiveTabTableBody = ({ item }: { item: NovelPost }) => {
   const route = useRouter();
-  const onClick = (id: number) => {
+
+  const onClickTableItem = (id: number) => {
     route.push(`/write/detail?room=${id}`);
   };
+
   return (
-    <tr key={item.id} onClick={() => onClick(item.id)}>
+    <tr key={item.id} onClick={() => onClickTableItem(item.id)}>
       <td style={{ width: '11.75rem' }}>{item.category.name}</td>
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dateChanger(item.createdAt)}</td>
@@ -50,27 +50,17 @@ function AttendingTr({ item }: { item: NovelPost }): ReactElement {
       <td style={{ width: '6rem' }}>{roomStatus[item.status]}</td>
     </tr>
   );
-}
+};
 
-function NotAttendingHead(): ReactElement {
-  return (
-    <tr>
-      <th>제목</th>
-      <th>참여신청일</th>
-      <th>참여일</th>
-      <th>퇴장일</th>
-      <th>작가 참여상태</th>
-    </tr>
-  );
-}
-
-function NotAttendingTr({ item }: { item: NovelPost }): ReactElement {
+function PendingTabTableBody({ item }: { item: NovelPost }) {
   const route = useRouter();
-  const onClick = (id: number) => {
+
+  const onClickTableItem = (id: number) => {
     route.push(`/write/detail?room=${id}`);
   };
+
   return (
-    <tr key={item.id} onClick={() => onClick(item.id)}>
+    <tr key={item.id} onClick={() => onClickTableItem(item.id)}>
       {/* <td style={{ width: '11.75rem' }}>{item.category.name}</td> */}
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dateChanger(item.createdAt)}</td>
@@ -83,16 +73,27 @@ function NotAttendingTr({ item }: { item: NovelPost }): ReactElement {
     </tr>
   );
 }
-export const NovelTable = ({ tableData, tab }: NovelTableProps): ReactElement => (
-  <table className={styles.table}>
-    <thead>{tab === 'attending' ? <AttendingHead /> : <NotAttendingHead />}</thead>
-    <tbody>
-      {tableData.map((item, index) => {
-        if (tab === 'attending') {
-          return <AttendingTr key={item.id} item={item} />;
-        }
-        return <NotAttendingTr key={item.id} item={item} />;
-      })}
-    </tbody>
-  </table>
-);
+export const NovelTable = ({ tableData, tab }: NovelTableProps) => {
+  const tabHeaders = tab === 'attending' ? activeTabHeaderNames : pendingTabHeaderNames;
+
+  const renderTableBody = () => {
+    if (tab === 'attending') {
+      return tableData.map(item => <ActiveTabTableBody key={item.id} item={item} />);
+    }
+
+    return tableData.map(item => <PendingTabTableBody key={item.id} item={item} />);
+  };
+
+  return (
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          {tabHeaders.map(name => (
+            <th key={name}>{name}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>{renderTableBody()}</tbody>
+    </table>
+  );
+};

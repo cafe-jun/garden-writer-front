@@ -4,6 +4,7 @@ import eventBus from 'util/eventBus';
 import LocalStorage from 'util/LocalStorage';
 
 import { config } from '@/config/config';
+import { storageKey } from '@/constants';
 
 interface useSocketIOOption {
   url: string;
@@ -25,7 +26,7 @@ export default function useSocketIO({
       io(url, {
         autoConnect: false,
         auth: {
-          accessToken: `${LocalStorage.getItem(config.storageKey)}`,
+          accessToken: `${LocalStorage.getItem(storageKey)}`,
         },
         transports: ['websocket'],
         reconnection: false,
@@ -71,7 +72,7 @@ export default function useSocketIO({
   //     io(url, {
   //       autoConnect: false,
   //       auth: {
-  //         accessToken: `${LocalStorage.getItem(config.storageKey)}`,
+  //         accessToken: `${LocalStorage.getItem(storageKey)}`,
   //       },
   //       transports: ['websocket'],
   //       reconnection: false,
