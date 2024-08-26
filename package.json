@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "autofix" : "eslint --fix ."
+    "autofix": "eslint --fix ."
   },
   "dependencies": {
     "@apollo/client": "^3.7.13",
@@ -19,6 +19,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@graphql-codegen/cli": "^3.3.1",
+    "@hookform/resolvers": "^3.9.0",
     "@mui/material": "^5.15.15",
     "@tanstack/react-query": "^5.17.10",
     "@types/lodash": "^4.14.200",
@@ -33,13 +34,14 @@
     "notistack": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.9",
+    "react-hook-form": "^7.53.0",
     "react-js-pagination": "^3.0.3",
     "react-router-dom": "^6.23.1",
     "sharp": "^0.33.3",
     "socket.io-client": "^4.7.5",
     "typescript": "5.0.4",
     "yarn": "^1.22.22",
+    "yup": "^1.4.0",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

@@ -57,7 +57,7 @@ export default function Login() {
           onKeyDown={handleKeyDown}
           value={email}
           onChange={handleChangeIdInput}
-          placeholder="이메일을 입력해주세요"
+          placeholder="이메일을 입력해주세요."
           isError={isError}
           disabled={status === 'pending'}
         />
@@ -66,7 +66,7 @@ export default function Login() {
           type="password"
           value={password}
           onChange={handleChangePasswordInput}
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 입력해주세요."
           isError={isError}
           disabled={status === 'pending'}
         />
