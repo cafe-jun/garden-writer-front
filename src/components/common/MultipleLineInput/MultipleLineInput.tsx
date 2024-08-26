@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import st from './MultipleLineInput.module.scss';
-import WriteRoomCategory from '../../WriteRoomCategory/WriterRoomCategory';
-import { writeRoomCategoryProps } from '../../WriteRoomCategory/type';
+import WriteRoomCategory from '../../recruit/WriteRoomCategory/WriterRoomCategory';
+import { writeRoomCategoryProps } from '../../recruit/WriteRoomCategory/type';
 
 export interface MultipleLineInputProps extends Omit<writeRoomCategoryProps, 'children'> {
   placeholder: string;

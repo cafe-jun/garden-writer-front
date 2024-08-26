@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 import SpeechBubble from '@/images/speech-bubble.svg';
 
@@ -12,7 +12,7 @@ import st from './WriteRoomCategory.module.scss';
  * @param props writeRoomCategoryProps
  * @returns component
  */
-export default function WriteRoomCategory(props: writeRoomCategoryProps): ReactElement {
+export const WriteRoomCategory = (props: writeRoomCategoryProps) => {
   const [isBubble, setIsBubble] = useState<boolean>(false);
   return (
     <div style={{ ...props.style }} className={st.container}>
@@ -48,4 +48,4 @@ export default function WriteRoomCategory(props: writeRoomCategoryProps): ReactE
       {props.children}
     </div>
   );
-}
+};

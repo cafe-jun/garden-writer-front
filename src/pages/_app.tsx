@@ -12,7 +12,8 @@ const theme = createTheme({
   spacing: 1,
 });
 const queryClient = new QueryClient();
-const noHeaderPages = ['/', '/login', '/signUp', '/write/create', '/user/passwd'];
+// TODO: regExp
+const noHeaderPages = ['/', '/user', '/join', '/write/create'];
 
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();

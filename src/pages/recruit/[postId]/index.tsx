@@ -12,23 +12,23 @@ import { useUrlDatas } from '@/hooks/useUrlDatas';
 import EyeIcon from '@/images/eye.svg';
 import HeartRed from '@/images/heart-red.svg';
 
-import styles from './recruitmentDetailPost.module.scss';
+import styles from './recruit-post.module.scss';
 import { dateChanger } from '../../../../util/dateChange';
 import { GetWriterPostDetail } from '@/fetch/types';
 
-const RecruitmentDetailPostPage = () => {
+const RecruitPost = () => {
   const router = useRouter();
   const { post } = router.query;
-  const roomId = useUrlDatas<number>('roomId');
-  const [isLikeClick, setIsLikeClick] = useState<boolean>(false);
-  const [isJoinDisabled, setIsJoinDisabled] = useState<boolean>(false);
-  const [isModal, setIsModal] = useState<boolean>(false);
+
+  const postId = useUrlDatas<number>('postId');
+  const [isLikeClick, setIsLikeClick] = useState(false);
+  const [isJoinDisabled, setIsJoinDisabled] = useState(false);
+  const [isModal, setIsModal] = useState(false);
 
   const { data, isSuccess } = useQueryWrap({
-    queryKey: [config.apiUrl.getWriterPostDetail(roomId)],
-    queryFn: () => getWriterPostDetail({ roomId }),
+    queryKey: [config.apiUrl.getWriterPostDetail(postId)],
+    queryFn: () => getWriterPostDetail({ roomId: postId }),
   });
-  console.log('data :: ', data);
 
   const novelLike = useMutationWrap({
     mutationKey: [config.apiUrl.setboardLike],
@@ -47,7 +47,6 @@ const RecruitmentDetailPostPage = () => {
       setIsJoinDisabled(true);
     },
     onError(err: number) {
-      console.log(err);
       if (err === 409) {
         enqueueSnackbar('이미 신청한 소설공방입니다', { variant: 'error' });
       }
@@ -56,14 +55,11 @@ const RecruitmentDetailPostPage = () => {
   const handleJoinMessage = (
     data: GetWriterPostDetail | undefined
   ): { isDisable: boolean; message: string } => {
-    console.log('data ', data);
     if (data === undefined) return { isDisable: true, message: '' };
     if (data.isAttend) {
       return { isDisable: true, message: '참여 신청한 공방입니다.' };
     }
-    console.log(data.currentAttendCnt / data.type);
     if (data.currentAttendCnt === data.type) {
-      console.log('둘째');
       return { isDisable: true, message: '정원이 마감된 공방입니다.' };
     }
     return { isDisable: false, message: '참여하기' };
@@ -71,16 +67,6 @@ const RecruitmentDetailPostPage = () => {
 
   return (
     <div className={styles.container}>
-      {isModal ? (
-        <WriteJoin
-          cancel={() => {
-            setIsModal(false);
-          }}
-          nextStep={() => {
-            novelJoin.mutate({ novelRoomId: roomId });
-          }}
-        />
-      ) : null}
       <header className={styles.header}>
         <div className={styles.headerTools}>
           <div className={styles.headerTool}>
@@ -135,7 +121,7 @@ const RecruitmentDetailPostPage = () => {
           className={styles.button}
           disabled={data?.data.hasLike || isLikeClick}
           onClick={() => {
-            novelLike.mutate({ novelRoomId: roomId });
+            novelLike.mutate({ novelRoomId: postId });
           }}
         >
           <Image src={HeartRed} alt="HeartRed" />
@@ -150,8 +136,18 @@ const RecruitmentDetailPostPage = () => {
           {handleJoinMessage(data?.data).message}
         </button>
       </footer>
+      {isModal && (
+        <WriteJoin
+          cancel={() => {
+            setIsModal(false);
+          }}
+          nextStep={() => {
+            novelJoin.mutate({ novelRoomId: postId });
+          }}
+        />
+      )}
     </div>
   );
 };
 
-export default RecruitmentDetailPostPage;
+export default RecruitPost;

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { config } from '@/config/config';
 import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
 
-import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
+import WriteRoomCategory from '../recruit/WriteRoomCategory/WriterRoomCategory';
 import st from './CategorySelect.module.scss';
 import { CategorySelectProps } from './type';
 

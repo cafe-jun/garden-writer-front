@@ -15,7 +15,7 @@ import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 import useNovelRoom from '@/zustand/stores/useNovelRoom';
 import NovelPublish from '@/components/modals/NovelPublish/NovelPublish';
-import st from '@/pages/write/detail/detail.module.scss';
+import st from './detail.module.scss';
 import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
 import useNovelChapter from '@/zustand/stores/useChapter';
 
@@ -44,7 +44,7 @@ const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
     novelRoom.setLastChapterId(data.data[0].id);
   }, [isSuccess]);
 };
-export default function WriteDetail(): ReactElement {
+export default function WorkSpaceDetail() {
   const wheelEvent = useOnWheelHandle(300);
   const [page, setPage] = useState<number>(1);
   const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3, PAGE_4]);

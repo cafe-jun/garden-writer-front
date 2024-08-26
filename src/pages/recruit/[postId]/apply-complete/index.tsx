@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Completed } from '@/components/Completed/Completed';
 
-import styles from './completedRecruitment.module.scss';
+import styles from './complete.module.scss';
 
-const completedRecruitment = () => {
+const ApplyComplete = () => {
   const completedRecruitmentData = {
     title: '재별집 막내아들',
   };
@@ -38,4 +38,4 @@ const completedRecruitment = () => {
   );
 };
 
-export default completedRecruitment;
+export default ApplyComplete;

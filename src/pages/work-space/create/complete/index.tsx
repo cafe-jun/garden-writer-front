@@ -3,9 +3,9 @@ import React from 'react';
 import { Completed } from '@/components/Completed/Completed';
 import { CompletedLogoTextHeader } from '@/components/CompletedLogoTextHeader/CompletedLogoTextHeader';
 
-import styles from './createdNovel.module.scss';
+import styles from './complete.module.scss';
 
-const CreatedNovel = () => {
+const CompleteWorkSpaceCreation = () => {
   const handleLeftButton = (): void => {
     console.log('handleLeftButton');
   };
@@ -31,4 +31,4 @@ const CreatedNovel = () => {
   );
 };
 
-export default CreatedNovel;
+export default CompleteWorkSpaceCreation;

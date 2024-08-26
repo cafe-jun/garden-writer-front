@@ -1,5 +1,5 @@
 import { WritingModeType } from '@/pages/write/create/workSpace';
-import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
+import WriteRoomCategory from '../recruit/WriteRoomCategory/WriterRoomCategory';
 import st from './WritingModeSelector.module.scss';
 
 interface WritingModeSelectorProps {

@@ -14,7 +14,7 @@ const pageComponentsMap: Record<number, React.ReactNode> = {
   1: <WriterRecruitment />,
 };
 
-export default function WriteInfo() {
+export default function WorkSpaceCreation() {
   const route = useRouter();
   const [pageIdx, setPageIdx] = useState(0);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -31,6 +31,7 @@ export default function WriteInfo() {
     postTitle,
     postContent,
     openLink,
+    novelChecking,
     postChecking,
   } = useCreateNovelPost();
 
@@ -38,7 +39,7 @@ export default function WriteInfo() {
     mutationKey: [config.apiUrl.createNovelRoom],
     mutationFn: CreateRoom,
     onSuccess(res) {
-      route.replace('/novel');
+      route.replace('/work-space');
     },
     onError(res) {
       console.error(res);
@@ -48,14 +49,15 @@ export default function WriteInfo() {
   const handleClickButton = () => {
     const lastIdx = Object.keys(pageComponentsMap).length - 1;
 
-    if (pageIdx <= lastIdx) {
-      setPageIdx(prev => prev + 1);
+    if (pageIdx < lastIdx) {
+      if (!novelChecking()) {
+        setPageIdx(prev => prev + 1);
+      }
     }
 
-    if (postChecking()) {
-      return;
+    if (!postChecking()) {
+      setModalOpen(true);
     }
-    setModalOpen(true);
   };
 
   const handleClickModalConfirm = () => {

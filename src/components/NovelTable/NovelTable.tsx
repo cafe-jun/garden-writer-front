@@ -33,7 +33,7 @@ const ActiveTabTableBody = ({ item }: { item: NovelPost }) => {
   const route = useRouter();
 
   const onClickTableItem = (id: number) => {
-    route.push(`/write/detail?room=${id}`);
+    route.push(`/work-space/detail?room=${id}`);
   };
 
   return (
@@ -56,7 +56,7 @@ function PendingTabTableBody({ item }: { item: NovelPost }) {
   const route = useRouter();
 
   const onClickTableItem = (id: number) => {
-    route.push(`/write/detail?room=${id}`);
+    route.push(`/work-space/detail?room=${id}`);
   };
 
   return (

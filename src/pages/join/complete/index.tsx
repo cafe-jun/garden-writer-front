@@ -3,14 +3,14 @@ import React from 'react';
 import { Completed } from '@/components/Completed/Completed';
 import { CompletedLogoTextHeader } from '@/components/CompletedLogoTextHeader/CompletedLogoTextHeader';
 
-import styles from './createdUser.module.scss';
+import styles from './complete.module.scss';
 
 const CreatedUser = () => {
-  const handleLeftButton = (): void => {
+  const handleLeftButton = () => {
     console.log('handleLeftButton');
   };
 
-  const handleRightButton = (): void => {
+  const handleRightButton = () => {
     console.log('handleRightButton');
   };
 

@@ -28,7 +28,7 @@ const Card = ({
       className={st.card}
       type="button"
       onClick={() => {
-        router.push(`/recruitment/detail/${roomId}`);
+        router.push(`/recruit/${roomId}`);
       }}
     >
       <div>

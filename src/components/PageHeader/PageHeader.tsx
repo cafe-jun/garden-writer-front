@@ -51,8 +51,8 @@ export const PageHeader = () => {
       <div className={styles.outline}>
         <Image src={Logo} alt="작가의 정원 로고" />
         <div className={styles.headerLeftContents}>
-          <Link href="/novel">소설공방</Link>
-          <Link href="/recruitment">작가모집</Link>
+          <Link href="/work-space">소설공방</Link>
+          <Link href="/recruit">작가모집</Link>
         </div>
         <SearchInput
           search={search}

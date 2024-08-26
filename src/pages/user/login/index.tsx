@@ -7,7 +7,7 @@ import { LoginDataInput } from '@/components';
 import { loginApi } from '@/fetch/post';
 import useLoginData from '@/zustand/stores/useLoginData.zst';
 
-import LoginLogo from '../../images/login-logo.svg';
+import LoginLogo from '../../../images/login-logo.svg';
 import st from './login.module.scss';
 import { storageKey } from '@/constants';
 
@@ -19,7 +19,7 @@ export default function Login() {
     mutationFn: loginApi,
     onSuccess(data) {
       localStorage.setItem(storageKey, `${data.data.accessToken}`);
-      route.replace('/novel');
+      route.replace('/work-space');
     },
     onError(err) {
       console.log(err);
@@ -79,10 +79,10 @@ export default function Login() {
           로그인
         </button>
         <p className={`${st.text2} ${st.mt32}`}>
-          아직 계정이 없으신가요? <Link href="/signUp">회원가입</Link>
+          아직 계정이 없으신가요? <Link href="/join">회원가입</Link>
         </p>
         <p className={`${st.text2} ${st.mt12}`}>
-          계정이 기억나지 않으시나요? <Link href="/user/passwd">비밀번호 찾기</Link>
+          계정이 기억나지 않으시나요? <Link href="user/find-password">비밀번호 찾기</Link>
         </p>
       </div>
     </div>

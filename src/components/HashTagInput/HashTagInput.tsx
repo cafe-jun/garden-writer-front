@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ChangeEvent, KeyboardEvent, ReactElement, useEffect, useState } from 'react';
 
-import WriteRoomCategory from '@/components/WriteRoomCategory/WriterRoomCategory';
+import WriteRoomCategory from '@/components/recruit/WriteRoomCategory/WriterRoomCategory';
 import tagDeleteBtn from '@/images/tag-delete-btn.svg';
 
 import st from './HashTagInput.module.scss';

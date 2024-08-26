@@ -1,4 +1,5 @@
 export * from './common';
+export * from './recruit';
 
 export * from './LoginDataInput/LoginDataInput';
 export * from './WritingModeSelector/WritingModeSelector';

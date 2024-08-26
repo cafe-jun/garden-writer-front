@@ -75,10 +75,10 @@ export const config = {
   },
   page: {
     // 소설공방
-    novel: '/novel',
+    novel: '/work-space',
 
     // 작가참여리스트
-    recruitment: '/recruitment',
+    recruitment: '/recruit',
   },
   pageSize: 5,
   categorys: [

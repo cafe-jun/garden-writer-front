@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 
-import WriteRoomCategory from '../../WriteRoomCategory/WriterRoomCategory';
+import WriteRoomCategory from '../../recruit/WriteRoomCategory/WriterRoomCategory';
 import st from './OneLineInput.module.scss';
-import { writeRoomCategoryProps } from '../../WriteRoomCategory/type';
+import { writeRoomCategoryProps } from '../../recruit/WriteRoomCategory/type';
 
 export interface OneLineInputProps extends Omit<writeRoomCategoryProps, 'children'> {
   placeholder: string;

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactElement } from 'react';
 
-import WriteRoomCategory from '../WriteRoomCategory/WriterRoomCategory';
+import WriteRoomCategory from '../recruit/WriteRoomCategory/WriterRoomCategory';
 import st from './BookCover.module.scss';
 import { BoockCoverProps } from './type';
 

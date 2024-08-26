@@ -1,4 +1,4 @@
-import { writeRoomCategoryProps } from '@/components/WriteRoomCategory/type';
+import { writeRoomCategoryProps } from '@/components/recruit/WriteRoomCategory/type';
 
 export type makeTagArrReturn = string[] | null;
 export interface HashTagInputProps extends Omit<writeRoomCategoryProps, 'children'> {

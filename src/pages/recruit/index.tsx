@@ -3,13 +3,13 @@ import React, { ChangeEvent, useState } from 'react';
 import Pagination from 'react-js-pagination';
 
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
-import { RecruitmentTable as Table } from '@/components/RecruitmentTable/RecruitmentTable';
+import { RecruitmentTable } from '@/components';
 import { config } from '@/config/config';
 import { getWriterWantedList } from '@/fetch/get';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
 
-import styles from './recruitment.module.scss';
+import styles from './recruite.module.scss';
 
 export const recruitmentFilters = ['전체', '모집중', '모집완료'];
 
@@ -29,7 +29,7 @@ const RecruitmentPage = () => {
   };
 
   const handleTableItem = () => {
-    // router.push(`/recruitment/detail/${tableItem.id}`);
+    // router.push(`/recruit/${tableItem.id}`);
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +65,7 @@ const RecruitmentPage = () => {
               handleSelectedItem={handleNovelFilter}
             />
           </div> */}
-          <Table data={recruitment?.data ?? []} isLoading={isLoading} />
+          <RecruitmentTable data={recruitment?.data ?? []} isLoading={isLoading} />
         </div>
 
         <Pagination
