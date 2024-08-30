@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { config } from '@/config/config';
-import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
+import useCreateNovelPost from '@/stores/useCreateNovelPost.zst';
 
 import WriteRoomCategory from '../recruit/WriteRoomCategory/WriterRoomCategory';
 import st from './CategorySelect.module.scss';

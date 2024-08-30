@@ -11,7 +11,7 @@ export const FindUserPassword = () => (
       </p>
       <div className={st.main_inputArea}>
         <p className={st.main_inputArea_text1}>회원 가입 시 사용한 이메일을 입력해주세요</p>
-        <input type="email" />
+        <input type="email" placeholder="이메일" />
         <p className={st.main_inputArea_errorText}>error text</p>
       </div>
       <button type="button" className={st.main_content_compleBtn}>

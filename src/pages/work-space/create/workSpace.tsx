@@ -7,7 +7,7 @@ import CategorySelect from '@/components/CategorySelect/CategorySelect';
 import HashTagInput from '@/components/HashTagInput/HashTagInput';
 import PeopleCount from '@/components/PeopleCount/PeopleCount';
 import { WritingModeSelector, OneLineInput, MultipleLineInput } from '@/components';
-import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
+import useCreateNovelPost from '@/stores/useCreateNovelPost.zst';
 
 import st from './workSpace.module.scss';
 

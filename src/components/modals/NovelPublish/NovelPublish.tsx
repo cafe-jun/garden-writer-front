@@ -4,8 +4,8 @@ import CusModal from '@/components/CusModal/CusModal';
 import { config } from '@/config/config';
 import { novelPublish } from '@/fetch/put';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
-import useNovelPublishModal from '@/zustand/stores/useNovelPublishModal';
-import useNovelRoom from '@/zustand/stores/useNovelRoom';
+import useNovelPublishModal from '@/stores/useNovelPublishModal';
+import useNovelRoom from '@/stores/useNovelRoom';
 
 import st from './NovelPublish.module.scss';
 

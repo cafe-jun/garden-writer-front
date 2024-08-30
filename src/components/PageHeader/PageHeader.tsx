@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { ChangeEvent, useState } from 'react';
 
 import Logo from '@/images/login-logo.svg';
-import useWheelState from '@/zustand/stores/useWheelState';
+import useWheelState from '@/stores/useWheelState';
 
 import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';

@@ -8,15 +8,15 @@ import { getChatHistory, getOneNovelText } from '@/fetch/get';
 import { ChatHistory, GetOneNovelText } from '@/fetch/types';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
-import useNovelPublishModal from '@/zustand/stores/useNovelPublishModal';
-import useNovelRoom from '@/zustand/stores/useNovelRoom';
+import useNovelPublishModal from '@/stores/useNovelPublishModal';
+import useNovelRoom from '@/stores/useNovelRoom';
 
 import Skel from '../Skel/Skel';
 import WriteChat from '../WriteChat/WirteChat';
 import WriteChatSendBox from '../WriteChatSendBox/WriteChatSendBox';
 import st from './NovelChatManager.module.scss';
-import useNovelTitleModal from '@/zustand/stores/useNovelTitleModel';
-import useNovelChapter from '@/zustand/stores/useChapter';
+import useNovelTitleModal from '@/stores/useNovelTitleModel';
+import useNovelChapter from '@/stores/useChapter';
 
 export default function NovelChatManager({ isShow = false }: { isShow: boolean }): ReactElement {
   const [page, setPage] = useState<number>(1);

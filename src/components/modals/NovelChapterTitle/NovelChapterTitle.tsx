@@ -4,12 +4,9 @@ import CusModal from '@/components/CusModal/CusModal';
 import { config } from '@/config/config';
 import { novelChapterTitle, novelPublish } from '@/fetch/put';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
-import useNovelRoom from '@/zustand/stores/useNovelRoom';
 import st from './NovelTitle.module.scss';
 
-import useNovelTitleModal from '@/zustand/stores/useNovelTitleModel';
-import InputField from '@/components/InputField/InputField';
-import useNovelChapter from '@/zustand/stores/useChapter';
+import { useNovelChapter, useNovelRoom, useNovelTitleModal } from '@/stores/';
 
 export default function NovelChapterTitle(): ReactElement {
   const modal = useNovelTitleModal();
@@ -30,8 +27,9 @@ export default function NovelChapterTitle(): ReactElement {
     setChapterTitle(e.target.value);
     novelChapter.setChapterTitle(e.target.value);
   };
+
   if (!modal.isShow) {
-    return <> </>;
+    return <></>;
   }
 
   return (

@@ -7,7 +7,7 @@ import WriterRecruitment from './writerRecruitment';
 import { useMutation } from '@tanstack/react-query';
 import { config } from '@/config/config';
 import { CreateRoom } from '@/fetch/post';
-import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
+import useCreateNovelPost from '@/stores/useCreateNovelPost.zst';
 
 const pageComponentsMap: Record<number, React.ReactNode> = {
   0: <WorkSpace />,

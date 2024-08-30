@@ -13,18 +13,17 @@ const theme = createTheme({
 });
 const queryClient = new QueryClient();
 // TODO: regExp
-const noHeaderPages = ['/', '/user', '/join', '/write/create'];
+const noHeaderPages = ['/user', '/join', '/write/create'];
 
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();
+  const hideHeader = noHeaderPages.some(pageUrl => pageUrl.includes(pageUrl));
 
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <SnackbarProvider anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          {/* <RightMouseDisable /> */}
-          {/* <F12Disabled /> */}
-          {!noHeaderPages.includes(asPath) && <PageHeader />}
+          {!hideHeader && <PageHeader />}
           <Component {...pageProps} />
         </SnackbarProvider>
       </QueryClientProvider>

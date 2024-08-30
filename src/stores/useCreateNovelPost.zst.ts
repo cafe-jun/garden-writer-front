@@ -3,7 +3,6 @@ import { create } from 'zustand';
 import { BookCover, RoomType } from '@/fetch/types';
 
 interface Novel {
-  // 소설정보
   type: RoomType;
   title: string;
   subTitle: string;
@@ -13,6 +12,7 @@ interface Novel {
   summary: string;
   bookCover: BookCover;
 }
+
 const novel: Novel = {
   type: 2,
   title: '',
@@ -23,12 +23,13 @@ const novel: Novel = {
   summary: '',
   bookCover: '/images/book-cover-1.png',
 };
+
 interface Post {
-  // 작가모집글
   postTitle: string;
   postContent: string;
   openLink: string;
 }
+
 const post: Post = {
   postTitle: '',
   postContent: '',
@@ -41,6 +42,7 @@ interface Checks<T> {
   errorMsg: string;
   isError: boolean;
 }
+
 interface NovelChecking {
   titleCheck: Checks<Novel>;
   subTitleCheck: Checks<Novel>;
@@ -121,7 +123,7 @@ const postChecking: PostChecking = {
     isError: false,
   },
 };
-const useCreateNovelPost = create<Novel & Post & NovelChecking & PostChecking & Actions>()(
+export const useCreateNovelPost = create<Novel & Post & NovelChecking & PostChecking & Actions>()(
   (set, get) => ({
     ...novel,
 
@@ -193,5 +195,3 @@ const useCreateNovelPost = create<Novel & Post & NovelChecking & PostChecking & 
     // },
   })
 );
-
-export default useCreateNovelPost;

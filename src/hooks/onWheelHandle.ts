@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 import { useCallback, WheelEvent } from 'react';
 
-import useWheelState from '@/zustand/stores/useWheelState';
+import useWheelState from '@/stores/useWheelState';
 
 interface useOnWheelHandleProps {
   minScroll?: number;

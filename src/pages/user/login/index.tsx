@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { loginApi } from '@/fetch/post';
-import useLoginData from '@/zustand/stores/useLoginData.zst';
+import useLoginData from '@/stores/useLoginData.zst';
 
 import LoginLogo from '../../../images/login-logo.svg';
 import st from './login.module.scss';

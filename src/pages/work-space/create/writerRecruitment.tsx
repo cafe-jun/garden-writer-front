@@ -1,5 +1,5 @@
 import { OneLineInput, MultipleLineInput } from '@/components';
-import useCreateNovelPost from '@/zustand/stores/useCreateNovelPost.zst';
+import useCreateNovelPost from '@/stores/useCreateNovelPost.zst';
 
 import st from './writerRecruitment.module.scss';
 
