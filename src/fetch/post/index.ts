@@ -43,6 +43,14 @@ export function signUp({ email, password, nickname }: SignUpRequestModel) {
     method,
   });
 }
+
+export function tempPassword({ email }: { email: string }) {
+  return callApi<boolean>({
+    url: config.apiUrl.tempPassword,
+    body: { email },
+    method,
+  });
+}
 /**
  * 현재 작성중인 챕터에 글쓰기 api
  * @param body NewNovelTextRequest

@@ -14,6 +14,9 @@ export const config = {
     // 로그인 api
     login: '/auth/login',
 
+    // 임시비밀번호
+    tempPassword: '/auth/temp-password',
+
     // 회원 목록
     user: '/user',
 
