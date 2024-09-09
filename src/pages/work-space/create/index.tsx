@@ -50,6 +50,14 @@ export default function WorkSpaceCreation() {
   });
 
   const handleClickButton = () => {
+    if (type === 1) {
+      if (!novelChecking()) {
+        setModalOpen(true);
+      }
+
+      return;
+    }
+
     const lastIdx = Object.keys(pageComponentsMap).length - 1;
 
     if (pageIdx < lastIdx) {
@@ -90,7 +98,7 @@ export default function WorkSpaceCreation() {
         <div className={`${st.contentContainer} mt-36`}>{pageComponentsMap[pageIdx]}</div>
         <div className={'flex justify-center items-center mt-8'}>
           <button type="button" className={`${st.nextBtn} blue-btn`} onClick={handleClickButton}>
-            다음
+            {pageIdx === 0 ? '다음' : '개설하기'}
           </button>
           <div className={'relative'}>
             <Image

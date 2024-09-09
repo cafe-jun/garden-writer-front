@@ -107,19 +107,19 @@ const postChecking: PostChecking = {
   postTitleCheck: {
     key: 'postTitle',
     essential: true,
-    errorMsg: '작가모집글의 제목을 입력해주세요',
+    errorMsg: '모집 제목을 입력해 주세요.',
     isError: false,
   },
   postContentCheck: {
     key: 'postContent',
     essential: true,
-    errorMsg: '작가모집 내용을 입력해주세요',
+    errorMsg: '최소 30자 이상 작성해 주세요.',
     isError: false,
   },
   openLinkCheck: {
     key: 'openLink',
     essential: true,
-    errorMsg: '오픈채팅링크를 입력해주세요',
+    errorMsg: '링크를 입력해 주세요.',
     isError: false,
   },
 };
