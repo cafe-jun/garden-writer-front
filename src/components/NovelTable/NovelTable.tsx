@@ -6,6 +6,7 @@ import { NovelPost } from '@/shared';
 
 import styles from './NovelTable.module.scss';
 import { NovelTableProps } from './type';
+import Link from 'next/link';
 
 const writerType = {
   host: '대표작가',
@@ -27,7 +28,7 @@ const activeTabHeaderNames = [
   '현 작성자',
   '현황',
 ];
-const pendingTabHeaderNames = ['제목', '참여신청일', '참여일', '퇴장일', '작가 참여상태'];
+const pendingTabHeaderNames = ['제목', '참여 신청일', '참여일', '퇴장일', '작가 참여상태'];
 
 const ActiveTabTableBody = ({ item }: { item: NovelPost }) => {
   const route = useRouter();
@@ -81,6 +82,17 @@ export const NovelTable = ({ tableData, tab }: NovelTableProps) => {
       return tableData.map(item => <ActiveTabTableBody key={item.id} item={item} />);
     }
 
+    if (tableData.length === 0) {
+      return (
+        <div className={'flex w-full justify-center text-gray1 font-medium text-sm pt-4'}>
+          참여 신청 중인 소설공방이 없습니다.
+          <Link href={'/recruit'} className={'text-blue2 ml-1'}>
+            작가모집
+          </Link>
+          에서 원하는 소설공방을 찾아보세요.
+        </div>
+      );
+    }
     return tableData.map(item => <PendingTabTableBody key={item.id} item={item} />);
   };
 

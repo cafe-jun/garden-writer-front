@@ -18,7 +18,7 @@ import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg
 
 import styles from './novel.module.scss';
 
-const TAB_NAMES = ['참여중', '참여신청'];
+const TAB_NAMES = ['참여중', '참여 신청'];
 
 const WorkSpace = () => {
   const [page, setPage] = useState(1);
