@@ -6,6 +6,14 @@ module.exports = {
     './components/**/*.{js,ts,tsx,jsx}',
   ],
   theme: {
+    extend: {
+      boxShadow: {
+        outline: '0 0 0 1px #D9D9D9',
+      },
+      fontFamily: {
+        hakgyoansim: ['Hakgyoansim', 'sans-serif'],
+      },
+    },
     colors: {
       white: '#ffffff',
       gray1: '#D9D9D9',

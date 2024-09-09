@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Hakgyoansim';
+    src: url('/fonts/Hakgyoansim-Dunggeunmiso.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 * {
     box-sizing: border-box;
@@ -14,7 +20,7 @@
 body {
     width: 100%;
     height: 100%;
-    font-family: var(--fontNoto);
+    font-family: 'Hakgyoansim', sans-serif;
 
     /* drag 방지 */
     -webkit-user-select: none;

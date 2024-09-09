@@ -16,9 +16,9 @@ const PageContentHeader = ({
     <div className={st.contentBox}>
       {/* 왼쪽 제목영역 start */}
       <div className={st.textContent}>
-        <p className={st.pageName}>{pageName}</p>
-        <p className={st.summary1}>{summary1}</p>
-        {summary2 && <p className={st.summary2}>{summary2}</p>}
+        <p className={`${st.pageName} font-hakgyoansim`}>{pageName}</p>
+        <p className={`${st.summary1} font-hakgyoansim`}>{summary1}</p>
+        {summary2 && <p className={`${st.summary2} font-hakgyoansim`}>{summary2}</p>}
       </div>
       {/* 왼쪽 제목영역 end */}
 

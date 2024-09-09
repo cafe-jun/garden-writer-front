@@ -81,7 +81,7 @@ const WorkSpace = () => {
       <main className={styles.main}>
         <div>
           <InformationText
-            text="대표작가 또는 참여작가로 참여중이면서 현재 연재중 또는 완결된 소설공방이 조회됩니다."
+            text="참여 중인 소설공방으로 입장 할 수 있습니다."
             type={InformationTextType.primary}
           />
           <div className={styles.novelContainer}>

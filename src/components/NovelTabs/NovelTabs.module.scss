@@ -19,6 +19,7 @@
         cursor: pointer;
 
         &.active {
+            border: none;
             background-color: $blue-1;
             color: $white-1;
         }
