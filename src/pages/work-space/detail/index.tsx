@@ -21,7 +21,7 @@ import { useNovelChapter } from '@/stores/useChapter';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';
-const PAGE_3 = '소설정보';
+const PAGE_3 = '소설쓰기';
 const PAGE_4 = '작가관리';
 
 const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
