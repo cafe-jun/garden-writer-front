@@ -1,4 +1,4 @@
-@import '../../../styles/value.scss';
+@import '../../../styles/value';
 
 .container {
     display: flex;
@@ -23,27 +23,20 @@
         }
 
         .speechBubbleContainer {
-            display: flex;
+            text-align: center;
             width: $s256px;
             min-height: $s40px;
-            align-items: center;
-            justify-content: center;
             border: solid $s05px $back-1;
             border-radius: $s20px $s20px 0px $s20px;
             background-color: $white-2;
 
             color: $blue-2;
             font-size: $s12px;
-            font-style: normal;
             font-weight: 500;
-            line-height: normal;
-
             padding: $s16px;
-
             position: absolute;
             bottom: 90%;
             right: 10%;
-
         }
     }
 

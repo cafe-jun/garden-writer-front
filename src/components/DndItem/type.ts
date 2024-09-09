@@ -1,4 +1,4 @@
-import { NovelJoinWriteList } from '@/fetch/types';
+import { NovelJoinWriteList } from '@/shared';
 
 export interface DndItemProps extends Partial<NovelJoinWriteList> {
   disabled: boolean;

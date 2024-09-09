@@ -1,3 +1,9 @@
+export * from './Novel';
+export * from './Post';
+export * from './Checks';
+
+//TODO: shared에 정리 필요
+
 // attending : 참여중, attendingReject : 참여 반려, attendingReview : 참여 검토, exit : 퇴장
 type WriterStatus = 'attending' | 'reject' | 'review' | 'exit';
 type WriterType = 'host' | 'attendee';

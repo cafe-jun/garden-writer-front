@@ -1,4 +1,4 @@
-import { NovelPost, RoomStatus } from '@/fetch/types';
+import { NovelPost, RoomStatus } from '@/shared';
 
 export interface NovelTableProps {
   tableData: NovelPost[];

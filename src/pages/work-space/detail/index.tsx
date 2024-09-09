@@ -13,11 +13,11 @@ import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import useSocketIO from '@/hooks/useSocketIO';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
-import useNovelRoom from '@/stores/useNovelRoom';
+import { useNovelRoom } from '@/stores/useNovelRoom';
 import NovelPublish from '@/components/modals/NovelPublish/NovelPublish';
 import st from './detail.module.scss';
 import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
-import useNovelChapter from '@/stores/useChapter';
+import { useNovelChapter } from '@/stores/useChapter';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';

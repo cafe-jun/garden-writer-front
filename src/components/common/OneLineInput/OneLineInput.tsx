@@ -1,10 +1,9 @@
 import { ChangeEvent } from 'react';
 
-import WriteRoomCategory from '../../recruit/WriteRoomCategory/WriterRoomCategory';
+import { TooltipTextFieldProps, TooltipTextField } from '@/components';
 import st from './OneLineInput.module.scss';
-import { writeRoomCategoryProps } from '../../recruit/WriteRoomCategory/type';
 
-export interface OneLineInputProps extends Omit<writeRoomCategoryProps, 'children'> {
+export interface OneLineInputProps extends Omit<TooltipTextFieldProps, 'children'> {
   placeholder: string;
   errorText: string;
   isError: boolean;
@@ -18,14 +17,14 @@ export const OneLineInput = ({
   style,
   compulsory,
   categoryText,
-  speechBubbleText,
+  tooltipText,
   onChange,
 }: OneLineInputProps) => (
-  <WriteRoomCategory
+  <TooltipTextField
     style={style}
     compulsory={compulsory}
     categoryText={categoryText}
-    speechBubbleText={speechBubbleText}
+    tooltipText={tooltipText}
   >
     <div className={st.container}>
       <input
@@ -35,7 +34,7 @@ export const OneLineInput = ({
           onChange(event.target.value);
         }}
       />
-      {isError ? <p>{errorText}</p> : null}
+      {isError && <p>{errorText}</p>}
     </div>
-  </WriteRoomCategory>
+  </TooltipTextField>
 );

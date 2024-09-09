@@ -1,4 +1,4 @@
-@import '../../styles/value.scss';
+@import '../../../styles/value.scss';
 
 .container {
     display: flex;
@@ -27,5 +27,17 @@
             width: $s120px;
             height: $s120px;
         }
+    }
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: $s384px;
+
+    &>img {
+        width: $s73px;
+        height: $s73px;
     }
 }

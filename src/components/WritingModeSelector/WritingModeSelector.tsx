@@ -1,29 +1,39 @@
-import { WritingModeType } from '@/pages/write/create/workSpace';
-import WriteRoomCategory from '../recruit/WriteRoomCategory/WriterRoomCategory';
+import { WritingModeType } from '@/shared';
+
+import { TooltipTextField } from '@/components';
 import st from './WritingModeSelector.module.scss';
+import PeopleCount from '../PeopleCount/PeopleCount';
+import React from 'react';
 
 interface WritingModeSelectorProps {
   writingMode: WritingModeType;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleChangePeopleCount: (e: number) => void;
 }
 
-export const WritingModeSelector = ({ onChange, writingMode }: WritingModeSelectorProps) => (
-  <WriteRoomCategory compulsory categoryText="작가정원" speechBubbleText="인원수를 정해주세요">
-    <div className={st.container}>
-      <label className={st.inputBox}>
-        <input
-          type="radio"
-          onChange={onChange}
-          defaultChecked
-          value="collaborate"
-          checked={writingMode === 'collaborate'}
-        />
-        <p className={st.ml8}>같이 글쓰기</p>
-      </label>
-      <label className={st.inputBox}>
-        <input type="radio" onChange={onChange} value="solo" checked={writingMode === 'solo'} />
-        <p className={st.ml8}>혼자 글쓰기</p>
-      </label>
-    </div>
-  </WriteRoomCategory>
+export const WritingModeSelector = ({
+  onChange,
+  writingMode,
+  handleChangePeopleCount,
+}: WritingModeSelectorProps) => (
+  <>
+    <TooltipTextField compulsory={true} categoryText="작가 정원" tooltipText="인원수를 정해주세요">
+      <div className={st.container}>
+        <label className={st.inputBox}>
+          <input
+            type="radio"
+            onChange={onChange}
+            value="collaborate"
+            checked={writingMode === 'collaborate'}
+          />
+          <p className={st.ml8}>같이 글쓰기</p>
+        </label>
+        <label className={st.inputBox}>
+          <input type="radio" onChange={onChange} value="solo" checked={writingMode === 'solo'} />
+          <p className={st.ml8}>혼자 글쓰기</p>
+        </label>
+      </div>
+    </TooltipTextField>
+    {writingMode === 'collaborate' && <PeopleCount onChange={handleChangePeopleCount} />}
+  </>
 );

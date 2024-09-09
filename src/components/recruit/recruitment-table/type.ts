@@ -1,4 +1,4 @@
-import { GetWriterWantedList } from '@/fetch/types';
+import { GetWriterWantedList } from '@/shared/';
 
 export enum RecruitmentTableStatus {
   completed = 'completed',

@@ -23,7 +23,7 @@ import { ReactElement, useEffect, useId, useState } from 'react';
 import { config } from '@/config/config';
 import { novelJoinWriteList } from '@/fetch/get';
 import { novelWriterSequence } from '@/fetch/put';
-import { NovelJoinWriteList } from '@/fetch/types';
+import { NovelJoinWriteList } from '@/shared';
 import { useMutationWrap, useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 

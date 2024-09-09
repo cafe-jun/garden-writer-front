@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 
 import { config } from '@/config/config';
-import useCreateNovelPost from '@/stores/useCreateNovelPost.zst';
+import { useCreateNovelPost } from '@/stores/useCreateNovelPost.zst';
 
-import WriteRoomCategory from '../recruit/WriteRoomCategory/WriterRoomCategory';
+import { TooltipTextField } from '@/components';
 import st from './CategorySelect.module.scss';
 import { CategorySelectProps } from './type';
 
@@ -15,7 +15,7 @@ import { CategorySelectProps } from './type';
 export default function CategorySelect(props: CategorySelectProps): ReactElement {
   const { setNovel } = useCreateNovelPost();
   return (
-    <WriteRoomCategory style={props.style} compulsory={props.compulsory} categoryText="카테고리">
+    <TooltipTextField style={props.style} compulsory={props.compulsory} categoryText="카테고리">
       <div>
         <div className={st.container}>
           {config.categorys.map(
@@ -33,6 +33,6 @@ export default function CategorySelect(props: CategorySelectProps): ReactElement
         </div>
         {props.isError ? <p className={st.text1}>{props.errorText}</p> : null}
       </div>
-    </WriteRoomCategory>
+    </TooltipTextField>
   );
 }

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { GetWriterWantedList } from '@/fetch/types';
+import { GetWriterWantedList } from '@/shared';
 import LikeIcon from '@/images/novel-like-icon.svg';
 import UserIcon from '@/images/user-icon.svg';
 import ViewIcon from '@/images/view-icon.svg';

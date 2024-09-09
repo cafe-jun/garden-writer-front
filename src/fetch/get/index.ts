@@ -18,7 +18,7 @@ import {
   NovelListResponse,
   NovelRoomInfoResponse,
   UserListResponse,
-} from '../types';
+} from '../../shared';
 
 const method = 'GET';
 

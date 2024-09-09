@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { BookCover, RoomType } from '@/fetch/types';
+import { BookCover, RoomType } from '@/shared';
 
 interface Novel {
   type: RoomType;
@@ -131,8 +131,19 @@ export const useCreateNovelPost = create<Novel & Post & NovelChecking & PostChec
 
     ...novelChecking,
     ...postChecking,
-    setNovel(data) {
-      set({ ...data });
+    setNovel: data => {
+      // 기존 상태와 비교하여 상태가 다를 때만 업데이트
+      set(state => {
+        // 상태가 변경되지 않았다면 업데이트하지 않음
+        // @ts-ignore
+        const isStateDifferent = Object.keys(data).some(key => state[key] !== data[key]);
+
+        if (isStateDifferent) {
+          return { ...state, ...data };
+        }
+
+        return state; // 상태가 변경되지 않았으므로 그대로 유지
+      });
     },
     setPost(data) {
       set({ ...data });

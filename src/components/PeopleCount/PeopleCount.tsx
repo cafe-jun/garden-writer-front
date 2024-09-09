@@ -10,33 +10,28 @@ import { PeopleCountProps } from './type';
 export default function PeopleCount(props: PeopleCountProps): ReactElement {
   return (
     <div className={st.container}>
-      {/* 첫 번째 줄 start */}
       <div className={st.rowBox}>
         <label className={st.inputBox}>
           <input type="radio" name="count" onInput={() => props.onChange(2)} defaultChecked />
-          <p className={st.ml16}>2명(최소)</p>
+          <p className={'ml-4 text-sm text-gray2'}>2명(최소)</p>
         </label>
 
         <label className={st.inputBox}>
           <input type="radio" name="count" onInput={() => props.onChange(3)} />
-          <p className={st.ml16}>3명</p>
+          <p className={'ml-4 text-sm text-gray2'}>3명</p>
         </label>
       </div>
-      {/* 첫 번째 줄 end */}
-
-      {/* 두 번째 줄 start */}
       <div className={`${st.rowBox} ${st.mt32}`}>
         <label className={st.inputBox}>
           <input type="radio" name="count" onInput={() => props.onChange(4)} />
-          <p className={st.ml16}>4명</p>
+          <p className={'ml-4 text-sm text-gray2'}>4명</p>
         </label>
 
         <label className={st.inputBox}>
           <input type="radio" name="count" onInput={() => props.onChange(5)} />
-          <p className={st.ml16}>5명</p>
+          <p className={'ml-4 text-sm text-gray2'}>5명</p>
         </label>
       </div>
-      {/* 두 번째 줄 end */}
     </div>
   );
 }

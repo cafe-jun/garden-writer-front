@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { NovelChapter } from '@/fetch/types';
+import { NovelChapter } from '@/shared';
 
 import st from './EpisodeListOneRow.module.scss';
 

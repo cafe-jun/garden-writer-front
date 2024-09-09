@@ -1,30 +1,29 @@
 import { ChangeEvent } from 'react';
-import st from './MultipleLineInput.module.scss';
-import WriteRoomCategory from '../../recruit/WriteRoomCategory/WriterRoomCategory';
-import { writeRoomCategoryProps } from '../../recruit/WriteRoomCategory/type';
+import st from './multiline-input.module.scss';
+import { TooltipTextField, TooltipTextFieldProps } from '@/components/';
 
-export interface MultipleLineInputProps extends Omit<writeRoomCategoryProps, 'children'> {
+export interface MultipleLineInputProps extends Omit<TooltipTextFieldProps, 'children'> {
   placeholder: string;
   errorText: string;
   isError: boolean;
   onChange: (value: string) => void;
 }
 
-export const MultipleLineInput = ({
+export const MultilineInput = ({
   style,
   compulsory,
   categoryText,
-  speechBubbleText,
+  tooltipText,
   placeholder,
   onChange,
   isError,
   errorText,
 }: MultipleLineInputProps) => (
-  <WriteRoomCategory
+  <TooltipTextField
     style={style}
     compulsory={compulsory}
     categoryText={categoryText}
-    speechBubbleText={speechBubbleText}
+    tooltipText={tooltipText}
   >
     <div className={st.container}>
       <textarea
@@ -36,5 +35,5 @@ export const MultipleLineInput = ({
       />
       {isError && <p>{errorText}</p>}
     </div>
-  </WriteRoomCategory>
+  </TooltipTextField>
 );

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 
 import { config } from '@/config/config';
 import { chatComplete } from '@/fetch/put';
-import { GetOneNovelText } from '@/fetch/types';
+import { GetOneNovelText } from '@/shared';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 import lockIcon from '@/images/lock.svg';
 import unLockIcon from '@/images/unlock.svg';

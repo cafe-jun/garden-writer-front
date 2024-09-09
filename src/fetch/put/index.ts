@@ -8,7 +8,7 @@ import {
   NovelPublishRequest,
   NovelWriterSequenceRequest,
   UpdateWriterStateRequest,
-} from '../types';
+} from '../../shared';
 
 const method = 'PUT';
 /**

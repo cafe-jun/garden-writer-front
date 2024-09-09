@@ -37,24 +37,25 @@
             align-self: center;
         }
 
-        .nextBtn {
-            display: flex;
-            width: $s200px;
-            height: $s46px;
-
-            align-self: center;
-
-            align-items: center;
-            justify-content: center;
-            color: $white-1;
-            font-size: $s14px;
-            font-style: normal;
-            font-weight: 500;
-
-            cursor: pointer;
-        }
     }
 
+
+    .nextBtn {
+        display: flex;
+        width: $s200px;
+        height: $s46px;
+
+        align-self: center;
+
+        align-items: center;
+        justify-content: center;
+        color: $white-1;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 500;
+
+        cursor: pointer;
+    }
 }
 
 .mt44 {

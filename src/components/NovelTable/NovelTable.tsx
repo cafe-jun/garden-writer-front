@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { dateChanger } from 'util/dateChange';
 
-import { NovelPost } from '@/fetch/types';
+import { NovelPost } from '@/shared';
 
 import styles from './NovelTable.module.scss';
 import { NovelTableProps } from './type';

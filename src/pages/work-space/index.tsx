@@ -11,7 +11,7 @@ import PageContentHeader from '@/components/PageContentHeader/PageContentHeader'
 // import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { novelList } from '@/fetch/get';
-import { NovelListResponse, RoomStatus } from '@/fetch/types';
+import { NovelListResponse, RoomStatus } from '@/shared';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
@@ -48,12 +48,12 @@ const WorkSpace = () => {
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     // 현재 연재중인 내 소설 공방이 있는지 검증
     const myWorkSpaces = data?.data.filter(res => res.writerCategory === 'host');
-    if (myWorkSpaces && myWorkSpaces.length > 1) {
-      // TODO: 모달 추가
-
-      alert('소설공방 개설 횟수를 초과했습니다.');
-      return;
-    }
+    // if (myWorkSpaces && myWorkSpaces.length > 1) {
+    //   // TODO: 모달 추가
+    //
+    //   alert('소설공방 개설 횟수를 초과했습니다.');
+    //   return;
+    // }
 
     router.push('/work-space/create');
   };

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { config } from '@/config/config';
 import { updateWriterState } from '@/fetch/put';
-import { GetWriterListAdmin } from '@/fetch/types';
+import { GetWriterListAdmin } from '@/shared';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 
 import { dateChanger } from '../../../util/dateChange';

@@ -10,7 +10,7 @@ import {
   NewNovelTextRequest,
   SignUpRequestModel,
   WriterJoinReqest,
-} from '../types';
+} from '../../shared';
 
 const method = 'POST';
 

@@ -1,6 +1,6 @@
 import { envApiConfig } from 'util/envConfig';
 
-import { GetChatHistoryRequest } from '@/fetch/types';
+import { GetChatHistoryRequest } from '@/shared';
 
 export const config = {
   wsLink: envApiConfig(),

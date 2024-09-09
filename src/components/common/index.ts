@@ -1,2 +1,4 @@
 export * from './OneLineInput/OneLineInput';
-export * from './MultipleLineInput/MultipleLineInput';
+export * from './multiline-input/multiline-input';
+export * from './tooltip-text-field/tooltip-text-field';
+export * from './tooltip/index';
