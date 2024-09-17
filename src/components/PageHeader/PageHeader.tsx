@@ -48,19 +48,15 @@ export const PageHeader = () => {
       className={styles.header}
       style={{ backgroundColor: isWheelTop ? '#ffffff00' : '#ffffff' }}
     >
-      <div className={styles.outline}>
+      <div className={`${styles.outline} flex justify-between px-[100px] items-center`}>
+        <div className={'flex content-center'}>
         <Image src={Logo} alt="작가의 정원 로고" />
-        <div className={styles.headerLeftContents}>
+        <div className={'flex gap-12 pl-12 items-center'}>
           <Link href="/work-space">소설공방</Link>
           <Link href="/recruit">작가모집</Link>
         </div>
-        <SearchInput
-          search={search}
-          handleSearch={handleSearch}
-          handleSubmitSearch={handleSubmitSearch}
-          style={styles.recruitmentSearchWrapOriginal}
-        />
-        <div className={styles.headerRightContents}>
+        </div>
+        <div className={'flex gap-12 '}>
           <Notice
             visible={visibleAlarm}
             handleVisible={handleVisibleAralm}

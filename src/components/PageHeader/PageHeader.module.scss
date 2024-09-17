@@ -19,12 +19,8 @@
     /* width와 bg-color가 2초동안 변화 */
 
     .outline {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
         width: 87.5rem;
         height: 4.375rem;
-        padding-left: 6.75rem;
 
         border-radius: 6.25rem;
         border: 0.6px solid $blue-1;
@@ -33,22 +29,6 @@
         a {
             text-decoration: none;
             color: $blue-1;
-
-            // &:visited,
-            // &:active {
-            //     color: $blue-1;
-            // }
-        }
-
-        .headerLeftContents {
-            display: flex;
-            gap: 50px;
-            margin-left: 50px;
-        }
-
-        .headerRightContents {
-            display: flex;
-            gap: 50px;
         }
 
         &.white {

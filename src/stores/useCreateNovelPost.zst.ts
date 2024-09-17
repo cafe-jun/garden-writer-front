@@ -68,25 +68,25 @@ const novelChecking: NovelChecking = {
   titleCheck: {
     key: 'title',
     essential: true,
-    errorMsg: '제목을 입력해주세요',
+    errorMsg: '제목을 입력해주세요.',
     isError: false,
   },
   subTitleCheck: {
     key: 'subTitle',
     essential: true,
-    errorMsg: '한줄 소개를 입력해주세요',
+    errorMsg: '한줄 소개를 입력해주세요.',
     isError: false,
   },
   categoryCheck: {
     key: 'category',
     essential: true,
-    errorMsg: '한 가지 이상의 카테고리를 선택해주세요',
+    errorMsg: '카테고리를 선택해주세요.',
     isError: false,
   },
   novelTagCheck: {
     key: 'novelTag',
-    essential: false,
-    errorMsg: '태그 한가지 항목 이상 선택해주세요',
+    essential: true,
+    errorMsg: '태그를 한가지 이상 만들어주세요.',
     isError: false,
   },
   actorCheck: {

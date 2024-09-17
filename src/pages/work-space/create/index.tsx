@@ -51,6 +51,7 @@ export default function WorkSpaceCreation() {
 
   const handleClickButton = () => {
     if (type === 1) {
+      console.log('novelChecking', novelChecking);
       if (!novelChecking()) {
         setModalOpen(true);
       }
