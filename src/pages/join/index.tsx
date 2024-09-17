@@ -1,6 +1,5 @@
 import Form from '@/components/Form/Form';
-import SignUpForm from '@/components/SignUp/SignUpForm';
-import { SignUpFormValues } from '@/components/SignUp/type';
+import { SignUpFormValues, SignUpForm } from '@/components';
 
 const initFormValues: SignUpFormValues = {
   email: '',
