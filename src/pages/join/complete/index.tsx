@@ -4,14 +4,16 @@ import { Completed } from '@/components/Completed/Completed';
 import { CompletedLogoTextHeader } from '@/components/CompletedLogoTextHeader/CompletedLogoTextHeader';
 
 import styles from './complete.module.scss';
+import { useRouter } from 'next/router';
 
 const CreatedUser = () => {
+  const route = useRouter();
   const handleLeftButton = () => {
-    console.log('handleLeftButton');
+    route.replace('/work-space/create');
   };
 
   const handleRightButton = () => {
-    console.log('handleRightButton');
+    route.replace('/work-space');
   };
 
   return (
