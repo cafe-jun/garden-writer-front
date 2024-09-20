@@ -17,7 +17,9 @@ const noHeaderPages = ['/user', '/join', '/write/create'];
 
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();
-  const showHeader = !noHeaderPages.some(pageUrl => asPath.includes(pageUrl) || pageUrl.includes(asPath));
+  const showHeader = !noHeaderPages.some(
+    pageUrl => asPath.includes(pageUrl) || pageUrl.includes(asPath)
+  );
 
   return (
     <ThemeProvider theme={theme}>
