@@ -10,6 +10,7 @@ import { useTimer } from '@/hooks/useTimer';
 import FormInput from '../../FormInput/FormInput';
 import FormInputWithButton from '../../FormInputWithButton/FormInputWithButton';
 import styles from './SignUpForm.module.scss';
+import { storageKey } from '@/constants';
 
 type SignUpFormValueKeys = keyof SignUpFormValues;
 
@@ -26,7 +27,6 @@ export interface Portfolio {
 
 export type { SignUpFormValueKeys, SignUpFormValues };
 
-
 export const SignUpForm = () => {
   const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<boolean>(false);
   const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<boolean>(false);
@@ -38,10 +38,9 @@ export const SignUpForm = () => {
 
   const route = useRouter();
 
-  const handleTimerComplete = () =>  {
+  const handleTimerComplete = () => {
     setIsPushEmail(false);
-  }
-
+  };
 
   const { time, isActive, startTimer, resetTimer } = useTimer({
     initialTime: 600,
@@ -58,6 +57,10 @@ export const SignUpForm = () => {
   const { mutate, status, isError } = useMutation({
     mutationKey: ['api/signUp'],
     mutationFn: signUp,
+    onSuccess: (data: { data: { accessToken: string } }) => {
+      localStorage.setItem(storageKey, `${data.data.accessToken}`);
+      route.replace('/join/complete');
+    },
   });
 
   const onSubmit: SubmitHandler<SignUpFormValues> = data => {
@@ -68,7 +71,8 @@ export const SignUpForm = () => {
           password: data.password,
           nickname: data.nickname,
         });
-        route.replace('/join/complete');
+
+        // route.replace('/join/complete');
       }
     } catch (err) {
       console.log(err);
@@ -111,7 +115,7 @@ export const SignUpForm = () => {
       </header>
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formContents}>
-          <h3 className={"text-sm font-medium"}>필수정보</h3>
+          <h3 className={'text-sm font-medium'}>필수정보</h3>
           <FormInputWithButton<SignUpFormValues>
             regex={emailRegex}
             valuePayload="email"
@@ -169,4 +173,3 @@ export const SignUpForm = () => {
     </div>
   );
 };
-
