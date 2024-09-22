@@ -6,7 +6,7 @@ import { novelRoomInfo } from '@/fetch/get';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
-import ScrollTextBox from '../../ScrollTextBox/ScrollTextBox';
+import { ScrollTextBox } from '@/components';
 import Skel from '../../Skel/Skel';
 import st from './NovelDefaultInfo.module.scss';
 

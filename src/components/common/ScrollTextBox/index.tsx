@@ -1,14 +1,18 @@
-import { ReactElement } from 'react';
-
 import st from './ScrollTextBox.module.scss';
-import { ScrollTextBoxProps } from './type';
 
-export default function ScrollTextBox({
-  style,
-  title,
-  disabled,
-  content,
-}: ScrollTextBoxProps): ReactElement {
+interface ScrollTextBoxProps {
+  title: string;
+  content: string;
+  disabled: boolean;
+  style?: {
+    marginLeft?: string;
+    width?: string;
+    height?: string;
+    marginTop?: string;
+  };
+}
+
+export const ScrollTextBox = ({ style, title, disabled, content }: ScrollTextBoxProps) => {
   return (
     <div style={style} className={`${st.container} ${disabled ? '' : st.on}`}>
       <div className={st.container_texts}>
@@ -18,4 +22,4 @@ export default function ScrollTextBox({
       <textarea disabled={disabled} className={st.container_textarea} defaultValue={content} />
     </div>
   );
-}
+};
