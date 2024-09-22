@@ -1,8 +1,11 @@
+
 import st from './find-password-modal.module.scss';
 import CusModal from '@/components/CusModal/CusModal';
 import { useRouter } from 'next/router';
 
-export const FindPasswordModal = ({ cancel }: { cancel: () => void }) => {
+
+
+export const FindPasswordModal = () => {
   const route = useRouter();
   const handleButtonClick = () => {
     route.push('/');

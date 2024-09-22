@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { DeepPartial, DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 interface FormProps<T = unknown> {
-  defaultValues?: DeepPartial<T>;
+  defaultValues?: DefaultValues<T>;
   children: ReactNode;
 }
 
