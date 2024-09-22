@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import ChaterInfo from '@/components/ChaterInfo/ChaterInfo';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
 import NovelChatManager from '@/components/NovelChatManager/NovelChatManager';
-import NovelDefaultInfo from '@/components/NovelDefaultInfo/NovelDefaultInfo';
+import { NovelDefaultInfo } from '@/components';
 import NovelJoinUserManager from '@/components/NovelJoinUserManager/NovelJoinUserManager';
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';

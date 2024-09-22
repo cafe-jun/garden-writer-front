@@ -1,33 +1,40 @@
 import Image from 'next/image';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 import { config } from '@/config/config';
 import { novelRoomInfo } from '@/fetch/get';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
-import ScrollTextBox from '../ScrollTextBox/ScrollTextBox';
-import Skel from '../Skel/Skel';
+import ScrollTextBox from '../../ScrollTextBox/ScrollTextBox';
+import Skel from '../../Skel/Skel';
 import st from './NovelDefaultInfo.module.scss';
 
-export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }): ReactElement {
+interface NovelDefaultInfoProps {
+  isShow: boolean;
+}
+
+export const NovelDefaultInfo = ({ isShow = false }: NovelDefaultInfoProps) => {
   const roomId = useUrlDatas<number>('room');
-  const [modifyMode, setModifyMode] = useState<boolean>(false);
+  const [modifyMode, setModifyMode] = useState(false);
+
   const { data: novelInfo, isSuccess } = useQueryWrap({
     queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
     queryFn: () => novelRoomInfo(roomId),
   });
+
   const toggleModify = () => {
     setModifyMode(p => !p);
   };
+
   return (
     <div className={st.main} style={{ display: isShow ? 'flex' : 'none' }} aria-hidden={isShow}>
       <div className={st.main_imgAndTextBox}>
         {isSuccess && (
           <Image
+            className={'object-cover'}
             width={270}
             height={202}
-            style={{ objectFit: 'cover' }} // 이미지를 컨테이너에 맞게 자르고 채움
             src={novelInfo?.data?.bookCover ?? '/images/book-cover-2.png'}
             alt="북커버"
           />
@@ -97,4 +104,4 @@ export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }
       )}
     </div>
   );
-}
+};
