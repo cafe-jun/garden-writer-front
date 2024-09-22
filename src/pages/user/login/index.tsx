@@ -12,7 +12,7 @@ import useLoginData from '@/stores/useLoginData.zst';
 import LoginLogo from '../../../images/login-logo.svg';
 import st from './login.module.scss';
 import { storageKey } from '@/constants';
-import { loginSchema } from './validation-schemas';
+import { loginSchema } from '../../../shared/utils/validation-schemas';
 
 interface IFormInput {
   email?: string;
