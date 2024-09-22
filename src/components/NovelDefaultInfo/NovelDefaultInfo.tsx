@@ -12,7 +12,7 @@ import st from './NovelDefaultInfo.module.scss';
 
 export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }): ReactElement {
   const roomId = useUrlDatas<number>('room');
-  const [modityMode, setModifyMode] = useState<boolean>(false);
+  const [modifyMode, setModifyMode] = useState<boolean>(false);
   const { data: novelInfo, isSuccess } = useQueryWrap({
     queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
     queryFn: () => novelRoomInfo(roomId),
@@ -37,7 +37,7 @@ export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }
         <div className={st.main_textColumn}>
           {isSuccess && (
             <ScrollTextBox
-              disabled={!modityMode}
+              disabled={!modifyMode}
               title="소개"
               content={novelInfo.data.subTitle}
               style={{ width: '718px', height: '138px', marginLeft: '8px' }}
@@ -46,7 +46,7 @@ export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }
           {!isSuccess && <Skel sx={{ width: 718, height: 138, marginLeft: 8 }} />}
 
           {isSuccess && (
-            <div className={`${st.main_tagBox} ${modityMode ? st.mdf : ''}`}>
+            <div className={`${st.main_tagBox} ${modifyMode ? st.mdf : ''}`}>
               <div className={st.main_tag_flexWrap}>
                 <div className={st.main_tagBox_tag}>#{novelInfo?.data.category.name}</div>
               </div>
@@ -60,7 +60,7 @@ export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }
       {isSuccess && (
         <ScrollTextBox
           content={novelInfo.data.character}
-          disabled={!modityMode}
+          disabled={!modifyMode}
           title="등장인물"
           style={{ width: '996px', height: '186px', marginTop: '8px' }}
         />
@@ -71,13 +71,13 @@ export default function NovelDefaultInfo({ isShow = false }: { isShow: boolean }
       {isSuccess && (
         <ScrollTextBox
           content={novelInfo.data.summary}
-          disabled={!modityMode}
+          disabled={!modifyMode}
           title="줄거리"
           style={{ width: '996px', height: '186px', marginTop: '8px' }}
         />
       )}
       {!isSuccess && <Skel sx={{ width: '996px', height: '186px', marginTop: '8px' }} />}
-      {!modityMode ? (
+      {!modifyMode ? (
         <button
           type="button"
           className={`white-btn ${st.main_infoModifyBtn}`}
