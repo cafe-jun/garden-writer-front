@@ -37,7 +37,7 @@ export function loginApi({ email, password }: LoginApiArg) {
   return callApi<LoginApiResonse>({ url: config.apiUrl.login, body: { email, password }, method });
 }
 export function signUp({ email, password, nickname }: SignUpRequestModel) {
-  return callApi<boolean>({
+  return callApi<{ data: { accessToken: string } }>({
     url: config.apiUrl.signUp,
     body: { email, password, nickname },
     method,
