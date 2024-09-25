@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ChaterInfo from '@/components/ChaterInfo/ChaterInfo';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
@@ -24,7 +24,12 @@ const PAGE_2 = '회차정보';
 const PAGE_3 = '소설쓰기';
 const PAGE_4 = '작가관리';
 
-const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
+interface useChapterListProps {
+  page: number;
+  roomId: number;
+}
+
+const useChapterList = ({ page, roomId }: useChapterListProps) => {
   const novelRoom = useNovelRoom();
   const novelChapter = useNovelChapter();
   const { isSuccess, data } = useQueryWrap({
@@ -44,23 +49,25 @@ const useChaterList = ({ page, roomId }: { page: number; roomId: number }) => {
     novelRoom.setLastChapterId(data.data[0].id);
   }, [isSuccess]);
 };
+
 export default function WorkSpaceDetail() {
   const wheelEvent = useOnWheelHandle(300);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState(1);
   const [tabList, setTabList] = useState<string[]>([PAGE_1, PAGE_2, PAGE_3, PAGE_4]);
   const [currentTap, setCurrentTap] = useState(tabList[0]);
-  const [modityMode, setModifyMode] = useState<boolean>(false);
+  const [editMode, setEditMode] = useState(false);
 
   const roomId = useUrlDatas<number>('room');
-  useChaterList({ page, roomId });
+  useChapterList({ page, roomId });
+
   const { data: novelInfo } = useQueryWrap({
     queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
     queryFn: () => novelRoomInfo(roomId),
   });
 
-  const handleCurrentTab = (tab: string): void => {
+  const handleCurrentTab = (tab: string) => {
     setCurrentTap(tab);
-    setModifyMode(false);
+    setEditMode(false);
   };
 
   useSocketIO({
@@ -92,12 +99,12 @@ export default function WorkSpaceDetail() {
         {/* 소설공방 정보 박스 start */}
         <div className={st.mainBody_content_column}>
           {/* 소설 제목, 소설 장르 bar start */}
-          <div className={`${st.mainBody_content_title} ${modityMode ? st.on : ''}`}>
+          <div className={`${st.mainBody_content_title} ${editMode ? st.on : ''}`}>
             {/* 왼쪽 start */}
             <div className={st.content_row}>
               <p className={st.content_text}>{novelInfo?.data.title}</p>
 
-              <GenreBtn disabled={!modityMode} />
+              <GenreBtn disabled={!editMode} />
             </div>
             {/* 왼쪽 end */}
 
