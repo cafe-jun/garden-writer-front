@@ -6,7 +6,7 @@ import BottomArrow from '@/images/bottom-arrow.svg';
 import st from './GenreBtn.module.scss';
 import { GenreBtnProps } from './type';
 
-export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
+export default function GenreBtn({ disabled, category }: GenreBtnProps): ReactElement {
   const [openPenel, setOpenPanel] = useState<boolean>(false);
   useEffect(() => {
     if (disabled) {
@@ -15,7 +15,7 @@ export default function GenreBtn({ disabled }: GenreBtnProps): ReactElement {
   }, [disabled]);
   return (
     <button type="button" className={`${!disabled ? st.btn : st.disableBtn}`} onClick={opener}>
-      장르이름
+      {category?.name}
       <Image src={BottomArrow} alt="아래방향 화살표 버튼" />
       {openPenel ? (
         <div className={st.btn_panel}>

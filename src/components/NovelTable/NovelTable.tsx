@@ -12,7 +12,8 @@ const writerType = {
   host: '대표작가',
   attendee: '참여작가',
 };
-const roomStatus = {
+export const roomStatus = {
+  prepare: '연재준비중',
   series: '연재중',
   complete: '연재완료',
   remove: '삭제',
