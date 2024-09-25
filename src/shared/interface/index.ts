@@ -5,11 +5,11 @@ export * from './Checks';
 //TODO: shared에 정리 필요
 
 // attending : 참여중, attendingReject : 참여 반려, attendingReview : 참여 검토, exit : 퇴장
-type WriterStatus = 'attending' | 'reject' | 'review' | 'exit';
-type WriterType = 'host' | 'attendee';
-type NovelStatus = 'writing' | 'review' | 'approve' | 'reject';
-// series : 연재중, complete : 연재완료, remove : 삭제
-type NovelRoomStatus = 'series' | 'complete' | 'remove';
+export type WriterStatus = 'attending' | 'reject' | 'review' | 'exit';
+export type WriterType = 'host' | 'attendee';
+export type NovelStatus = 'writing' | 'review' | 'approve' | 'reject';
+// prepare: 연재준비중, series : 연재중, complete : 연재완료, remove : 삭제
+export type NovelRoomStatus = 'prepare' | 'series' | 'complete' | 'remove';
 // solo : 혼자 ___ group2 : 2명 ___ group3 : 3명
 export type RoomType = 1 | 2 | 3 | 4 | 5;
 export type RoomStatus = 'attending' | 'apptendApply';
@@ -182,6 +182,7 @@ export interface NovelRoomInfoResponse {
     category: Categorys;
     character: string;
     summary: string;
+    status: NovelRoomStatus;
     title: string;
     subTitle: string;
     createdAt: string;
