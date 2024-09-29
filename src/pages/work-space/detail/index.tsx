@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import ChaterInfo from '@/components/ChaterInfo/ChaterInfo';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
 import NovelChatManager from '@/components/NovelChatManager/NovelChatManager';
-import { NovelDefaultInfo } from '@/components';
+import NovelDefaultInfo from '@/components/NovelDefaultInfo/NovelDefaultInfo';
 import NovelJoinUserManager from '@/components/NovelJoinUserManager/NovelJoinUserManager';
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
 import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
@@ -18,6 +18,8 @@ import NovelPublish from '@/components/modals/NovelPublish/NovelPublish';
 import st from './detail.module.scss';
 import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
 import { useNovelChapter } from '@/stores/useChapter';
+import { roomStatus } from '@/components/NovelTable/NovelTable';
+import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';
@@ -104,13 +106,14 @@ export default function WorkSpaceDetail() {
             <div className={st.content_row}>
               <p className={st.content_text}>{novelInfo?.data.title}</p>
 
-              <GenreBtn disabled={!editMode} />
+              <GenreBtn disabled={!editMode} category={novelInfo?.data.category}/>
             </div>
             {/* 왼쪽 end */}
 
             {/* 오른쪽 start */}
-            <p className={st.content_status}>연재중</p>
-          </div>
+            <p className={st.content_status}>
+              {getNovelRoomStatus(novelInfo?.data.status || 'prepare')}
+            </p>          </div>
           {/* 소설 제목, 소설 장르 bar end */}
 
           <div className={st.mainBody_tab}>
