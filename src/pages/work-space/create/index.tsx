@@ -99,7 +99,7 @@ export default function WorkSpaceCreation() {
         <div className={`${st.contentContainer} mt-36`}>{pageComponentsMap[pageIdx]}</div>
         <div className={'flex justify-center items-center mt-8'}>
           <button type="button" className={`${st.nextBtn} blue-btn`} onClick={handleClickButton}>
-            {pageIdx === 0 ? '다음' : '개설하기'}
+            {pageIdx === 0 ? '다음' : '완료'}
           </button>
           <div className={'relative'}>
             <Image

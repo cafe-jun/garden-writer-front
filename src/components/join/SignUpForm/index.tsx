@@ -166,7 +166,7 @@ export const SignUpForm = () => {
             // validate={() => handleDuplicateValidateNickname()}
           />
         </div>
-        <button className={styles.submitButton} type="submit" disabled={!isDirty || !isValid}>
+        <button className={styles.submitButton} type="button" disabled={!isDirty || !isValid}>
           시작하기
         </button>
       </form>

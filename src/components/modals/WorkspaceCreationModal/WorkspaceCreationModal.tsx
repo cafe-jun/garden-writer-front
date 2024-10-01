@@ -10,11 +10,10 @@ export const WorkspaceCreationModal = ({ nextStep, cancel }: WorkspaceCreationMo
   <CusModal>
     <div className={st.contents}>
       <p className={st.contents_title}>소설공방을 개설 하시겠습니까?</p>
-      <ul>
-        <li>작가 참여 글에 업로드(같이 글쓰기에만)</li>
-        <li>바로 연재되는 건 아니고 비공개 상태입니다.</li>
-        <li>바로연재 OR 소설공방 리스트로 바로가기</li>
-      </ul>
+      <span
+        className={'text-sm text-gray6 whitespace-pre-wrap text-center'}
+      >{`소설공방은 한 번 개설하면 이후 삭제가\n
+        어려우니 신중하게 개설해 주세요.`}</span>
       <div className={st.contents_btnBox}>
         <button onClick={nextStep} type="button">
           개설하기
