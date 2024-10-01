@@ -9,7 +9,7 @@ export const config = {
 
   apiUrl: {
     // 회원가입
-    signUp: '/auth/joinUser',
+    signUp: '/user/join',
 
     // 로그인 api
     login: '/auth/login',
