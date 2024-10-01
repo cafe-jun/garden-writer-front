@@ -38,7 +38,7 @@ export default function NovelChapterTitle(): ReactElement {
         <p className={st.contents_title}>회차 제목 수정하기</p>
         <p>수정할 제목을 작성해주세요</p>
 
-        <input className={st.input} value={chapterTitle} onChange={handleChapterTitle} />
+        <input value={chapterTitle} onChange={handleChapterTitle} />
         {/* bottom button start */}
         <div className={st.contents_btnBox}>
           <button
