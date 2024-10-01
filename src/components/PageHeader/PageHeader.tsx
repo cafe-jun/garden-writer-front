@@ -9,9 +9,11 @@ import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
 import { storageKey } from '@/constants';
+import { useRouter } from 'next/router';
 
 export const PageHeader = () => {
   const [search, setSearch] = useState<string>('');
+  const route = useRouter();
   const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
 
   const { isWheelTop } = useWheelState();
@@ -43,6 +45,10 @@ export const PageHeader = () => {
     localStorage.removeItem(storageKey);
   };
 
+  const handleClickLogo = () => {
+    route.push('/');
+  };
+
   return (
     <header
       className={styles.header}
@@ -50,11 +56,16 @@ export const PageHeader = () => {
     >
       <div className={`${styles.outline} flex justify-between px-[100px] items-center`}>
         <div className={'flex content-center'}>
-        <Image src={Logo} alt="작가의 정원 로고" />
-        <div className={'flex gap-12 pl-12 items-center'}>
-          <Link href="/work-space">소설공방</Link>
-          <Link href="/recruit">작가모집</Link>
-        </div>
+          <Image
+            src={Logo}
+            alt="작가의 정원 로고"
+            onClick={handleClickLogo}
+            className={'cursor-pointer'}
+          />
+          <div className={'flex gap-12 pl-12 items-center'}>
+            <Link href="/work-space">소설공방</Link>
+            <Link href="/recruit">작가모집</Link>
+          </div>
         </div>
         <div className={'flex gap-12 '}>
           <Notice
