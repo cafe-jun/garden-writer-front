@@ -13,7 +13,7 @@ export const FindUserPassword = () => {
   return (
     <Form<TempPasswordFormValues> defaultValues={initFormValues}>
       <FindPasswordForm setModal={setIsModal} />
-      {isModal && <FindPasswordModal />}s
+      {isModal && <FindPasswordModal />}
     </Form>
   );
 };
