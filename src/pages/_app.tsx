@@ -19,7 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <SnackbarProvider anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
           <PageHeader />
-          <Component {...pageProps} />
+          <div className={'pt-[126px]'}>
+            <Component {...pageProps} />
+          </div>
         </SnackbarProvider>
       </QueryClientProvider>
     </ThemeProvider>

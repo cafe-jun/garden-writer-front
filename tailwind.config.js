@@ -18,9 +18,14 @@ module.exports = {
       white: '#ffffff',
       gray1: '#D9D9D9',
       gray2: '#6C6C6C',
+      gray6: '#959595',
+
       black1: '#2D2D2D',
       white2: '#FFFBF4',
+      blue1: '#059EAF',
       blue2: '#1CB09E',
+
+      error: '#EE3C3C',
     },
   },
 };
